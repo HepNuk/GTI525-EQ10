@@ -1,15 +1,17 @@
 <template>
   <div class="app">
-    
+    <HeaderComponent/>
+    it works.
+    GButton === g-button
+    <GTIButton>test</GTIButton>
   </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
+import HeaderComponent from './component/header/HeaderComponent.vue'
+export default {
   components: {
-
+    HeaderComponent,
   },
 
   props: {
@@ -33,7 +35,7 @@ export default defineComponent({
   methods: {
 
   }
-})
+};
 </script>
 
 <style lang="scss">
