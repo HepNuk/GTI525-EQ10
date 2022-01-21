@@ -1,7 +1,7 @@
 <template>
-  <div class="app">
+  <table>
     
-  </div>
+  </table>
 </template>
 
 <script>
@@ -17,7 +17,7 @@ export default {
   data() {
     return {
 
-    }
+    };
   },
 
   computed: {
@@ -33,3 +33,7 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scopped>
+
+</style>

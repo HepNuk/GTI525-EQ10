@@ -2,14 +2,14 @@
   <header>
     <img src="" alt="">
     <div class="message">
-
+        test
     </div>
   </header>
 </template>
 
 <script>
 export default {
-}
+};
 
 </script>
 
