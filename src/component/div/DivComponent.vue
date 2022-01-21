@@ -1,6 +1,6 @@
 <template>
     <div class="middle-component">
-      <div class="date-view">
+      <div class="data-view">
         <p>
           LEFT PART
         </p>
@@ -24,5 +24,17 @@ export default {
       display: flex;
       flex-direction: row;
       justify-content: space-around;
+
+      width: 100%;
+      border: 5px solid black;
+      padding: 5px;
+      margin: 5px;
+    }
+
+    .data-view, .menu-view{
+      width: 100%;
+      border: 2px solid black;
+      padding: 5px;
+      margin: 5px;
     }
 </style>

@@ -22,8 +22,15 @@ export default {
       justify-content: space-around;
 
       width: 100%;
-      border: 15px solid green;
-      padding: 50px;
-      margin: 20px;
+      border: 5px solid black;
+      padding: 5px;
+      margin: 5px;
+  }
+
+  .logo, .message{
+      width: 100%;
+      border: 2px solid black;
+      padding: 5px;
+      margin: 5px;
   }
 </style>

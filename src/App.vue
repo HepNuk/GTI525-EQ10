@@ -3,7 +3,6 @@
     <HeaderComponent/>
     <DivComponent/>
     <FooterComponent/>
-    <GTIButton>test</GTIButton>
   </div>
 </template>
 
