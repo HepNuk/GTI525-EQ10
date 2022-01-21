@@ -3,7 +3,6 @@
     <HeaderComponent/>
     it works.
     GButton === g-button
-    
     <MyButton>My Button</MyButton>
   </div>
 </template>
