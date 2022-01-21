@@ -1,9 +1,6 @@
 <template>
   <div class="app">
-    <HeaderComponent/>
-    it works.
-    GButton === g-button
-    <MyButton>My Button</MyButton>
+    iohfalksdfkaskldf
   </div>
 </template>
 
