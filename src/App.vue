@@ -1,18 +1,19 @@
 <template>
   <div class="app">
     <HeaderComponent/>
-    it works.
-    GButton === g-button
-    <MyButton>My Button</MyButton>
+    <DivComponent/>
+    <FooterComponent/>
+    <GTIButton>test</GTIButton>
   </div>
 </template>
 
 <script>
-import HeaderComponent from 'src/component/header/HeaderComponent.vue';
-
+import HeaderComponent from './component/header/HeaderComponent.vue'
+import DivComponent from './component/div/DivComponent.vue'
+import FooterComponent from './component/footer/FooterComponent.vue'
 export default {
   components: {
-    HeaderComponent,
+    HeaderComponent, DivComponent, FooterComponent
   },
 
   props: {
