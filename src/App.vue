@@ -3,12 +3,13 @@
     <HeaderComponent/>
     it works.
     GButton === g-button
-    <GTIButton>test</GTIButton>
+    <MyButton>My Button</MyButton>
   </div>
 </template>
 
 <script>
-import HeaderComponent from './component/header/HeaderComponent.vue'
+import HeaderComponent from 'src/component/header/HeaderComponent.vue';
+
 export default {
   components: {
     HeaderComponent,
@@ -35,7 +36,7 @@ export default {
   methods: {
 
   }
-};
+}
 </script>
 
 <style lang="scss">
