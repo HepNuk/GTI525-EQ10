@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    This is bike counter view
+  </div>
 </template>
 
 <script>

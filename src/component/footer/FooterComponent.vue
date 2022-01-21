@@ -1,13 +1,15 @@
 <template>
     <footer>
-        <p>
-            FOOTER
-        </p>
+        <Coordinates />
     </footer>
 </template>
 
 <script>
+import Coordinates from 'src/component/footer/Coordinates.vue';
 export default {
+  components: {
+    Coordinates,
+  }
 };
 
 </script>
