@@ -1,18 +1,22 @@
 <template>
   <div class="app">
     <HeaderComponent/>
-    <DivComponent/>
+    <MainContent :view="view" />
     <FooterComponent/>
   </div>
 </template>
 
 <script>
-import HeaderComponent from './component/header/HeaderComponent.vue'
-import DivComponent from './component/div/DivComponent.vue'
-import FooterComponent from './component/footer/FooterComponent.vue'
+import HeaderComponent from './component/header/HeaderComponent.vue';
+import MainContent from './component/div/MainContent.vue';
+import FooterComponent from './component/footer/FooterComponent.vue';
+import MyButton from './component/shared/MyButton.vue';
 export default {
   components: {
-    HeaderComponent, DivComponent, FooterComponent
+    HeaderComponent,
+    MainContent,
+    FooterComponent,
+    MyButton
   },
 
   props: {
@@ -21,7 +25,7 @@ export default {
 
   data() {
     return {
-
+      view: 'bike-counter',
     };
   },
 
