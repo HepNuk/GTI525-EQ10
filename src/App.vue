@@ -10,13 +10,11 @@
 import HeaderComponent from './component/header/HeaderComponent.vue';
 import MainContent from './component/div/MainContent.vue';
 import FooterComponent from './component/footer/FooterComponent.vue';
-import MyButton from './component/shared/MyButton.vue';
 export default {
   components: {
     HeaderComponent,
     MainContent,
-    FooterComponent,
-    MyButton
+    FooterComponent
   },
 
   props: {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    This is bike counter view
+    This is BIKE COUNTER view
   </div>
 </template>
 

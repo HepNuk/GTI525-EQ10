@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    This is POINT OF INTEREST view
+  </div>
 </template>
 
 <script>

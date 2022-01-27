@@ -1,6 +1,8 @@
 <template>
     <div class="middle-component">
-      <NavBar />
+      <NavBar 
+        class="main-nav-bar"
+      />
       <div class="data-view">
         <BikeCounterView
           v-if="view === 'bike-counter'"
@@ -37,21 +39,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .data-view{
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+  .middle-component{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    right: 0;
+    border: 5px solid black;
+    padding: 5px;
+    margin: 5px;
+    min-height: 10rem;
+  }
 
-      width: 100%;
-      border: 5px solid black;
-      padding: 5px;
-      margin: 5px;
-    }
+  .data-view, .main-nav-bar{
+    right: 0;
+    border: 2px solid black;
+    padding: 5px;
+    margin: 5px;
+  }
 
-    .main-view{
-      width: 100%;
-      border: 2px solid black;
-      padding: 5px;
-      margin: 5px;
-    }
+  .data-view{
+    flex-grow: 1;
+  }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="nav-bar">
-
+    This is a NAV BAR
   </div>
 </template>
 
