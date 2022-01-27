@@ -39,24 +39,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .middle-component{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    border: 5px solid black;
-    padding: 5px;
-    margin: 5px;
-    min-height: 10rem;
-  }
+.middle-component {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border: 5px solid black;
+  padding: 5px;
+  margin: 5px;
+  min-height: 10rem;
+}
 
-  .data-view, .main-nav-bar{
-    right: 0;
-    border: 2px solid black;
-    padding: 5px;
-    margin: 5px;
-  }
+.data-view, .main-nav-bar {
+  right: 0;
+  border: 2px solid black;
+  padding: 5px;
+  margin: 5px;
+}
 
-  .data-view{
-    flex-grow: 1;
-  }
+.data-view {
+  flex-grow: 1;
+}
+
 </style>

@@ -23,20 +23,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .bike-counter-view{
-    padding: 10px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
-  }
-  .title{
-    font-weight: bold;
-    text-decoration: underline;
-    margin: 0;
-    grid-column: 1/3;
-    grid-row: 1;
-  }
-  .table{
-    grid-area: 2/1/4/4;
-  }
+.bike-counter-view{
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+.title{
+  font-weight: bold;
+  text-decoration: underline;
+  margin: 0;
+  grid-column: 1/3;
+  grid-row: 1;
+}
+.table{
+  grid-area: 2/1/4/4;
+}
+
 </style>

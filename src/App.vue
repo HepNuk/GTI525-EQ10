@@ -45,7 +45,8 @@ export default {
 @import "./assets/css/vars.scss";
 @import "./assets/css/styles.scss";
 
-.app{
-  right:0;
+.app {
+  right: 0;
 }
+
 </style>
