@@ -43,7 +43,6 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    right: 0;
     border: 5px solid black;
     padding: 5px;
     margin: 5px;

@@ -63,5 +63,7 @@ table{
   td, th { 
     text-align: center;
   }
+
+  margin: 0;
 }
 </style>

@@ -1,39 +1,15 @@
 <template>
-  <table>
-    
-  </table>
+  <div>
+    I am a table
+  </div>
 </template>
 
 <script>
 export default {
-  components: {
-
-  },
-
-  props: {
-  
-  },
-
-  data() {
-    return {
-
-    };
-  },
-
-  computed: {
-
-  },
-
-  mounted() {
-
-  },
-
-  methods: {
-
-  }
 };
+
 </script>
 
-<style lang="scss" scopped>
+<style lang="scss" scoped>
 
 </style>
