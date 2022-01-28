@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <HeaderComponent/>
-    <MainContent :view="view" />
+    <MainContent :view="view" @change-view="changeView"/>
     <FooterComponent/>
   </div>
 </template>
@@ -10,6 +10,7 @@
 import HeaderComponent from './component/header/HeaderComponent.vue';
 import MainContent from './component/div/MainContent.vue';
 import FooterComponent from './component/footer/FooterComponent.vue';
+
 export default {
   components: {
     HeaderComponent,
@@ -36,7 +37,9 @@ export default {
   },
 
   methods: {
-
+    changeView(toView) {
+      this.view = toView;
+    }
   }
 };
 </script>
