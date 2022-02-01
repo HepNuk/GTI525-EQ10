@@ -6,29 +6,22 @@
       class="nav-item d-grid"
     >
       <!-- For later use -->
-      <!-- <template v-if="navItem.dropDown">
-        <MyButton 
-          :active="navItem.active"
-          @click="$emit('change-view', navItem.value)"
+      <template v-if="navItem.dropDownOptions">
+        <DropDownButton
+          :drop-down-options="navItem.dropDownOptions"
+          :active="false"
+          fill
+          @change-view="$emit('change-view', $event)"
         >
           {{ navItem.title }}
-        </MyButton>
+        </DropDownButton>
+      </template>
 
-        <li style="display: flex; flex-direction: column;" v-if="navItem.active">
-          <MyButton>
-            Test 1
-          </MyButton>
-
-          <MyButton>
-            Test 2
-          </MyButton>
-        </li>
-      </template> -->
-
-      <MyButton 
+      <MyButton
+        v-else
         fill
         :active="navItem.active"
-        @click="$emit('change-view', navItem.value)"
+        @click="navItem.action"
       >
         {{ navItem.title }}
       </MyButton>
@@ -37,7 +30,13 @@
 </template>
 
 <script>
+import DropDownButton from 'src/component/shared/DropDownButton.vue';
+
 export default {
+  components: {
+    DropDownButton,
+  },
+
   props: {
     navItems: {
       type: Array,

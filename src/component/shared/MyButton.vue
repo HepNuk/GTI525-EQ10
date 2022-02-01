@@ -1,7 +1,7 @@
 <template>
   <button
     ref="btn"
-    class="btn btn-hover-bg-shade-amount"
+    class="btn"
     :class="[btnType, btnFill]"
     :disabled="disabled"
   >
