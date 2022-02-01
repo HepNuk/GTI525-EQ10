@@ -9,8 +9,9 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^3.0.0",
-    "sass": "^1.43.4"
+    "papaparse": "^5.3.1",
+    "sass": "^1.43.4",
+    "vue": "^3.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -38,8 +39,14 @@
       "no-unused-vars": "off",
       "vue/no-unused-components": "warn",
       "no-constant-condition": "warn",
-      "semi": ["warn", "always"],
-      "curly": ["warn", "all"]
+      "semi": [
+        "warn",
+        "always"
+      ],
+      "curly": [
+        "warn",
+        "all"
+      ]
     }
   },
   "browserslist": [
