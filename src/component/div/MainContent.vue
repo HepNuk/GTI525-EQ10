@@ -54,6 +54,7 @@ export default {
           title: 'Bike Counter',
           value: 'bike-counter',
           active: (this.view === 'bike-counter'),
+          action: () => this.$emit('change-view', 'bike-counter')
         },
         {
           title: 'Point of Interest',

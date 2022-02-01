@@ -21,7 +21,7 @@
         v-else
         fill
         :active="navItem.active"
-        @click="$emit('change-view', navItem.value)"
+        @click="navItem.action"
       >
         {{ navItem.title }}
       </MyButton>
@@ -43,12 +43,6 @@ export default {
       required: true,
     }
   },
-
-  methods: {
-    log(event, item) {
-      console.log(event, item);
-    }
-  }
 };
 
 </script>
