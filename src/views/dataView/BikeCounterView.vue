@@ -6,7 +6,10 @@
     <p class="sort">
       I am SORT
     </p>
-    <MyTable 
+    <MyTable
+      v-if="csvFile"
+      :header="headerRow"
+      :data="csvFile"
       class="table"
     />
   </div>
@@ -14,9 +17,24 @@
 
 <script>
 import MyTable from 'src/component/shared/MyTable.vue';
+import csvFile from 'src/assets/csv/compteurs.csv';
+
 export default {
   components: {
     MyTable,
+  },
+
+  data() {
+    return {
+      loading: false,
+      csvFile
+    };
+  },
+
+  computed: {
+    headerRow() {
+      return Object.keys(csvFile[0]);
+    }
   },
 };
 
