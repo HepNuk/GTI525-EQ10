@@ -7,9 +7,9 @@
       I am SORT
     </p>
     <MyTable
-      v-if="csvFile"
+      v-if="bikeCounter"
       :header="headerRow"
-      :data="csvFile"
+      :data="bikeCounter"
       class="table"
     />
   </div>
@@ -27,13 +27,13 @@ export default {
   data() {
     return {
       loading: false,
-      csvFile
+      bikeCounter: csvFile
     };
   },
 
   computed: {
     headerRow() {
-      return Object.keys(csvFile[0]);
+      return Object.keys(this.bikeCounter[0]);
     }
   },
 };
