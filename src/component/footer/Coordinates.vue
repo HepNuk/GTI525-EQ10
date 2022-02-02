@@ -1,24 +1,22 @@
 <template>
-  <div>
-    <table class="table table-striped">
-      <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Permanent Code</th>
-      </tr>
-      <tr v-for="student in studentMembers" :key="student.code">
-        <td v-for="value in student" :key="value">
-          {{ value }}
-        </td>
-      </tr>
-    </table>
-  </div>
+  <MyTable 
+    :header="header"
+    :data="studentMembers"
+  />
 </template>
 
 <script>
 export default {
   computed: {
+    header() {
+      return [
+        'First Name',
+        'Last Name',
+        'Email',
+        'Permanent Code',
+      ];
+    },
+
     studentMembers() {
       return [
         {
