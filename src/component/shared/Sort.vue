@@ -55,15 +55,7 @@ export default {
 
   methods: {
     sortByType(id) {
-      if (id === 'id') {
-        this.updateCurrentValue(id)
-      } else if (id === 'name') {
-        this.updateCurrentValue(id)
-      } else if (id === 'status') {
-        this.updateCurrentValue(id)
-      } else {
-        this.updateCurrentValue(id)
-      }
+      this.updateCurrentValue(id)
       this.sortArray(id)
     },
 
