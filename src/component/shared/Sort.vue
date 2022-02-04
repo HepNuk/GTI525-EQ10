@@ -33,10 +33,9 @@
 
 <script>
 import MyButton from "./MyButton";
-import MyTable from "./MyTable";
 
 export default {
-  components: {MyTable, MyButton},
+  components: {MyButton},
 
   props: {
     data: {
@@ -55,61 +54,61 @@ export default {
 
   methods: {
     sortByType(id) {
-      this.updateCurrentValue(id)
-      this.sortArray(id)
+      this.updateCurrentValue(id);
+      this.sortArray(id);
     },
 
     sortArray(id) {
       this.dataArray.sort((a, b) => {
             if (id === 'id') {
-              a = a.ID
-              b = b.ID
+              a = a.ID;
+              b = b.ID;
             } else if (id === 'name') {
-              a = a.Nom
-              b = b.Nom
+              a = a.Nom;
+              b = b.Nom;
             } else if (id === 'status') {
-              a = a.Statut
-              b = b.Statut
+              a = a.Statut;
+              b = b.Statut;
             } else {
-              a = a.Annee_implante
-              b = b.Annee_implante
+              a = a.Annee_implante;
+              b = b.Annee_implante;
             }
 
             if (this.current_sort === 'asc') {
               if (a < b) {
-                return -1
+                return -1;
               }
               if (a > b) {
-                return 1
+                return 1;
               }
-              return 0
+              return 0;
             } else {
               if (a > b) {
-                return -1
+                return -1;
               }
               if (a < b) {
-                return 1
+                return 1;
               }
-              return 0
+              return 0;
             }
           }
-      )
+      );
     },
 
     updateCurrentValue(value) {
       if (this.current_button === value) {
         if (this.current_sort === 'asc') {
-          this.current_sort = 'desc'
+          this.current_sort = 'desc';
         } else {
-          this.current_sort = 'asc'
+          this.current_sort = 'asc';
         }
       } else {
-        this.current_button = value
-        this.current_sort = 'asc'
+        this.current_button = value;
+        this.current_sort = 'asc';
       }
     }
   }
-}
+};
 
 
 </script>
