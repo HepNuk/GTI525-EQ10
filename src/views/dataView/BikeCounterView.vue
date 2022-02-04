@@ -3,9 +3,9 @@
     <p class="title">
       Comptages de vélos
     </p>
-    <p class="sort">
-      I am SORT
-    </p>
+    <Sort
+    :data="csvFile"
+    />
     <MyTable
       v-if="csvFile"
       :header="headerRow"
@@ -18,11 +18,14 @@
 <script>
 import MyTable from 'src/component/shared/MyTable.vue';
 import csvFile from 'src/assets/csv/compteurs.csv';
+import Sort from "../../component/shared/Sort";
 
 export default {
   components: {
+    Sort,
     MyTable,
   },
+
 
   data() {
     return {
