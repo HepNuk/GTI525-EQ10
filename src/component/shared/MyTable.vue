@@ -6,9 +6,19 @@
       </th>
     </tr>
     <tr v-for="(row, rowIndex) in data" :key="`row-${rowIndex}`">
-      <td v-for="(value, colIndex) in row" :key="`col-${colIndex}-row-${rowIndex}`">
-        {{ value }}
-      </td>
+      
+      <template v-if="headerdRow">
+        <td v-for="(value, colIndex) in row" :key="`col-${colIndex}-row-${rowIndex}`">
+          {{ value.value }}
+        </td>
+      </template>
+
+      <template v-else>
+        <td v-for="(value, colIndex) in row" :key="`col-${colIndex}-row-${rowIndex}`">
+          {{ value }}
+        </td>
+      </template>
+
     </tr>
   </table>
 </template>
@@ -24,6 +34,12 @@ export default {
     data: {
       type: Array,
       required: true,
+    },
+
+    filteredHeader: {
+      type: Array,
+      required: false,
+      default: ()=>[],
     }
   }
 };

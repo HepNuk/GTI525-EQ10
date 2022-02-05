@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    ADD P-O-I VIEW
+  </div>
 </template>
 
 <script>

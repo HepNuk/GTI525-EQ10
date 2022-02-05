@@ -7,13 +7,23 @@
       />
 
       <div class="data-view">
+        <!-- Bike Counter View -->
         <BikeCounterView
           v-if="showBikeView"
           class="main-view"
         />
-        <PointOfInterestView
-          v-else-if="showPointOfInterestView"
-          :view="view"
+
+        <!-- Point of interests -->
+        <FountainView
+          v-else-if="showWaterFountainView"
+          class="main-view"
+        />
+        <BikeRepairView
+          v-else-if="showBikeRepairView"
+          class="main-view"          
+        />
+        <AddIntPointView
+          v-else-if="showAddIntPointView"
           class="main-view"
         />
       </div>
@@ -22,14 +32,25 @@
 
 <script>
 import NavBar from 'src/component/nav/NavBar.vue';
-import BikeCounterView from 'src/views/dataView/BikeCounterView.vue';
-import PointOfInterestView from 'src/views/dataView/PointOfInterestView.vue';
+import BikeCounterView from 'src/views/BikeCounterView.vue';
+import FountainView from 'src/views/FountainView.vue';
+import BikeRepairView from 'src/views/BikeRepairView.vue';
+import AddIntPointView from 'src/views/AddIntPointView.vue';
+
+const views = {
+  bikeCounter: 'bike-counter',
+  waterFountain: 'poi-water-fountain',
+  bikeRepair: 'poi-bike-repair',
+  addPoi: 'poi-add',
+};
 
 export default {
   components: {
     NavBar,
     BikeCounterView,
-    PointOfInterestView,
+    FountainView,
+    BikeRepairView,
+    AddIntPointView,
   },
 
   props: {
@@ -41,20 +62,25 @@ export default {
 
   computed: {
     showBikeView() {
-      return this.view === 'bike-counter';
+      return this.view === views.bikeCounter;
     },
-
-    showPointOfInterestView() {
-      return this.view.substring(0,3) === 'poi';
+    showWaterFountainView(){
+      return this.view === views.waterFountain;
+    },
+    showBikeRepairView(){
+      return this.view === views.bikeRepair;
+    },
+    showAddIntPointView(){
+      return this.view === views.addPoi;
     },
 
     navBarActionItems() {
       return [
         {
           title: 'Bike Counter',
-          value: 'bike-counter',
-          active: (this.view === 'bike-counter'),
-          action: () => this.$emit('change-view', 'bike-counter')
+          value: views.bikeCounter,
+          active: (this.view === views.bikeCounter),
+          action: () => this.$emit('change-view', views.bikeCounter)
         },
         {
           title: 'Point of Interest',
@@ -66,28 +92,28 @@ export default {
     pointOfInterestDropDownOptions() {
       const poi = {
         waterFountain: 'poi-water-fountain',
-        bikeRepaire: 'poi-bike-repair',
+        bikeRepair: 'poi-bike-repair',
         addPoi: 'poi-add',
       };
 
       return [
         {
           title: 'Water Fountain',
-          value: poi.waterFountain,
-          active: (this.view === poi.waterFountain),
-          action: () => this.$emit('change-view', poi.waterFountain)
+          value: views.waterFountain,
+          active: (this.view === views.waterFountain),
+          action: () => this.$emit('change-view', views.waterFountain)
         },
         {
-          title: 'Bike Repaire',
-          value: poi.bikeRepaire,
-          active: (this.view === poi.bikeRepaire),
-          action: () => this.$emit('change-view', poi.bikeRepaire)
+          title: 'Bike Repair',
+          value: views.bikeRepair,
+          active: (this.view === views.bikeRepair),
+          action: () => this.$emit('change-view', views.bikeRepair)
         },
         {
           title: 'Add Point of Interest',
-          value: poi.addPoi,
-          active: (this.view === poi.addPoi),
-          action: () => this.$emit('change-view', poi.addPoi)
+          value: views.addPoi,
+          active: (this.view === views.addPoi),
+          action: () => this.$emit('change-view', views.addPoi)
         }
       ];
     } 
