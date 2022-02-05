@@ -6,9 +6,10 @@
 
     <p>
       <MyTable
-        v-if="fountain"
+        v-if="fountainData"
         :header="headerRow" 
-        :data="filteredData"
+        :filtered-header="filteredHeader"
+        :data="filteredFountainData"
         class="table"
       />
     </p>
@@ -18,13 +19,6 @@
 <script>
 import MyTable from 'src/component/shared/MyTable.vue';
 import csvFile from 'src/assets/csv/fontaines.csv';
-
-const filteredHeader = [{
-  Arrondissement: 'Arrondissement',
-  Type: 'Type',
-  Lieu: 'Nom du lieu',
-  Adresse: 'Adresse',
-}];
 
 export default {
   components: {
@@ -39,24 +33,21 @@ export default {
 
   computed: {
     headerRow() {
-      return Object.values(filteredHeader[0]);
+      return Object.keys(csvFile[0]);
     },
 
-    filteredData(){
-      let returnArray = [];
-      for(let i = 0; i < this.fountain.length; i++){
-        let poi = this.fountain[i];
-        if(poi.Proximité_jeux_repère === 'fontaine'){
-          let location = {
-              Arrondissement: poi.Arrondissement,
-              Type: poi.Proximité_jeux_repère,
-              Lieu: poi.Nom_parc_lieu,
-              Adresse: poi.Intersection,
-          };
-          returnArray.push(location);
-        }
-      }
-      return returnArray;
+    filteredFountainData(){
+      const filteredFountainData = [...this.fountainData];
+      return filteredFountainData;
+    },
+
+    filteredHeader(){
+      return {
+      Arrondissement: 'Arrondissement',
+      Proximité_jeux_repère: 'Type',
+      Nom_parc_lieu: 'Nom du lieu',
+      Intersection: 'Adresse',
+      };
     },
   },
 
