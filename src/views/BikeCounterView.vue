@@ -7,9 +7,10 @@
       I am SORT
     </p>
     <MyTable
-      v-if="bikeCounter"
+      v-if="bikeCounterData"
       :header="headerRow"
-      :data="filteredData"
+      :filtered-header="filteredHeader"
+      :data="filteredBikeData"
       class="table"
     />
   </div>
@@ -19,13 +20,6 @@
 import MyTable from 'src/component/shared/MyTable.vue';
 import csvFile from 'src/assets/csv/compteurs.csv';
 
-const filteredHeader = [{
-  ID: 'ID',
-  Compteur: 'Nom du compteur',
-  Statut: 'Statut', 
-  Annee: 'Annee Implante',
- }];
-
 export default {
   components: {
     MyTable,
@@ -33,35 +27,29 @@ export default {
 
   data() {
     return {
-      loading: false,
-      bikeCounter: csvFile
+      bikeCounterData: csvFile
     };
   },
 
   computed: {
     headerRow() {
-      return Object.values(filteredHeader[0]);
+      return Object.values(this.bikeCounterData[0]);
     },
 
-    filteredData(){
-      let returnArray = [];
-      for(let i = 0; i < this.bikeCounter.length; i++){
-        let poi = this.bikeCounter[i];
-        let bc = {
-            ID: poi.ID,
-            Compteur: poi.Nom,
-            Statut: poi.Statut,
-            Annee: poi.Annee_implante,
-            }
-        returnArray.push(bc);
-      }
-      return returnArray;
+    filteredBikeData(){
+      // To use jimmy's filter here
+      return this.bikeCounterData; // Temporary, just returning the full list
     },
+
+    filteredHeader() {
+      return {
+        ID: 'ID',
+        Nom: 'Nom du compteur',
+        Statut: 'Statut', 
+        Annee_implante: 'Annee Implante',
+      };
+    }
   },
-
-    mounted(){
-    console.log(this.filteredData);
-  }
 };
 
 </script>

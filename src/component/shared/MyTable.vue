@@ -1,24 +1,29 @@
 <template>
   <table class="table table-striped">
     <tr class="table-header">
-      <th v-for="(col, colIndex) in header" :key="`col-${colIndex}`">
-        {{ col }}
-      </th>
+      <template v-if="filteredHeader">
+        <th v-for="(col, key) in filteredHeader" :key="`col-${key}`">
+          {{ col }}
+        </th>
+      </template>
+      <template v-else>      
+        <th v-for="(col, colIndex) in header" :key="`col-${colIndex}`">
+          {{ col }}
+        </th>
+      </template>
     </tr>
+    
     <tr v-for="(row, rowIndex) in data" :key="`row-${rowIndex}`">
-      
-      <template v-if="headerdRow">
-        <td v-for="(value, colIndex) in row" :key="`col-${colIndex}-row-${rowIndex}`">
-          {{ value.value }}
+      <template v-if="filteredHeader">
+        <td v-for="(value, key) in filteredHeader" :key="`col-${key}-row-${rowIndex}`">
+          {{ row[key] }}
         </td>
       </template>
-
       <template v-else>
         <td v-for="(value, colIndex) in row" :key="`col-${colIndex}-row-${rowIndex}`">
           {{ value }}
         </td>
       </template>
-
     </tr>
   </table>
 </template>
@@ -37,9 +42,9 @@ export default {
     },
 
     filteredHeader: {
-      type: Array,
+      type: Object,
       required: false,
-      default: ()=>[],
+      default: undefined
     }
   }
 };

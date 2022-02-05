@@ -6,14 +6,13 @@
 
     <p>
       <MyTable
-      v-if="fountain"
-      :header="headerRow" 
-      :data="filteredData"
-      class="table"
+        v-if="fountain"
+        :header="headerRow" 
+        :data="filteredData"
+        class="table"
       />
     </p>
   </div>
-
 </template>
 
 <script>
@@ -34,8 +33,7 @@ export default {
   
   data() {
     return {
-      loading: false,
-      fountain: csvFile
+      fountainData: csvFile
     };
   },
 
@@ -54,7 +52,7 @@ export default {
               Type: poi.Proximité_jeux_repère,
               Lieu: poi.Nom_parc_lieu,
               Adresse: poi.Intersection,
-          }
+          };
           returnArray.push(location);
         }
       }
