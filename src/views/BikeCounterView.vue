@@ -27,7 +27,6 @@
 <script>
 import MyTable from 'src/component/shared/MyTable.vue';
 import csvFile from 'src/assets/csv/compteurs.csv';
-import Sort from "../../component/shared/Sort.vue";
 import Sort2 from 'src/component/shared/Sort2.vue';
 
 export default {
