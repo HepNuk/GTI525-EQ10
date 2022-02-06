@@ -1,131 +1,99 @@
 <template>
-  <div>
+  <div class="sort">
+    <p class="me-2">
+      {{ title }}
+    </p>
 
-    <p>Trier par: </p>
+    <div class="sort-options">
+      <div 
+        v-for="(option, key) in sortOptions"
+        :key="`options-${key}`"
+        class="sort-option"
+      >
+        <span 
+          class="px-1"
+          @click="$emit('toggle-sort', key)"
+        >
+          <span>{{ option }}</span>
 
-    <section>
-      <label>ID</label>
-      <MyButton
-          @click="sortByType('id')"
-      />
-      <br>
-
-      <label>Nom</label>
-      <MyButton
-          @click="sortByType('name')"
-      />
-      <br>
-
-      <label>Statut</label>
-      <MyButton
-          @click="sortByType('status')"
-      />
-      <br>
-
-      <label>Année Implanté</label>
-      <MyButton
-          @click="sortByType('year')"
-      />
-      <br>
-    </section>
+          <fa 
+            v-if="sort.key === key && sort.direction === 'asc'"
+            :style="iconStyle"
+            :icon="['fa', 'chevron-down']" 
+          />
+          <fa 
+            v-else-if="sort.key === key && sort.direction === 'desc'"
+            :style="iconStyle"
+            :icon="['fa', 'chevron-up']" 
+          />
+          <div v-else style="width: 0.8em;" /> 
+        </span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import MyButton from "./MyButton";
-
 export default {
-  components: {MyButton},
+  components: {
+  },
 
   props: {
-    data: {
-      type: Array,
+    title: {
+      type: String,
+      required: true,
+    },
+
+    sortOptions: {
+      type: Object,
+      required: true,
+    },
+
+    sort: {
+      type: Object,
       required: true,
     }
   },
 
-  data() {
-    return {
-      current_button: 'id',
-      current_sort: '',
-      dataArray: this.data,
-    };
-  },
+  computed: {
+    iconStyle() {
+      return {
+        color: 'red'
+      };
 
-  methods: {
-    sortByType(id) {
-      this.updateCurrentValue(id);
-      this.sortArray(id);
-    },
 
-    sortArray(id) {
-      this.dataArray.sort((a, b) => {
-            if (id === 'id') {
-              a = a.ID;
-              b = b.ID;
-            } else if (id === 'name') {
-              a = a.Nom;
-              b = b.Nom;
-            } else if (id === 'status') {
-              a = a.Statut;
-              b = b.Statut;
-            } else {
-              a = a.Annee_implante;
-              b = b.Annee_implante;
-            }
-
-            if (this.current_sort === 'asc') {
-              if (a < b) {
-                return -1;
-              }
-              if (a > b) {
-                return 1;
-              }
-              return 0;
-            } else {
-              if (a > b) {
-                return -1;
-              }
-              if (a < b) {
-                return 1;
-              }
-              return 0;
-            }
-          }
-      );
-    },
-
-    updateCurrentValue(value) {
-      if (this.current_button === value) {
-        if (this.current_sort === 'asc') {
-          this.current_sort = 'desc';
-        } else {
-          this.current_sort = 'asc';
-        }
-      } else {
-        this.current_button = value;
-        this.current_sort = 'asc';
-      }
     }
   }
 };
-
-
 </script>
 
-<style lang="scss" scoped>
-div {
+<style scoped lang="scss">
+.sort { 
   display: flex;
+  flex-direction: row;
+}
+.sort-options {
+  display: inline-flex;
+  flex-direction: column;
 }
 
-p {
-  padding-right: 25px;
-}
+.sort-option {
+  display: inline-flex;
+  flex-direction: row;
+  border-bottom-style: solid;
+  border-bottom-color: black;
+  border-bottom-width: 2px;
 
-label {
-  width: 125px;
-  text-align: left;
-  padding-right: 10px;
-}
+  span {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    gap: 1rem;
+  }
 
+  span:hover {
+    background: rgb(94, 94, 100);
+  }
+}
 </style>
