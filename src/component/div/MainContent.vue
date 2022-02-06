@@ -1,10 +1,12 @@
 <template>
     <div class="middle-component">
-      <NavBar 
-        :nav-items="navBarActionItems"
-        class="main-nav-bar"
-        @change-view="changeViewTo"
-      />
+      <div class="nav-view">
+        <NavBar 
+          :nav-items="navBarActionItems"
+          class="main-nav-bar"
+          @change-view="changeViewTo"
+        />
+      </div>
 
       <div class="data-view">
         <!-- Bike Counter View -->
@@ -147,7 +149,7 @@ export default {
   margin: 5px;
 }
 
-.data-view {
+.nav-view {
   flex-grow: 1;
 }
 
@@ -155,4 +157,7 @@ export default {
   min-width: 250px;
 }
 
+.data-view {
+  max-width: 1100px;
+}
 </style>
