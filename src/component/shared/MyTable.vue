@@ -1,34 +1,42 @@
 <template>
-  <table class="table table-striped">
-    <tr class="table-header">
-      <template v-if="filteredHeader">
-        <th v-for="(col, key) in filteredHeader" :key="`col-${key}`">
-          {{ col }}
-        </th>
-      </template>
-      <template v-else>      
-        <th v-for="(col, colIndex) in header" :key="`col-${colIndex}`">
-          {{ col }}
-        </th>
-      </template>
-    </tr>
-    
-    <tr v-for="(row, rowIndex) in data" :key="`row-${rowIndex}`">
-      <template v-if="filteredHeader">
-        <td v-for="(value, key) in filteredHeader" :key="`col-${key}-row-${rowIndex}`">
-          {{ row[key] }}
-        </td>
-      </template>
-      <template v-else>
-        <td v-for="(value, colIndex) in row" :key="`col-${colIndex}-row-${rowIndex}`">
-          {{ value }}
-        </td>
-      </template>
-    </tr>
-  </table>
+  <div :class="limitHeightClass">
+    <div class="table-scroll">
+      <table class="table table-sm table-striped">
+        <thead class="table-dark">
+          <tr>
+            <template v-if="filteredHeader">
+              <th v-for="(col, key) in filteredHeader" :key="`col-${key}`">
+                {{ col }}
+              </th>
+            </template>
+            <template v-else>      
+              <th v-for="(col, colIndex) in header" :key="`col-${colIndex}`">
+                {{ col }}
+              </th>
+            </template>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(row, rowIndex) in data" :key="`row-${rowIndex}`">
+            <template v-if="filteredHeader">
+              <td v-for="(value, key) in filteredHeader" :key="`col-${key}-row-${rowIndex}`">
+                {{ row[key] }}
+              </td>
+            </template>
+            <template v-else>
+              <td v-for="(value, colIndex) in row" :key="`col-${colIndex}-row-${rowIndex}`">
+                {{ value }}
+              </td>
+            </template>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script>
+import { computed } from '@vue/reactivity';
 export default {
   props: {
     header: {
@@ -45,6 +53,18 @@ export default {
       type: Object,
       required: false,
       default: undefined
+    },
+
+    limitHeight: {
+      type: Boolean,
+      required: false,
+      default: true,
+    }
+  },
+
+  computed: {
+    limitHeightClass() {
+      return this.limitHeight ? 'limit-height' : '';
     }
   }
 };
@@ -52,17 +72,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-table{
-  width: 100%;
-
-  th {
-    background: #ddd;
-  }
+table {
 
   td, th { 
+    max-height: 10px;
     text-align: center;
   }
 
   margin: 0;
+}
+
+.limit-height {
+  position: relative;
+
+  .table-scroll {
+    max-height: 540px;
+    overflow: auto;
+    margin-top: 20px;
+  }
+
+  table {
+    width: 100%;
+
+    thead {
+      position: sticky;
+      top:0;
+    }
+  }
 }
 </style>
