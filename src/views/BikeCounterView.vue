@@ -17,7 +17,8 @@
     <MyTable
       v-if="bikeCounterData"
       :header="headerRow"
-      :data="filteredData"
+      :filtered-header="filteredHeader"
+      :data="filteredBikeData"
       class="table"
     />
   </div>
@@ -26,7 +27,6 @@
 <script>
 import MyTable from 'src/component/shared/MyTable.vue';
 import csvFile from 'src/assets/csv/compteurs.csv';
-import Sort from "../../component/shared/Sort.vue";
 import Sort2 from 'src/component/shared/Sort2.vue';
 
 export default {
@@ -38,7 +38,6 @@ export default {
 
   data() {
     return {
-      loading: false,
       bikeCounterData: csvFile,
 
       sort: {
@@ -53,19 +52,19 @@ export default {
       return Object.keys(csvFile[0]);
     },
 
-    filteredData() {
+    filteredBikeData() {
       // Clone Array, we dont want to mutate directly the data, we want to mutated a computed value that way the orginal data is gone
-      const filteredData = [...this.bikeCounterData];
+      const filteredBikeData = [...this.bikeCounterData];
 
       // Sort 
       /*
-        Sort filteredData here based on Sort.vue > sortArray algo you made
+        Sort filteredBikeData here based on Sort.vue > sortArray algo you made
         using this.sort.key and this.sort.direction as how to sort
       */
 
       // Filter/Paginate
 
-      return filteredData;
+      return filteredBikeData;
     },
 
     filteredHeader() {
@@ -76,10 +75,6 @@ export default {
         Annee_implante: 'Annee Implante',
       };
     },
-  },
-
-  mounted() {
-    this.loadInitalSort();
   },
 
   methods: {
