@@ -81,6 +81,10 @@ table {
   margin: 0;
 }
 
+.table-scroll {
+  overflow-x: scroll;
+}
+
 .limit-height {
   position: relative;
 
