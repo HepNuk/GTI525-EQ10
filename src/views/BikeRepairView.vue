@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    BIKE REPAIR VIEW
+  </div>
 </template>
 
 <script>

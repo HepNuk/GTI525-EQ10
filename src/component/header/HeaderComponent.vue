@@ -1,6 +1,6 @@
 <template>
   <header>
-    <img class="logo" src="https://images.everydayhealth.com/images/diet-nutrition/34da4c4e-82c3-47d7-953d-121945eada1e00-giveitup-unhealthyfood.jpg?sfvrsn=a31d8d32_0" alt="" >
+    <img class="logo" src="https://elementalcycle.com/wp-content/uploads/2015/07/Cycling-mountain-bike-royalty-free-vector-icon-released-under-the-300x208.png" alt="" >
     <div class="message">
       <h1 class="mt-1">
         Bienvenue sur Mobi-Urbaine
