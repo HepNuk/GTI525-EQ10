@@ -51,40 +51,12 @@ export default {
 
     filteredBikeData() {
       const filteredBikeData = [...this.bikeCounterData];
+      const ascDirection = this.sort.direction === 'asc';
 
       filteredBikeData.sort((a, b) => {
-        if (this.sort.key === 'ID') {
-          a = a.ID;
-          b = b.ID;
-        } else if (this.sort.key === 'Nom') {
-          a = a.Nom;
-          b = b.Nom;
-        } else if (this.sort.key === 'Statut') {
-          a = a.Statut;
-          b = b.Statut;
-        } else {
-          a = a.Annee_implante;
-          b = b.Annee_implante;
-        }
-
-        if (this.sort.direction === 'asc') {
-          if (a < b) {
-            return -1;
-          }
-          if (a > b) {
-            return 1;
-          }
-          return 0;
-        } else {
-          if (a > b) {
-            return -1;
-          }
-          if (a < b) {
-            return 1;
-          }
-          return 0;
-        }
+        return (ascDirection ? 1 : -1) * ('' + a[this.sort.key]).localeCompare(b[this.sort.key]);
       });
+
       return filteredBikeData;
     },
 
