@@ -51,12 +51,29 @@ export default {
 
     filteredBikeData() {
       const filteredBikeData = [...this.bikeCounterData];
-      const ascDirection = this.sort.direction === 'asc';
 
       filteredBikeData.sort((a, b) => {
-        return (ascDirection ? 1 : -1) * ('' + a[this.sort.key]).localeCompare(b[this.sort.key]);
-      });
+        a = a[this.sort.key];
+        b = b[this.sort.key];
 
+        if (this.sort.direction === 'asc') {
+          if (a < b) {
+            return -1;
+          }
+          if (a > b) {
+            return 1;
+          }
+          return 0;
+        } else {
+          if (a > b) {
+            return -1;
+          }
+          if (a < b) {
+            return 1;
+          }
+          return 0;
+        }
+      });
       return filteredBikeData;
     },
 
