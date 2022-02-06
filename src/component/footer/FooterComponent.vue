@@ -1,7 +1,7 @@
 <template>
-    <footer>
-        <Coordinates />
-    </footer>
+  <footer>
+    <Coordinates />
+  </footer>
 </template>
 
 <script>

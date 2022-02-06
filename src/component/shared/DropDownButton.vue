@@ -5,7 +5,9 @@
         type,
         notActiveType,
         fill,
-        disabled
+        disabled,
+        border,
+        borderColor
       }"
       :active="active || activeItem"
       @click="toggleCollapsed"
@@ -18,8 +20,10 @@
         v-for="(option, index) in dropDownOptions"
         :key="'dropdown-' + index"
         class="my-1"
-        :type="option.type"
-        :not-active-type="option.notActiveType"
+        :type="type"
+        :not-active-type="notActiveType"
+        :border="border"
+        :border-color="borderColor"
         :fill="fill"
         :disabled="option.disabled"
         :active="option.active"
@@ -32,6 +36,20 @@
 </template>
 
 <script>
+const types = [
+  'primary',
+  'secondary',
+  'success',
+  'danger',
+  'warning',
+  'info',
+  'light',
+  'dark',
+  'link',
+  'pale-grey'
+];
+
+
 export default {
   props: {
     dropDownOptions: {
@@ -44,14 +62,27 @@ export default {
       type: String,
       required: false,
       default: 'primary',
-      validator: (value) => ['primary', 'secondary', 'success', 'danger', 'warning', 'info' , 'light', 'dark', 'link'].includes(value)
+      validator: (value) => types.includes(value)
     },
 
     notActiveType: {
       type: String,
       required: false,
       default: 'secondary',
-      validator: (value) => ['primary', 'secondary', 'success', 'danger', 'warning', 'info' , 'light', 'dark', 'link'].includes(value)
+      validator: (value) => types.includes(value)
+    },
+
+    border: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+
+    borderColor: {
+      type: String,
+      required: false,
+      default: '#000',
+      validator: (value) => (/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(value))
     },
 
     fill: {
@@ -110,7 +141,4 @@ export default {
 </script>
 
 <style lang="scss" scopped>
-.drop-down-menu {
-  // border-style: solid;
-}
 </style>

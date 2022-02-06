@@ -5,10 +5,13 @@
       :key="navItem.value"
       class="nav-item d-grid"
     >
-      <!-- For later use -->
       <template v-if="navItem.dropDownOptions">
         <DropDownButton
           :drop-down-options="navItem.dropDownOptions"
+          type="dark"
+          notActiveType="pale-grey"
+          border
+          border-color="#333"
           :active="false"
           fill
           @change-view="$emit('change-view', $event)"
@@ -20,6 +23,10 @@
       <MyButton
         v-else
         fill
+        type="dark"
+        notActiveType="pale-grey"
+        border
+        border-color="#333"
         :active="navItem.active"
         @click="navItem.action"
       >
