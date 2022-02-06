@@ -69,10 +69,10 @@ export default {
 
     filteredHeader() {
       return {
-        ID: 'Id',
+        ID: 'ID',
         Nom: 'Nom du compteur',
         Statut: 'Statut', 
-        Annee_implante: 'Annee Implante',
+        Annee_implante: 'Annee Implantée',
       };
     },
   },
@@ -112,5 +112,4 @@ export default {
 .table{
   grid-area: 2/1/4/4;
 }
-
 </style>
