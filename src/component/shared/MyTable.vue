@@ -58,7 +58,7 @@ export default {
     limitHeight: {
       type: Boolean,
       required: false,
-      default: true,
+      default: false,
     }
   },
 
@@ -75,7 +75,6 @@ export default {
 table {
 
   td, th { 
-    max-height: 10px;
     text-align: center;
   }
 
@@ -88,7 +87,6 @@ table {
   .table-scroll {
     max-height: 540px;
     overflow: auto;
-    margin-top: 20px;
   }
 
   table {

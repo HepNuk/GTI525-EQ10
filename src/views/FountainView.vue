@@ -18,6 +18,7 @@
       :header="headerRow" 
       :filtered-header="filteredHeader"
       :data="filteredFountainData"
+      limitHeight
       class="table"
     />
   </div>

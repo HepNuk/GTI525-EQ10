@@ -18,6 +18,7 @@
       :header="headerRow"
       :filtered-header="filteredHeader"
       :data="filteredBikeData"
+      limitHeight
       class="table table-scroll"
     />
   </div>
