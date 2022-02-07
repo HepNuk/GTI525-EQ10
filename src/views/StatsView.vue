@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import MyButton from 'src/component/shared/MyButton.vue';
-
 export default {
 };
 

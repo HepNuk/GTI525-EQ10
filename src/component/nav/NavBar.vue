@@ -27,6 +27,7 @@
         notActiveType="pale-grey"
         border
         border-color="#333"
+        :hover="!navItem.active"
         :active="navItem.active"
         @click="navItem.action"
       >

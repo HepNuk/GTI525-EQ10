@@ -18,7 +18,9 @@
       :header="headerRow" 
       :filtered-header="filteredHeader"
       :data="filteredFountainData"
-      limitHeight
+      :action-buttons="tableActionButtons"
+      :paginate="15"
+      :column-settings="columnSettings"
       class="table"
     />
   </div>
@@ -49,6 +51,26 @@ export default {
   computed: {
     headerRow() {
       return Object.keys(csvFile[0]);
+    },
+
+    columnSettings() {
+      return {
+        Arrondissement: {
+          maxWidth: '300px'
+        },
+        Proximité_jeux_repère: {
+          maxWidth: '150px'
+        },
+        Nom_parc_lieu: {
+          maxWidth: '300px'
+        },
+        Intersection: {
+          maxWidth: '200px'
+        },
+        buttonActions: {
+          maxWidth: '20px'
+        },
+      };
     },
 
     filteredFountainData(){
@@ -88,6 +110,16 @@ export default {
         Intersection: 'Adresse',
       };
     },
+
+    tableActionButtons() {
+      return [
+        {
+          type: 'icon',
+          icon: 'map-marker-alt',
+          click: (row) => { console.log(row.Longitude, row.Latitude); },
+        }
+      ];
+    },
   },
 
   methods: {
@@ -108,12 +140,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  // .fountain-view{
-  //   padding: 10px;
-  //   display: grid;
-  // }
-  // .title{
-  //   font-weight: bold;
-  //   text-decoration: underline;
-  // }
 </style>

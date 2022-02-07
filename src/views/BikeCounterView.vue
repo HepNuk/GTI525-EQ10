@@ -19,7 +19,7 @@
       :filtered-header="filteredHeader"
       :data="filteredBikeData"
       :action-buttons="tableActionButtons"
-      limitHeight
+      :paginate="15"
       class="table table-scroll"
     />
   </div>

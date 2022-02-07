@@ -51,7 +51,7 @@ export default {
 .app {
   margin: 0 auto;
   flex-direction: column;
-  max-width: 1350px;
+  max-width: 1400px;
 }
 
 </style>

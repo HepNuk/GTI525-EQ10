@@ -10,6 +10,7 @@
         borderColor
       }"
       :active="active || activeItem"
+      :hover="!(active || activeItem)"
       @click="toggleCollapsed"
     >
       <slot />
@@ -27,6 +28,7 @@
         :fill="fill"
         :disabled="option.disabled"
         :active="option.active"
+        :hover="!option.active"
         @click="option.action"
       >
         {{ option.title }}

@@ -2,7 +2,7 @@
   <button
     ref="btn"
     class="btn"
-    :class="[btnType, btnFill]"
+    :class="[btnType, btnFill, btnHover]"
     :style="[btnBorder, btnHover]"
     :disabled="disabled"
   >
@@ -65,6 +65,13 @@ export default {
       default: false,
     },
 
+    hoverColor: {
+      type: String,
+      required: false,
+      default: '#EEE',
+      validator: (value) => (/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(value))
+    },
+
     hover: {
       type: Boolean,
       required: false,
@@ -80,31 +87,28 @@ export default {
   
   computed: {
     btnType() {
-      if (this.active) {
-        return 'btn-' + this.type;
-      }
-      return 'btn-' + this.notActiveType;
+      return 'btn-' + (this.active ? this.type : this.notActiveType);
     },
 
     btnFill() {
-      if (this.fill) {
-        return 'fill';
-      }
-
-      return '';
+      return this.fill ? 'fill' : '';
     },
 
     btnBorder() {
       return (this.border ? {
         borderWidth: '2px',
         borderColor: this.borderColor 
-      } : {});
+      } : { borderWidth: '0px' });
     },
 
-    btnHover() {
+    btnHoverColor() {
       return (this.hover ? {
-        '--color-hover': '#EEE',
+        '--color-hover': this.hoverColor,
       }: {});
+    },
+    
+    btnHover() {
+      return this.hover ? 'button-hover' : '';
     },
   }
 };
@@ -117,10 +121,6 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background-color: var(--color-hover);
-}
-
 .btn-pale-grey {
   background-color: $pale-grey;
 }
@@ -131,8 +131,7 @@ button:hover {
   text-align: center;
 }
 
-// .btn-border {
-//   border-width: 2px;
-//   border-color: #000;
-// }
+.button-hover:hover {
+  background-color: var(--color-hover) !important;
+}
 </style>
