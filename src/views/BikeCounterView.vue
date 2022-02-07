@@ -83,10 +83,10 @@ export default {
 
     filteredHeader() {
       return {
-        ID: 'Id',
+        ID: 'ID',
         Nom: 'Nom du compteur',
-        Statut: 'Statut',
-        Annee_implante: 'Annee Implante',
+        Statut: 'Statut', 
+        Annee_implante: 'Annee Implantée',
       };
     },
 
@@ -129,5 +129,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>
