@@ -49,7 +49,9 @@ export default {
 @import "./assets/css/styles.scss";
 
 .app {
-  right: 0;
+  margin: 0 auto;
+  flex-direction: column;
+  max-width: 1350px;
 }
 
 </style>

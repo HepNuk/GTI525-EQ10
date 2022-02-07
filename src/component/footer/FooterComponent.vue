@@ -1,7 +1,7 @@
 <template>
-    <footer>
-        <Coordinates />
-    </footer>
+  <footer>
+    <Coordinates />
+  </footer>
 </template>
 
 <script>
@@ -15,9 +15,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    footer{
-      border: 5px solid black;
-      padding: 5px;
-      margin: 5px;
-    }
+footer {
+  border: 5px solid black;
+  padding: 5px;
+  margin: 5px;
+}
 </style>

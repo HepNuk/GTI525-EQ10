@@ -145,14 +145,11 @@ export default {
   border: 2px solid black;
   padding: 5px;
   margin: 5px;
-}
-
-.nav-view {
   flex-grow: 1;
+  max-width: 1100px;
 }
 
 .data-view {
-  min-width: 500px;
-  max-width: 1100px;
+  flex-grow: 1;
 }
 </style>

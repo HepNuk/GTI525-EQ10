@@ -51,17 +51,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-table{
-  width: 100%;
 
-  th {
-    background: #ddd;
-  }
-
-  td, th { 
-    text-align: center;
-  }
-
-  margin: 0;
-}
 </style>
