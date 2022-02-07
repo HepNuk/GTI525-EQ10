@@ -44,7 +44,11 @@ header{
 
 h1 {
   font-family: "Gill Sans", sans-serif;
-  font-size: 3.8vw;
+  font-size: 4.5vw;
+  
+  @media screen and (min-width: 1200px) {
+    font-size: 50px;
+  }
 }
 
 </style>

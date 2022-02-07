@@ -93,7 +93,8 @@ export default {
   }
 
   span:hover {
-    background: rgb(94, 94, 100);
+    background: rgb(179, 179, 179);
+    cursor: pointer;
   }
 }
 </style>

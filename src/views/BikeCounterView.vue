@@ -1,22 +1,26 @@
 <template>
-  <div class="bike-counter-view">
-    <p class="title">
-      Comptages de vélos
-    </p>
+  <div class="bike-counter-view content-view">
+    <div class="content-view-header p-3">
+      <h2 class="title">
+        Comptages de vélos
+      </h2>
 
-    <Sort
+      <Sort
         title="Trier par: "
         :sort-options="filteredHeader"
         :sort="sort"
         @toggle-sort="toggleSort"
-    />
+      />
+    </div>
 
     <MyTable
-        v-if="bikeCounterData"
-        :header="headerRow"
-        :filtered-header="filteredHeader"
-        :data="filteredBikeData"
-        class="table"
+      v-if="bikeCounterData"
+      :header="headerRow"
+      :filtered-header="filteredHeader"
+      :data="filteredBikeData"
+      :action-buttons="tableActionButtons"
+      limitHeight
+      class="table table-scroll"
     />
   </div>
 </template>
@@ -31,7 +35,6 @@ export default {
     Sort,
     MyTable,
   },
-
 
   data() {
     return {
@@ -74,6 +77,7 @@ export default {
           return 0;
         }
       });
+
       return filteredBikeData;
     },
 
@@ -84,6 +88,21 @@ export default {
         Statut: 'Statut',
         Annee_implante: 'Annee Implante',
       };
+    },
+
+    tableActionButtons() {
+      return [
+        {
+          type: 'icon',
+          icon: 'map-marker-alt',
+          click: (row) => { console.log(row.Longitude, row.Latitude); },
+        },
+        {
+          type: 'text',
+          text: 'Statistique',
+          click: () => this.openStats(),
+        }
+      ];
     },
   },
 
@@ -98,30 +117,17 @@ export default {
         newSort.direction = 'desc';
       }
       this.sort = newSort;
-    }
+    },
+
+    openStats() {
+      console.log('Stats Should open');
+    },
+
   }
 };
 
 </script>
 
 <style lang="scss" scoped>
-.bike-counter-view {
-  padding: 10px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
-}
-
-.title {
-  font-weight: bold;
-  text-decoration: underline;
-  margin: 0;
-  grid-column: 1/3;
-  grid-row: 1;
-}
-
-.table {
-  grid-area: 2/1/4/4;
-}
 
 </style>

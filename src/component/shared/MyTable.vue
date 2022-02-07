@@ -1,31 +1,61 @@
 <template>
-  <table class="table table-striped">
-    <tr class="table-header">
-      <template v-if="filteredHeader">
-        <th v-for="(col, key) in filteredHeader" :key="`col-${key}`">
-          {{ col }}
-        </th>
-      </template>
-      <template v-else>      
-        <th v-for="(col, colIndex) in header" :key="`col-${colIndex}`">
-          {{ col }}
-        </th>
-      </template>
-    </tr>
-    
-    <tr v-for="(row, rowIndex) in data" :key="`row-${rowIndex}`">
-      <template v-if="filteredHeader">
-        <td v-for="(value, key) in filteredHeader" :key="`col-${key}-row-${rowIndex}`">
-          {{ row[key] }}
-        </td>
-      </template>
-      <template v-else>
-        <td v-for="(value, colIndex) in row" :key="`col-${colIndex}-row-${rowIndex}`">
-          {{ value }}
-        </td>
-      </template>
-    </tr>
-  </table>
+  <div :class="limitHeightClass">
+    <div class="table-scroll">
+      <table class="table table-sm table-striped">
+        <thead class="table-dark">
+          <tr>
+            <template v-if="filteredHeader">
+              <th v-for="(col, key) in filteredHeader" :key="`col-${key}`">
+                {{ col }}
+              </th>
+            </template>
+            <template v-else>      
+              <th v-for="(col, colIndex) in header" :key="`col-${colIndex}`">
+                {{ col }}
+              </th>
+            </template>
+
+            <th v-if="actionButtons" />
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(row, rowIndex) in data" :key="`row-${rowIndex}`">
+            <template v-if="filteredHeader">
+              <td v-for="(value, key) in filteredHeader" :key="`col-${key}-row-${rowIndex}`">
+                {{ row[key] }}
+              </td>
+            </template>
+            <template v-else>
+              <td v-for="(value, colIndex) in row" :key="`col-${colIndex}-row-${rowIndex}`">
+                {{ value }}
+              </td>
+            </template>
+
+            <td class="table-action-buttons" v-if="actionButtons">
+              <div :key="'action-' + index" v-for="(action, index) in actionButtons">
+                <template v-if="action.type === 'icon'">
+                  <fa 
+                    :icon="action.icon"
+                    color="red"
+                    @click="action.click(row)"
+                  />
+                </template>
+
+                <template v-else-if="action.type === 'text'">
+                  <span 
+                    class="text-action-button"
+                    @click="action.click(row)" 
+                  >
+                    {{ action.text }}
+                  </span>
+                </template>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -45,24 +75,73 @@ export default {
       type: Object,
       required: false,
       default: undefined
+    },
+
+    limitHeight: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+
+    actionButtons: {
+      type: Array,
+      required: false,
+      default: () => undefined,
     }
-  }
+  },
+
+  computed: {
+    limitHeightClass() {
+      return this.limitHeight ? 'limit-height' : '';
+    }
+  },
 };
 
 </script>
 
 <style lang="scss" scoped>
-table{
-  width: 100%;
-
-  th {
-    background: #ddd;
-  }
-
+table {
   td, th { 
     text-align: center;
   }
 
   margin: 0;
+
+  .table-action-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    cursor: pointer;
+
+    .text-action-button {
+      color: black;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.limit-height {
+  position: relative;
+
+  .table-scroll {
+    max-height: 540px;
+    overflow: auto;
+  }
+
+  table {
+    width: 100%;
+
+    thead {
+      position: sticky;
+      top:0;
+    }
+  }
 }
 </style>

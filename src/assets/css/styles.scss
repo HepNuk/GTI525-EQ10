@@ -1,0 +1,17 @@
+.content-view {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+
+  .content-view-header {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .title {
+    font-weight: bold;
+    text-decoration: underline;
+    margin: 0;
+  }
+}
