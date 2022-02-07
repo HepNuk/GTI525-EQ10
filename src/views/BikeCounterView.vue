@@ -18,6 +18,7 @@
       :header="headerRow"
       :filtered-header="filteredHeader"
       :data="filteredBikeData"
+      :action-buttons="tableActionButtons"
       limitHeight
       class="table table-scroll"
     />
@@ -34,7 +35,6 @@ export default {
     Sort,
     MyTable,
   },
-
 
   data() {
     return {
@@ -89,6 +89,21 @@ export default {
         Annee_implante: 'Annee Implante',
       };
     },
+
+    tableActionButtons() {
+      return [
+        {
+          type: 'icon',
+          icon: 'map-marker-alt',
+          click: (row) => { console.log(row.Longitude, row.Latitude); },
+        },
+        {
+          type: 'text',
+          text: 'Statistique',
+          click: () => this.openStats(),
+        }
+      ];
+    },
   },
 
   methods: {
@@ -102,7 +117,12 @@ export default {
         newSort.direction = 'desc';
       }
       this.sort = newSort;
-    }
+    },
+
+    openStats() {
+      console.log('Stats Should open');
+    },
+
   }
 };
 

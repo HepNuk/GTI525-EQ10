@@ -14,6 +14,8 @@
                 {{ col }}
               </th>
             </template>
+
+            <th v-if="actionButtons" />
           </tr>
         </thead>
         <tbody>
@@ -28,6 +30,27 @@
                 {{ value }}
               </td>
             </template>
+
+            <td class="table-action-buttons" v-if="actionButtons">
+              <div :key="'action-' + index" v-for="(action, index) in actionButtons">
+                <template v-if="action.type === 'icon'">
+                  <fa 
+                    :icon="action.icon"
+                    color="red"
+                    @click="action.click(row)"
+                  />
+                </template>
+
+                <template v-else-if="action.type === 'text'">
+                  <span 
+                    class="text-action-button"
+                    @click="action.click(row)" 
+                  >
+                    {{ action.text }}
+                  </span>
+                </template>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -58,6 +81,12 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+
+    actionButtons: {
+      type: Array,
+      required: false,
+      default: () => undefined,
     }
   },
 
@@ -65,19 +94,33 @@ export default {
     limitHeightClass() {
       return this.limitHeight ? 'limit-height' : '';
     }
-  }
+  },
 };
 
 </script>
 
 <style lang="scss" scoped>
 table {
-
   td, th { 
     text-align: center;
   }
 
   margin: 0;
+
+  .table-action-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    cursor: pointer;
+
+    .text-action-button {
+      color: black;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
 
 .table-scroll {

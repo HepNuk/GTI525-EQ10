@@ -3,7 +3,7 @@
     ref="btn"
     class="btn"
     :class="[btnType, btnFill]"
-    :style="btnBorder"
+    :style="[btnBorder, btnHover]"
     :disabled="disabled"
   >
     <slot />
@@ -65,6 +65,12 @@ export default {
       default: false,
     },
 
+    hover: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+
     active: {
       type: Boolean,
       required: false,
@@ -93,7 +99,13 @@ export default {
         borderWidth: '2px',
         borderColor: this.borderColor 
       } : {});
-    }
+    },
+
+    btnHover() {
+      return (this.hover ? {
+        '--color-hover': '#EEE',
+      }: {});
+    },
   }
 };
 </script>
@@ -103,6 +115,10 @@ export default {
 
 button { 
   cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--color-hover);
 }
 
 .btn-pale-grey {
