@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import { computed } from '@vue/reactivity';
 export default {
   props: {
     header: {
@@ -82,7 +81,7 @@ table {
 }
 
 .table-scroll {
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .limit-height {
