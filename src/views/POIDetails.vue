@@ -8,12 +8,12 @@
 
       <span>
         <strong>Proximité: </strong>
-        {{ pointOfInterest['Proximité_jeux_repère'] }}
+        {{ pointOfInterest ? pointOfInterest['Proximité_jeux_repère'] : '' }}
       </span>
 
       <span>
         <strong>Remarque: </strong>
-        {{ pointOfInterest.Remarque }}
+        {{ pointOfInterest ? pointOfInterest.Remarque : ''}}
       </span>
     </div>
   </div>
@@ -23,8 +23,9 @@
 export default {
   props: {
     pointOfInterest: {
-      type: Object,
-      required: true,
+      type: [Object, undefined],
+      required: false,
+      default: undefined
     }
   },
 };

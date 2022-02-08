@@ -27,7 +27,7 @@
       class="table"
     />
 
-    <POIDetails v-if="showPOIDetails" :point-of-interest="showPOIDetails"/>
+    <POIDetails :point-of-interest="showPOIDetails"/>
   </div>
 </template>
 
