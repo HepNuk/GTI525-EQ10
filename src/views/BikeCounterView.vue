@@ -20,7 +20,7 @@
       :data="filteredBikeData"
       :action-buttons="tableActionButtons"
       :paginate="15"
-      class="table table-scroll"
+      class="table"
     />
 
     <StatsView v-if="showStatsFor" @close="closeStats"/>
@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import MyTable from 'src/component/shared/MyTable.vue';
 import csvFile from 'src/assets/csv/compteurs.csv';
 import Sort from 'src/component/shared/Sort.vue';
 import StatsView from './StatsView.vue';
@@ -36,7 +35,6 @@ import StatsView from './StatsView.vue';
 export default {
   components: {
     Sort,
-    MyTable,
     StatsView,
   },
 

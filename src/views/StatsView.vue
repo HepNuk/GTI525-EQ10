@@ -118,6 +118,7 @@ export default {
   justify-content: center;
   align-items: center;
   border: 2px solid black;
+  flex-grow: 1;
 }
 
 .input-section {
