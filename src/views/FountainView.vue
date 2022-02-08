@@ -5,6 +5,8 @@
         Point d'intérêts: Fontaines à boire
       </h2>
 
+
+      <!-- TODO: Add Later if needed else Remove -->
       <!-- <Sort
         title="Trier par: "
         :sort-options="filteredHeader"
