@@ -3,7 +3,7 @@
     ref="btn"
     class="btn"
     :class="[btnType, btnFill, btnHover]"
-    :style="[btnBorder, btnHover]"
+    :style="[btnBorder, btnHoverColor]"
     :disabled="disabled"
   >
     <slot />
