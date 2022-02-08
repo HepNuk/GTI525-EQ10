@@ -24,6 +24,8 @@
       show-bottom-separator
       class="table"
     />
+
+    <POIDetails v-if="showPOIDetails" :point-of-interest="showPOIDetails"/>
   </div>
 </template>
 
@@ -31,16 +33,20 @@
 import MyTable from 'src/component/shared/MyTable.vue';
 import csvFile from 'src/assets/csv/fontaines.csv';
 import Sort from 'src/component/shared/Sort.vue';
+import POIDetails from './POIDetails.vue';
 
 export default {
   components: {
     MyTable,
     Sort,
+    POIDetails,
   },
   
   data() {
     return {
       fountainData: csvFile,
+
+      showPOIDetails: undefined,
 
       sort: {
         key: 'Arrondissement',
@@ -117,7 +123,7 @@ export default {
         {
           type: 'icon',
           icon: 'map-marker-alt',
-          click: (row) => { console.log(row.Longitude, row.Latitude); },
+          click: (row) => this.openPOIDetails(row),
         }
       ];
     },
@@ -134,6 +140,14 @@ export default {
         newSort.direction = 'desc';
       }
       this.sort = newSort;
+    },
+
+    openPOIDetails(row) {
+      this.showPOIDetails = row;
+    },
+
+    closePOIDetails() {
+      this.showPOIDetails = undefined;
     }
   }
 };

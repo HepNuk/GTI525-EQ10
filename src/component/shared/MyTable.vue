@@ -42,11 +42,13 @@
             <td class="table-action-buttons" v-if="actionButtons">
               <div :key="'action-' + index" v-for="(action, index) in actionButtons">
                 <template v-if="action.type === 'icon'">
-                  <fa 
-                    :icon="action.icon"
-                    color="red"
-                    @click="action.click(row)"
-                  />
+                  <span @click="action.click(row)">
+                    <fa 
+                      :icon="action.icon"
+                      color="red"
+                    />
+                    {{ action.text ? action.text : '' }}
+                  </span>
                 </template>
 
                 <template v-else-if="action.type === 'text'">
@@ -196,6 +198,10 @@ table {
       &:hover {
         text-decoration: underline;
       }
+    }
+
+    span:hover {
+        text-decoration: underline;
     }
   }
 }
