@@ -77,13 +77,13 @@ export default {
     navBarActionItems() {
       return [
         {
-          title: 'Bike Counter',
+          title: 'Comptages de vélos',
           value: views.bikeCounter,
           active: (this.view === views.bikeCounter),
           action: () => this.$emit('change-view', views.bikeCounter)
         },
         {
-          title: 'Point of Interest',
+          title: 'Points d\'intérêt',
           dropDownOptions: this.pointOfInterestDropDownOptions,
         }
       ];
@@ -92,19 +92,19 @@ export default {
     pointOfInterestDropDownOptions() {
       return [
         {
-          title: 'Water Fountain',
+          title: 'Fontaines à boire',
           value: views.waterFountain,
           active: (this.view === views.waterFountain),
           action: () => this.$emit('change-view', views.waterFountain)
         },
         {
-          title: 'Bike Repair',
+          title: 'Réparation vélos',
           value: views.bikeRepair,
           active: (this.view === views.bikeRepair),
           action: () => this.$emit('change-view', views.bikeRepair)
         },
         {
-          title: 'Add Point of Interest',
+          title: 'Ajouter un point d\'intérêt',
           value: views.addPoi,
           active: (this.view === views.addPoi),
           action: () => this.$emit('change-view', views.addPoi)

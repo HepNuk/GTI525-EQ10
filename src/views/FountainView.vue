@@ -34,13 +34,13 @@
 <script>
 import MyTable from 'src/component/shared/MyTable.vue';
 import csvFile from 'src/assets/csv/fontaines.csv';
-import Sort from 'src/component/shared/Sort.vue';
+// import Sort from 'src/component/shared/Sort.vue';
 import POIDetails from './POIDetails.vue';
 
 export default {
   components: {
     MyTable,
-    Sort,
+    // Sort,
     POIDetails,
   },
   
