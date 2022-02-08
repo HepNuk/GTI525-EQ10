@@ -90,12 +90,6 @@ export default {
     },
 
     pointOfInterestDropDownOptions() {
-      const poi = {
-        waterFountain: 'poi-water-fountain',
-        bikeRepair: 'poi-bike-repair',
-        addPoi: 'poi-add',
-      };
-
       return [
         {
           title: 'Water Fountain',
@@ -141,15 +135,20 @@ export default {
   min-height: 10rem;
 }
 
-.data-view, .main-nav-bar {
+.data-view, .nav-view{
   border: 2px solid black;
   padding: 5px;
   margin: 5px;
   flex-grow: 1;
-  max-width: 1100px;
+}
+
+.nav-view {
+  min-width: 250px;
+  max-width: 250px;
 }
 
 .data-view {
+  max-width: 1100px;
   flex-grow: 1;
 }
 </style>

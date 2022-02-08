@@ -19,31 +19,37 @@
       :filtered-header="filteredHeader"
       :data="filteredBikeData"
       :action-buttons="tableActionButtons"
-      limitHeight
-      class="table table-scroll"
+      :paginate="15"
+      show-bottom-separator
+      class="table"
     />
+
+    <StatsView v-if="showStatsFor" @close="closeStats"/>
   </div>
 </template>
 
 <script>
-import MyTable from 'src/component/shared/MyTable.vue';
 import csvFile from 'src/assets/csv/compteurs.csv';
 import Sort from 'src/component/shared/Sort.vue';
+import StatsView from './StatsView.vue';
 
 export default {
   components: {
     Sort,
-    MyTable,
+    StatsView,
   },
 
   data() {
     return {
       bikeCounterData: csvFile,
 
+      showStatsFor: undefined,
+
       sort: {
         key: 'ID',
         direction: 'asc',
       }
+      
     };
   },
 
@@ -100,7 +106,7 @@ export default {
         {
           type: 'text',
           text: 'Statistique',
-          click: () => this.openStats(),
+          click: (row) => this.openStats(row),
         }
       ];
     },
@@ -119,10 +125,13 @@ export default {
       this.sort = newSort;
     },
 
-    openStats() {
-      console.log('Stats Should open');
+    openStats(row) {
+      this.showStatsFor = row.ID;
     },
-
+    
+    closeStats() {
+      this.showStatsFor = undefined;
+    }
   }
 };
 
