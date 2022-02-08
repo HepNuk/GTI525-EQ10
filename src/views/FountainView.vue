@@ -5,12 +5,12 @@
         Point d'intérêts: Fontaines à boire
       </h2>
 
-      <Sort
+      <!-- <Sort
         title="Trier par: "
         :sort-options="filteredHeader"
         :sort="sort"
         @toggle-sort="toggleSort"
-      />
+      /> -->
     </div>
 
     <MyTable
