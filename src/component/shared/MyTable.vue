@@ -1,6 +1,6 @@
 <template>
-  <div class="table-container" :class="limitHeightClass">
-    <div class="table-scroll py-1">
+  <div class="table-container mb-0" :class="limitHeightClass">
+    <div class="table-scroll pt-1">
       <table class="table table-sm table-striped">
         <thead class="table-dark">
           <tr>
@@ -88,6 +88,8 @@
         </MyButton>
       </div>
     </div>
+
+    <hr v-if="showBottomSeparator" class="my-2">
   </div>
 </template>
 
@@ -132,6 +134,12 @@ export default {
       type: Object,
       required: false,
       default: () => {}
+    },
+
+    showBottomSeparator: {
+      type: Boolean,
+      required: false,
+      default: false,
     }
   },
 
@@ -215,7 +223,7 @@ table {
     line-height: 25px;
     padding: 0 4px;
     width: 35px;
-    margin-right: 3px;
+    margin-right: 0px;
     text-align: center;
     max-height: 25px;
 

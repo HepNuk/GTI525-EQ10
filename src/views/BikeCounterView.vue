@@ -20,6 +20,7 @@
       :data="filteredBikeData"
       :action-buttons="tableActionButtons"
       :paginate="15"
+      show-bottom-separator
       class="table"
     />
 

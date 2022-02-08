@@ -21,6 +21,7 @@
       :action-buttons="tableActionButtons"
       :paginate="15"
       :column-settings="columnSettings"
+      show-bottom-separator
       class="table"
     />
   </div>

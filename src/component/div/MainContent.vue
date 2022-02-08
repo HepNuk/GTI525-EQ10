@@ -90,12 +90,6 @@ export default {
     },
 
     pointOfInterestDropDownOptions() {
-      const poi = {
-        waterFountain: 'poi-water-fountain',
-        bikeRepair: 'poi-bike-repair',
-        addPoi: 'poi-add',
-      };
-
       return [
         {
           title: 'Water Fountain',
