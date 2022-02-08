@@ -119,6 +119,7 @@ export default {
 
 button { 
   cursor: pointer;
+  border-radius: 0px !important;
 }
 
 .btn-pale-grey {

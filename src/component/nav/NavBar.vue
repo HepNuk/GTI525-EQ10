@@ -1,39 +1,41 @@
 <template>
-  <nav class="nav nav-pills gap-1">
-    <li 
-      v-for="navItem in navItems"
-      :key="navItem.value"
-      class="nav-item d-grid"
-    >
-      <template v-if="navItem.dropDownOptions">
-        <DropDownButton
-          :drop-down-options="navItem.dropDownOptions"
+  <nav>
+    <ul class="nav gap-1">
+      <li 
+        v-for="navItem in navItems"
+        :key="navItem.value"
+        class="nav-item d-grid"
+      >
+        <template v-if="navItem.dropDownOptions">
+          <DropDownButton
+            :drop-down-options="navItem.dropDownOptions"
+            type="dark"
+            notActiveType="pale-grey"
+            border
+            border-color="#333"
+            :active="false"
+            fill
+            @change-view="$emit('change-view', $event)"
+          >
+            {{ navItem.title }}
+          </DropDownButton>
+        </template>
+
+        <MyButton
+          v-else
+          fill
           type="dark"
           notActiveType="pale-grey"
           border
           border-color="#333"
-          :active="false"
-          fill
-          @change-view="$emit('change-view', $event)"
+          :hover="!navItem.active"
+          :active="navItem.active"
+          @click="navItem.action"
         >
           {{ navItem.title }}
-        </DropDownButton>
-      </template>
-
-      <MyButton
-        v-else
-        fill
-        type="dark"
-        notActiveType="pale-grey"
-        border
-        border-color="#333"
-        :hover="!navItem.active"
-        :active="navItem.active"
-        @click="navItem.action"
-      >
-        {{ navItem.title }}
-      </MyButton>
-    </li>
+        </MyButton>
+      </li>
+    </ul>
   </nav>
 </template>
 
@@ -57,6 +59,7 @@ export default {
 
 <style lang="scss" scoped>
 .nav {
+  margin-left: 0px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
