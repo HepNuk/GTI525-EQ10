@@ -10,10 +10,10 @@ export default {
   computed: {
     header() {
       return [
-        'First Name',
-        'Last Name',
-        'Email',
-        'Permanent Code',
+        'Prénom',
+        'Nom de famille',
+        'Courielle',
+        'Code Permanent',
       ];
     },
 

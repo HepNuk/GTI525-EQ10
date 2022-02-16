@@ -5,12 +5,14 @@
         Point d'intérêts: Fontaines à boire
       </h2>
 
-      <Sort
+
+      <!-- TODO: Add Later if needed else Remove -->
+      <!-- <Sort
         title="Trier par: "
         :sort-options="filteredHeader"
         :sort="sort"
         @toggle-sort="toggleSort"
-      />
+      /> -->
     </div>
 
     <MyTable
@@ -18,26 +20,35 @@
       :header="headerRow" 
       :filtered-header="filteredHeader"
       :data="filteredFountainData"
-      limitHeight
+      :action-buttons="tableActionButtons"
+      :paginate="15"
+      :column-settings="columnSettings"
+      show-bottom-separator
       class="table"
     />
+
+    <POIDetails :point-of-interest="showPOIDetails"/>
   </div>
 </template>
 
 <script>
 import MyTable from 'src/component/shared/MyTable.vue';
 import csvFile from 'src/assets/csv/fontaines.csv';
-import Sort from 'src/component/shared/Sort.vue';
+// import Sort from 'src/component/shared/Sort.vue';
+import POIDetails from './POIDetails.vue';
 
 export default {
   components: {
     MyTable,
-    Sort,
+    // Sort,
+    POIDetails,
   },
   
   data() {
     return {
       fountainData: csvFile,
+
+      showPOIDetails: undefined,
 
       sort: {
         key: 'Arrondissement',
@@ -49,6 +60,26 @@ export default {
   computed: {
     headerRow() {
       return Object.keys(csvFile[0]);
+    },
+
+    columnSettings() {
+      return {
+        Arrondissement: {
+          maxWidth: '300px'
+        },
+        Proximité_jeux_repère: {
+          maxWidth: '150px'
+        },
+        Nom_parc_lieu: {
+          maxWidth: '300px'
+        },
+        Intersection: {
+          maxWidth: '200px'
+        },
+        buttonActions: {
+          maxWidth: '20px'
+        },
+      };
     },
 
     filteredFountainData(){
@@ -88,6 +119,16 @@ export default {
         Intersection: 'Adresse',
       };
     },
+
+    tableActionButtons() {
+      return [
+        {
+          type: 'icon',
+          icon: 'map-marker-alt',
+          click: (row) => this.openPOIDetails(row),
+        }
+      ];
+    },
   },
 
   methods: {
@@ -101,6 +142,14 @@ export default {
         newSort.direction = 'desc';
       }
       this.sort = newSort;
+    },
+
+    openPOIDetails(row) {
+      this.showPOIDetails = row;
+    },
+
+    closePOIDetails() {
+      this.showPOIDetails = undefined;
     }
   }
 };
@@ -108,12 +157,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  // .fountain-view{
-  //   padding: 10px;
-  //   display: grid;
-  // }
-  // .title{
-  //   font-weight: bold;
-  //   text-decoration: underline;
-  // }
 </style>

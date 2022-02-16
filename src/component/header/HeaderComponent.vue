@@ -1,6 +1,6 @@
 <template>
   <header>
-    <img class="logo" src="https://elementalcycle.com/wp-content/uploads/2015/07/Cycling-mountain-bike-royalty-free-vector-icon-released-under-the-300x208.png" alt="" >
+    <img class="logo" :src="require('src/assets/img/logo.png')" alt="" >
     <div class="message">
       <h1 class="mt-1">
         Bienvenue sur Mobi-Urbaine
@@ -8,12 +8,6 @@
     </div>
   </header>
 </template>
-
-<script>
-export default {
-};
-
-</script>
 
 <style lang="scss" scoped>
 header{
