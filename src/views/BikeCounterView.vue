@@ -111,10 +111,6 @@ export default {
     },
   },
 
-  mounted() {
-    console.log(csvFile);
-  },
-
   methods: {
     toggleSort(key) {
       const newSort = {
