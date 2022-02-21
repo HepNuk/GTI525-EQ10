@@ -5,30 +5,39 @@ delete `node_modules` folder if exists
 
 Then install dependencies
 ```bash
-npm install
+npm run install-full
 ```
 
-then you can run server with
+then you can run dev server with
 ```bash
 npm run dev
 ```
 
-## Scripts 
+<br>
 
-To build
-```bash
-npm run build
-```
-
-To check lint 
+## Scripts
+### To check lint 
 ```bash
 npm run lint
 ```
 
-To Fix linting errors/warnings
+### To Fix linting errors/warnings
 ```bash
 npm run lint-fix
 ```
 
+### To run a production version 
+```bash
+npm run build
+```
+then if windows
+```bash
+npm start-windows
+```
+or if linux or mac
+```bash
+start-linux
+```
 Recommended Extensions: 
 - Vetur 
+- ESLint

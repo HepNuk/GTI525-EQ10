@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const { PORT, mongoUri } = require('./config');
 
+const testRoute = require('./routes/api/testRoute');
+
 app.use(cors())
   .use(morgan('tiny'))
   .use(bodyParser.json())
@@ -19,6 +21,15 @@ app.use(cors())
 //   })
 //   .catch((err) => console.log(err));
 // ///////////
+
+// * API ROUTES * app.use('/api/routes', routeObject)
+
+// exaple routes : 
+// http://localhost:8000/api/test_route/
+// http://localhost:8000/api/test_route/route2
+app.use('/api/test_route', testRoute)
+
+// ***
 
 // set up rate limiter: maximum of five requests per minute
 var RateLimit = require('express-rate-limit');
