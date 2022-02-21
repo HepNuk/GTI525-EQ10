@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint \"**/*.{vue,ts,js}\""
+    "lint": "eslint \"**/*.{vue,ts,js}\"",
+    "lint-fix": "eslint \"**/*.{vue,ts,js}\" --fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",

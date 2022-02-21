@@ -1,6 +1,6 @@
 <template>
   <header>
-    <!-- <img class="logo" :src="require('src/assets/img/logo.png')" alt="" > -->
+    <img class="logo" :src="logoImg" alt="" >
     <div class="message">
       <h1 class="mt-1">
         Bienvenue sur Mobi-Urbaine
@@ -8,6 +8,18 @@
     </div>
   </header>
 </template>
+
+<script>
+import logoImg from '~/assets/img/logo.png';
+
+export default {
+  setup() {
+    return {
+      logoImg
+    };
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 header{
