@@ -45,8 +45,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./assets/css/vars.scss";
-@import "./assets/css/styles.scss";
+@import "src/assets/css/vars.scss";
+@import "src/assets/css/styles.scss";
 
 .app {
   margin: 0 auto;
