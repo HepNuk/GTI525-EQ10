@@ -1,6 +1,6 @@
 <template>
   <header>
-    <img class="logo" :src="require('src/assets/img/logo.png')" alt="" >
+    <!-- <img class="logo" :src="require('src/assets/img/logo.png')" alt="" > -->
     <div class="message">
       <h1 class="mt-1">
         Bienvenue sur Mobi-Urbaine

@@ -60,7 +60,6 @@ export default {
 
     filteredBikeData() {
       const filteredBikeData = [...this.bikeCounterData];
-
       filteredBikeData.sort((a, b) => {
         a = a[this.sort.key];
         b = b[this.sort.key];
@@ -110,6 +109,10 @@ export default {
         }
       ];
     },
+  },
+
+  mounted() {
+    console.log(csvFile);
   },
 
   methods: {
