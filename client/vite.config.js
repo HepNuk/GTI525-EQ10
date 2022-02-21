@@ -2,6 +2,7 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import content from '@originjs/vite-plugin-content';
+import { VitePluginNode } from 'vite-plugin-node';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,7 +23,10 @@ export default defineConfig({
           cast: true
         }
       }
-    }),
+    })
   ],
-  base: '',
+  // server: {
+  //   port: 3000,
+  // },
+  // base: 'client',
 });
