@@ -6,6 +6,9 @@
   "scripts": {
     "server": "nodemon server.js --ignore 'client/' ",
     "client": "npm run dev --prefix client",
+    "preview": "npm run preview --prefix client",
+    "vite": "npm run client",
+    "vue-dev": "npm run client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "start": "node server.js",
     "start-windows": "(for /F \"tokens=*\" %i in (.env) do set %i) && npm start",
@@ -14,6 +17,7 @@
     "install:server": "npm install",
     "install:client": "cd ./client && npm install",
     "install-full": "npm run install:server && npm run install:client",
+    "install-all": "npm run install:server && npm run install:client",
     "lint": "npm run lint --prefix client",
     "lint-fix": "npm run lint-fix --prefix client"
   },

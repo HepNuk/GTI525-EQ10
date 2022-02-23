@@ -1,4 +1,5 @@
+const ENV = process.env
 module.exports = {
-    mongoUri: process.env.MONGO_URI,
-    PORT: process.env.PORT || 8000,
+    mongoUri: ENV['MONGO_URI'],
+    PORT: ENV['PORT'] || 8000,
 }

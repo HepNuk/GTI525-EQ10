@@ -1,3 +1,4 @@
+const ENV = process.env;
 const express = require('express');
 const app = express();
 // const mongoose = require('mongoose');
@@ -7,28 +8,35 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const { PORT, mongoUri } = require('./config');
 
+// Example route files DELETE later I guess when we have actual routes.
 const testRoute = require('./routes/api/testRoute');
 
-app.use(cors())
+// If we use vue-router all of the routes from vue router should be included here. 
+// Could use and filter the route from the vue-router file if possible. 
+const vueRoutes = ['/'] 
+const pathToVueProdIndex = path.resolve(__dirname, 'client', 'dist', 'index.html')
+// sendFile handler for vue app's built for production index file.
+const vueAppHandler = (req, res, next) => res.sendFile(pathToVueProdIndex);
+
+app
+  .use(cors())
   .use(morgan('tiny'))
   .use(bodyParser.json())
 
-// /////// For later if they make us use a DB
+// // For later if they make us use a DB
 // mongoose
 //   .connect(mongoUri)
 //   .then(() => {
 //       console.log('Connection to MongoDB is successful.');
 //   })
 //   .catch((err) => console.log(err));
-// ///////////
+// // *************
 
 // * API ROUTES * app.use('/api/routes', routeObject)
-
-// exaple routes : 
+// example routes : 
 // http://localhost:8000/api/test_route/
 // http://localhost:8000/api/test_route/route2
 app.use('/api/test_route', testRoute)
-
 // ***
 
 // set up rate limiter: maximum of five requests per minute
@@ -41,11 +49,13 @@ var limiter = new RateLimit({
 // apply rate limiter to all requests
 app.use(limiter)
 
-if (process.env.NODE_ENV == 'production') {
+// If production (npm run start-linux or npm run start-windows)
+if (ENV['NODE_ENV'] == 'production') {
   app.use(express.static('client/dist'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
-  })
+  // For each possible vue route (which can be multiple if using vue-router) set the handler on that route to serve the index.html
+  vueRoutes.forEach((route) => app.get(route, vueAppHandler));
 }
 
-app.listen(PORT, () => console.log((`App listening at http://localhost:${PORT}`)));
+app.listen(PORT, () => {
+  console.log((`Server App listening at http://localhost:${PORT}`))
+});
