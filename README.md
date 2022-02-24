@@ -78,10 +78,12 @@ this will run server on port 8000 which will serve the compiled vue app located 
 ---
 ## All Scripts
 
+
 To run only the ExpressApp server in Dev mode. 
 ```bash
 npm run server
 ```
+
 
 To run only the Vue App Located in the `/client` directory in Dev mode 
 ```bash
@@ -92,17 +94,21 @@ npm run vite
 npm run vue-dev
 ```
 
-To run both servers concurrently used for developement 
-The Vue App is avaiable on http://localhost:3000/
-While the expressApp back will always be on http://localhost:8000/ (this is why all api calls in vue app should be written for port 8000 despite the dev server running on port 3000)
+
+To run both servers concurrently used for developement <br>
+The Vue App is avaiable on http://localhost:3000/ <br>
+While the expressApp back will always be on http://localhost:8000/ <br>
+(this is why all api calls in vue app should be written for port 8000 despite the dev server running on port 3000)
 ```bash
 npm run dev
 ```
+
 
 To run the ExpressApp server not in Dev mode but not in prodcution either (probably useless hoenstly)
 ```bash
 npm run start
 ```
+
 
 To run the server in production mode for a given OS
 ```bash
@@ -111,23 +117,27 @@ npm run start-windows
 npm run start-linux
 ```
 
+
 To build the Vue App and have it be ready for production/demo should be run before running `npm run start-windows` / `npm run start-linux`
 ```bash
 npm run build
 ```
 
-To install package.json dependancies for ExpressApp 
+
+To install package.json dependancies for ExpressApp <br>
 (Alternatively : you can use npm install)
 ```bash
 npm run install:server
 ```
 
-To install package.json dependancies for the Vue App
-(Alternatively : you can `cd client` then `npm install` from the client folder)
+
+To install package.json dependancies for the Vue App <br>
+(Alternatively : you can `cd client` then `npm install` from the client folder) <br>
 (Note : To install new packages you must `cd client` then `npm install [package-name]`)
 ```bash
 npm run install:client
 ```
+
 
 To run npm install on both ExpressApp and Vue App
 ```bash
@@ -135,6 +145,7 @@ npm run install-all
 # or
 npm run install-full
 ```
+
 
 For Linting
 ```bash
