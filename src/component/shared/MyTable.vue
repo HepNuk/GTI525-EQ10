@@ -162,7 +162,7 @@ export default {
       }
 
       const startIndex = (this.page - 1) * this.paginate;
-      const endIndex = (endIndex > this.data.length) ? this.data.length : (this.page * this.paginate);
+      const endIndex = (this.paginate > this.data.length) ? this.data.length : (this.page * this.paginate);
 
       return this.data.slice(startIndex, endIndex);
     },

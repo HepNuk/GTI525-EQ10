@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "plugin:vue/vue3-essential"
+  ],
+  "rules": {
+    "no-unused-vars": "off",
+    "vue/no-unused-components": "warn",
+    "no-constant-condition": "warn",
+    "semi": [
+      "warn",
+      "always"
+    ],
+    "curly": [
+      "warn",
+      "all"
+    ]
+  }
+}
