@@ -1,13 +1,25 @@
 <template>
   <select v-model="newValue">
     <option :value="0" disabled selected>{{ placeholder }}</option>
-    <option 
-      v-for="(option, index) in options"
-      :key="index"
-      :value="index + 1"
-    >
-      {{ option }}
-    </option>
+    <template v-if="Array.isArray(options)">
+      <option 
+        v-for="(option, i) in options"
+        :key="i"
+        :value="i + 1"
+      >
+        {{ option }}
+      </option>
+    </template>
+
+    <template v-else>
+      <option 
+        v-for="(option, key) in options"
+        :key="key"
+        :value="key"
+      >
+        {{ option.name }}
+      </option>
+    </template>
   </select>
 </template>
 
@@ -25,7 +37,7 @@ export default {
     },
 
     options: {
-      type: Array,
+      type: [Array, Object],
       required: true,
     }
   },
@@ -44,7 +56,7 @@ export default {
         this.$emit('update:modelValue', to);
       }
     }
-  }
+  },
 };
 </script>
 

@@ -19,14 +19,14 @@
         <label for="de">De: </label>
         <MySelectionInput v-model="fromYear" :options="options.years" placeholder="Année"/>
         <MySelectionInput v-model="fromMonth" :options="options.months" placeholder="Mois"/>
-        <MySelectionInput v-model="fromHour" :options="options.hours" placeholder="Heure"/>
+        <MySelectionInput v-model="fromDay" :options="fromDays" placeholder="Jours"/>
       </div>
 
       <div class="input-line to-inputs px-2">
         <label for="a">A: </label>
         <MySelectionInput v-model="toYear" :options="options.years" placeholder="Année"/>
         <MySelectionInput v-model="toMonth" :options="options.months" placeholder="Mois"/>
-        <MySelectionInput v-model="toHour" :options="options.hours" placeholder="Heure"/>
+        <MySelectionInput v-model="toDay" :options="toDays" placeholder="Jours"/>
       </div>
     </div>
 
@@ -42,7 +42,7 @@
 
 <script>
 import MySelectionInput from 'src/component/shared/MySelectionInput.vue';
-import { years, months, hours } from 'src/constants';
+import { years, months, days } from 'src/constants';
 
 export default {
   components: {
@@ -53,11 +53,11 @@ export default {
     return {
       fromYear: 0,
       fromMonth: 0,
-      fromHour: 0,
+      fromDay: 0,
       
       toYear: 0,
       toMonth: 0,
-      toHour: 0,
+      toDay: 0,
     };
   },
 
@@ -66,20 +66,60 @@ export default {
       return {
         years: years,
         months: months,
-        hours: hours,
+        days: days,
       };
     },
+
+    fromDays() {
+      if (this.fromMonth === 0) return [];
+      let fromSlice = this.options.months[this.fromMonth].days;
+
+      if (this.fromMonth === 'feb'
+        && this.options.years[this.fromYear-1] !== 0
+        && Number(this.options.years[this.fromYear-1]) % 4 === 0) {
+        
+        fromSlice = 29;
+      }
+      
+      return days.slice(0, fromSlice);
+    },
+
+    toDays() {
+      if (this.toMonth === 0) return [];
+      let toSlice = this.options.months[this.toMonth].days;
+
+      if (this.toMonth === 'feb'
+        && this.options.years[this.toYear-1] !== 0
+        && Number(this.options.years[this.toYear-1]) % 4 === 0) {
+        
+        toSlice = 29;
+      }
+
+      return days.slice(0, toSlice);
+    },
+
+    selectedValues() {
+      return {
+        fromYear: this.options.years[this.fromYear-1],
+        fromMonth: this.fromMonth,
+        fromDay: this.options.days[this.fromDay-1],
+        
+        toYear: this.options.years[this.toYear-1],
+        toMonth: this.toMonth,
+        toDay: this.options.days[this.toDay-1],
+      };
+    }
   },
 
   methods: {
     submit() {
       console.log(
-        'fromYear: ', this.options.years[this.fromYear-1],
-        '\nfromMonth: ', this.options.months[this.fromMonth-1],
-        '\nfromHour: ', this.options.hours[this.fromHour-1],
-        '\ntoYear: ', this.options.years[this.toYear-1],
-        '\ntoMonth: ', this.options.months[this.toMonth-1],
-        '\ntoHour: ', this.options.hours[this.toHour-1]
+        'fromYear: ', this.selectedValues.fromYear,
+        '\nfromMonth: ', this.selectedValues.fromMonth,
+        '\nfromDay: ', this.selectedValues.fromDay,
+        '\ntoYear: ', this.selectedValues.toYear,
+        '\ntoMonth: ', this.selectedValues.toMonth,
+        '\ntoDay: ', this.selectedValues.toDay,
       );
     }
   }

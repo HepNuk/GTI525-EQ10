@@ -24,19 +24,19 @@
       class="table"
     />
 
-    <StatsView v-if="showStatsFor" @close="closeStats"/>
+    <Stats v-if="showStatsFor" @close="closeStats"/>
   </div>
 </template>
 
 <script>
 import csvFile from 'src/assets/csv/compteurs.csv';
 import Sort from 'src/component/shared/Sort.vue';
-import StatsView from './StatsView.vue';
+import Stats from '../component/shared/Stats.vue';
 
 export default {
   components: {
     Sort,
-    StatsView,
+    Stats,
   },
 
   data() {

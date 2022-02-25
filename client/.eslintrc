@@ -9,10 +9,6 @@
     "semi": [
       "warn",
       "always"
-    ],
-    "curly": [
-      "warn",
-      "all"
     ]
   }
 }
