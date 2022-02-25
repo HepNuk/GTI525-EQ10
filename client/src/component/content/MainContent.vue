@@ -7,50 +7,25 @@
       />
 
       <div class="data-view">
-        <!-- Bike Counter View -->
-        <BikeCounterView
-          v-if="showBikeView"
-          class="main-view"
-        />
-
-        <!-- Point of interests -->
-        <FountainView
-          v-else-if="showWaterFountainView"
-          class="main-view"
-        />
-        <BikeRepairView
-          v-else-if="showBikeRepairView"
-          class="main-view"          
-        />
-        <AddIntPointView
-          v-else-if="showAddIntPointView"
-          class="main-view"
-        />
+        <router-view class="main-view">
+        </router-view>
       </div>
     </div>
 </template>
 
 <script>
 import NavBar from 'src/component/nav/NavBar.vue';
-import BikeCounterView from 'src/views/BikeCounterView.vue';
-import FountainView from 'src/views/FountainView.vue';
-import BikeRepairView from 'src/views/BikeRepairView.vue';
-import AddIntPointView from 'src/views/AddIntPointView.vue';
 
 const views = {
-  bikeCounter: 'bike-counter',
-  waterFountain: 'poi-water-fountain',
-  bikeRepair: 'poi-bike-repair',
-  addPoi: 'poi-add',
+  bikeCounter: 'BikeCounter',
+  waterFountain: 'Fountain',
+  bikeRepair: 'BikeRepair',
+  addPoi: 'AddIntPoint',
 };
 
 export default {
   components: {
     NavBar,
-    BikeCounterView,
-    FountainView,
-    BikeRepairView,
-    AddIntPointView,
   },
 
   props: {
@@ -79,8 +54,8 @@ export default {
         {
           title: 'Comptages de vélos',
           value: views.bikeCounter,
-          active: (this.view === views.bikeCounter),
-          action: () => this.$emit('change-view', views.bikeCounter)
+          active: this.$route.name === views.bikeCounter,
+          action: () => this.$router.push({ name: views.bikeCounter})
         },
         {
           title: 'Points d\'intérêt',
@@ -94,20 +69,20 @@ export default {
         {
           title: 'Fontaines à boire',
           value: views.waterFountain,
-          active: (this.view === views.waterFountain),
-          action: () => this.$emit('change-view', views.waterFountain)
+          active: (this.$route.name === views.waterFountain),
+          action: () => this.$router.push({ name: views.waterFountain })
         },
         {
           title: 'Réparation vélos',
           value: views.bikeRepair,
-          active: (this.view === views.bikeRepair),
-          action: () => this.$emit('change-view', views.bikeRepair)
+          active: (this.$route.name === views.bikeRepair),
+          action: () => this.$router.push({ name: views.bikeRepair })
         },
         {
           title: 'Ajouter un point d\'intérêt',
           value: views.addPoi,
-          active: (this.view === views.addPoi),
-          action: () => this.$emit('change-view', views.addPoi)
+          active: (this.$route.name === views.addPoi),
+          action: () => this.$router.push({ name: views.addPoi })
         }
       ];
     } 
