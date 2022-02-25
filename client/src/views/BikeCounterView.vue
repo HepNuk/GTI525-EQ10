@@ -1,30 +1,40 @@
 <template>
   <div class="bike-counter-view content-view">
-    <div class="content-view-header p-3">
-      <h2 class="title">
-        Comptages de vélos
-      </h2>
-
-      <Sort
-        title="Trier par: "
-        :sort-options="filteredHeader"
-        :sort="sort"
-        @toggle-sort="toggleSort"
+    <template v-if="!chartDetails">
+      <div class="content-view-header p-3">
+        <h2 class="title">
+          Comptages de vélos
+        </h2>
+  
+        <Sort
+          title="Trier par: "
+          :sort-options="filteredHeader"
+          :sort="sort"
+          @toggle-sort="toggleSort"
+        />
+      </div>
+  
+      <MyTable
+        v-if="bikeCounterData"
+        :header="headerRow"
+        :filtered-header="filteredHeader"
+        :data="filteredBikeData"
+        :action-buttons="tableActionButtons"
+        :paginate="15"
+        show-bottom-separator
+        class="table"
       />
-    </div>
+  
+      <Stats 
+        v-if="showStatsFor"
+        @submit="logSubmit"
+        @close="closeStats"
+      />
+    </template>
 
-    <MyTable
-      v-if="bikeCounterData"
-      :header="headerRow"
-      :filtered-header="filteredHeader"
-      :data="filteredBikeData"
-      :action-buttons="tableActionButtons"
-      :paginate="15"
-      show-bottom-separator
-      class="table"
-    />
+    <template v-else>
 
-    <Stats v-if="showStatsFor" @close="closeStats"/>
+    </template>
   </div>
 </template>
 
@@ -130,6 +140,10 @@ export default {
     
     closeStats() {
       this.showStatsFor = undefined;
+    },
+
+    logSubmit(payload) {
+      console.log(payload);
     }
   }
 };

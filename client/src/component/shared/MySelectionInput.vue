@@ -24,7 +24,10 @@
 </template>
 
 <script>
+import { ref, watch } from 'vue';
 export default {
+  emits: ['update:modelValue'],
+  
   props: {
     modelValue: {
       type: [String, Number],
@@ -42,20 +45,11 @@ export default {
     }
   },
 
-  emits: ['update:modelValue'],
+  setup(props, ctx) {
+    const newValue = ref(props.modelValue);
+    watch(newValue, (to) => ctx.emit('update:modelValue', to));
 
-  data() {
-    return {
-      newValue: this.modelValue,
-    };
-  },
-
-  watch: {
-    newValue: {
-      handler(to) {
-        this.$emit('update:modelValue', to);
-      }
-    }
+    return { newValue };
   },
 };
 </script>

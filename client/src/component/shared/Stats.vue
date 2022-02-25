@@ -19,14 +19,14 @@
         <label for="de">De: </label>
         <MySelectionInput v-model="fromYear" :options="options.years" placeholder="Année"/>
         <MySelectionInput v-model="fromMonth" :options="options.months" placeholder="Mois"/>
-        <MySelectionInput v-model="fromDay" :options="fromDays" placeholder="Jours"/>
+        <MySelectionInput v-model="fromDay" :options="fromDaysArray" placeholder="Jours"/>
       </div>
 
       <div class="input-line to-inputs px-2">
         <label for="a">A: </label>
         <MySelectionInput v-model="toYear" :options="options.years" placeholder="Année"/>
         <MySelectionInput v-model="toMonth" :options="options.months" placeholder="Mois"/>
-        <MySelectionInput v-model="toDay" :options="toDays" placeholder="Jours"/>
+        <MySelectionInput v-model="toDay" :options="toDaysArray" placeholder="Jours"/>
       </div>
     </div>
 
@@ -44,84 +44,82 @@
 import MySelectionInput from 'src/component/shared/MySelectionInput.vue';
 import { years, months, days } from 'src/constants';
 
+import { ref, computed } from 'vue';
+
 export default {
+  emits: ['close', 'submit'],
+
   components: {
     MySelectionInput
   },
 
-  data() {
-    return {
-      fromYear: 0,
-      fromMonth: 0,
-      fromDay: 0,
-      
-      toYear: 0,
-      toMonth: 0,
-      toDay: 0,
-    };
-  },
+  setup(_, ctx) {
+    const fromYear = ref(0);
+    const fromMonth = ref(0);
+    const fromDay = ref(0);
+    const toYear = ref(0);
+    const toMonth = ref(0);
+    const toDay = ref(0);
 
-  computed: {
-    options() {
+    const options = computed(() => {
       return {
         years: years,
         months: months,
         days: days,
       };
-    },
+    });
 
-    fromDays() {
-      if (this.fromMonth === 0) return [];
-      let fromSlice = this.options.months[this.fromMonth].days;
+    const fromDaysArray = computed(() => {
+      if (fromMonth.value === 0) return [];
+      let fromSlice = options.value.months[fromMonth.value].days;
 
-      if (this.fromMonth === 'feb'
-        && this.options.years[this.fromYear-1] !== 0
-        && Number(this.options.years[this.fromYear-1]) % 4 === 0) {
+      if (fromMonth.value === 'feb'
+        && options.value.years[fromYear.value-1] !== 0
+        && Number(options.value.years[fromYear.value-1]) % 4 === 0) {
         
         fromSlice = 29;
       }
       
       return days.slice(0, fromSlice);
-    },
+    });
 
-    toDays() {
-      if (this.toMonth === 0) return [];
-      let toSlice = this.options.months[this.toMonth].days;
+    const toDaysArray = computed(() => {
+      if (fromMonth.value === 0) return [];
+      let fromSlice = options.value.months[fromMonth.value].days;
 
-      if (this.toMonth === 'feb'
-        && this.options.years[this.toYear-1] !== 0
-        && Number(this.options.years[this.toYear-1]) % 4 === 0) {
+      if (fromMonth.value === 'feb'
+        && options.value.years[fromYear.value-1] !== 0
+        && Number(options.value.years[fromYear.value-1]) % 4 === 0) {
         
-        toSlice = 29;
+        fromSlice = 29;
       }
+      
+      return days.slice(0, fromSlice);
+    });
 
-      return days.slice(0, toSlice);
-    },
+    const submit = () => ctx.emit('submit', {
+      fromYear: options.value.years[fromYear.value-1],
+      fromMonth: fromMonth.value === 0 ? undefined : fromMonth.value,
+      fromDay: options.value.days[fromDay.value-1],
+      
+      toYear: options.value.years[toYear.value-1],
+      toMonth: toMonth.value === 0 ? undefined : toMonth.value,
+      toDay: options.value.days[toDay.value-1],
+    });
 
-    selectedValues() {
-      return {
-        fromYear: this.options.years[this.fromYear-1],
-        fromMonth: this.fromMonth,
-        fromDay: this.options.days[this.fromDay-1],
-        
-        toYear: this.options.years[this.toYear-1],
-        toMonth: this.toMonth,
-        toDay: this.options.days[this.toDay-1],
-      };
-    }
-  },
+    return {
+      fromYear,
+      fromMonth,
+      fromDay,
+      toYear,
+      toMonth,
+      toDay,
+      options,
+      fromDaysArray,
+      toDaysArray,
 
-  methods: {
-    submit() {
-      console.log(
-        'fromYear: ', this.selectedValues.fromYear,
-        '\nfromMonth: ', this.selectedValues.fromMonth,
-        '\nfromDay: ', this.selectedValues.fromDay,
-        '\ntoYear: ', this.selectedValues.toYear,
-        '\ntoMonth: ', this.selectedValues.toMonth,
-        '\ntoDay: ', this.selectedValues.toDay,
-      );
-    }
+      submit,
+    };
   }
 };
 
