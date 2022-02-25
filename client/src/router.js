@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+
 import BikeCounterView from './views/BikeCounterView.vue';
 import FountainView from './views/FountainView.vue';
 import BikeRepairView from './views/BikeRepairView.vue';

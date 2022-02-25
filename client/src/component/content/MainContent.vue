@@ -7,8 +7,7 @@
       />
 
       <div class="data-view">
-        <router-view class="main-view">
-        </router-view>
+        <router-view class="main-view" />
       </div>
     </div>
 </template>
