@@ -1,36 +1,40 @@
 {
-  "name": "gti525-vite",
+  "name": "gti525-fullstack",
   "private": true,
   "version": "0.0.0",
+  "main": "config.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint": "eslint \"**/*.{vue,ts,js}\"",
-    "lint-fix": "eslint \"**/*.{vue,ts,js}\" --fix",
-    "deploy": "npm run build && gh-pages -d dist"
+    "server": "nodemon server.js --ignore 'client/' ",
+    "client": "npm run dev --prefix client",
+    "preview": "npm run preview --prefix client",
+    "vite": "npm run client",
+    "vue-dev": "npm run client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "node server.js",
+    "start-windows": "(for /F \"tokens=*\" %i in (.env) do set %i) && npm start",
+    "start-linux": "export $(cat .env | xargs) && npm start",
+    "build": "npm run build --prefix client",
+    "install:server": "npm install",
+    "install:client": "cd ./client && npm install",
+    "install-full": "npm run install:server && npm run install:client",
+    "install-all": "npm run install:server && npm run install:client",
+    "lint": "npm run lint --prefix client",
+    "lint-fix": "npm run lint-fix --prefix client"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.36",
-    "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@fortawesome/vue-fontawesome": "^3.0.0-5",
-    "sass": "^1.43.4",
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
     "csv-parser": "^3.0.0",
-    "@vueuse/core": "^7.6.2",
-    "@vueuse/head": "^0.7.5",
-    "vue": "^3.2.25",
-    "vue-router": "^4.0.12",
-    "vue-csv-loader": "^0.1.5",
-    "vue-papa-parse": "^3.0.4"
+    "express": "^4.17.2",
+    "express-rate-limit": "^5.5.1",
+    "mongoose": "^6.1.2",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "@originjs/vite-plugin-content": "^1.0.1",
-    "@vitejs/plugin-vue": "^2.2.0",
-    "babel-eslint": "^10.1.0",
+    "concurrently": "^6.5.0",
+    "nodemon": "^2.0.15",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0",
-    "gh-pages": "^3.2.3",
-    "vite": "^2.8.0",
-    "vite-plugin-pages": "^0.20.2"
+    "babel-eslint": "^10.1.0"
   }
 }

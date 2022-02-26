@@ -1,6 +1,5 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-// import VuePapaParse from 'vue-papa-parse';
 import MyButton from './component/shared/MyButton.vue';
 import MyTable from './component/shared/MyTable.vue';
 import FontAwesomeIcon from './fortawesome-icons';
