@@ -14,6 +14,7 @@
 
 <script>
 import NavBar from 'src/component/nav/NavBar.vue';
+import { testAxios } from 'src/utils/services'; 
 
 const views = {
   bikeCounter: 'BikeCounter',
@@ -85,6 +86,13 @@ export default {
         }
       ];
     } 
+  },
+
+  mounted() {
+    // Help example for Ai-Vi
+    testAxios().then((res) => {
+      console.log(res)
+    })
   },
 
   methods: {
