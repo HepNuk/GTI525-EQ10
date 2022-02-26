@@ -2,11 +2,11 @@
   "scripts": {
     "server": "cd ./server && npm run server",
     "start": "cd ./server && npm run start",
-    "start-windows": "cd ./server && npm run start-windows",
-    "start-linux": "cd ./server && npm run start-linux",
+    "start:windows": "cd ./server && npm run start-windows",
+    "start:linux": "cd ./server && npm run start-linux",
     "dev": "cd ./client && npm run dev",
-    "install-server": "cd ./server && npm install",
-    "install-client": "cd ./client && npm install",
-    "install-all": "npm run install-server && npm install-client"
+    "install:server": "cd ./server && npm install",
+    "install:client": "cd ./client && npm install",
+    "install:all": "npm run install-server && npm run install-client"
   }
 }
