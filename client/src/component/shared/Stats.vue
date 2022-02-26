@@ -19,14 +19,14 @@
         <label for="de">De: </label>
         <MySelectionInput v-model="fromYear" :options="options.years" placeholder="Année"/>
         <MySelectionInput v-model="fromMonth" :options="options.months" placeholder="Mois"/>
-        <MySelectionInput v-model="fromHour" :options="options.hours" placeholder="Heure"/>
+        <MySelectionInput v-model="fromDay" :options="fromDaysArray" placeholder="Jours"/>
       </div>
 
       <div class="input-line to-inputs px-2">
         <label for="a">A: </label>
         <MySelectionInput v-model="toYear" :options="options.years" placeholder="Année"/>
         <MySelectionInput v-model="toMonth" :options="options.months" placeholder="Mois"/>
-        <MySelectionInput v-model="toHour" :options="options.hours" placeholder="Heure"/>
+        <MySelectionInput v-model="toDay" :options="toDaysArray" placeholder="Jours"/>
       </div>
     </div>
 
@@ -42,46 +42,84 @@
 
 <script>
 import MySelectionInput from 'src/component/shared/MySelectionInput.vue';
-import { years, months, hours } from 'src/constants';
+import { years, months, days } from 'src/constants';
+
+import { ref, computed } from 'vue';
 
 export default {
+  emits: ['close', 'submit'],
+
   components: {
     MySelectionInput
   },
 
-  data() {
-    return {
-      fromYear: 0,
-      fromMonth: 0,
-      fromHour: 0,
-      
-      toYear: 0,
-      toMonth: 0,
-      toHour: 0,
-    };
-  },
+  setup(_, ctx) {
+    const fromYear = ref(0);
+    const fromMonth = ref(0);
+    const fromDay = ref(0);
+    const toYear = ref(0);
+    const toMonth = ref(0);
+    const toDay = ref(0);
 
-  computed: {
-    options() {
+    const options = computed(() => {
       return {
         years: years,
         months: months,
-        hours: hours,
+        days: days,
       };
-    },
-  },
+    });
 
-  methods: {
-    submit() {
-      console.log(
-        'fromYear: ', this.options.years[this.fromYear-1],
-        '\nfromMonth: ', this.options.months[this.fromMonth-1],
-        '\nfromHour: ', this.options.hours[this.fromHour-1],
-        '\ntoYear: ', this.options.years[this.toYear-1],
-        '\ntoMonth: ', this.options.months[this.toMonth-1],
-        '\ntoHour: ', this.options.hours[this.toHour-1]
-      );
-    }
+    const fromDaysArray = computed(() => {
+      if (fromMonth.value === 0) return [];
+      let fromSlice = options.value.months[fromMonth.value].days;
+
+      if (fromMonth.value === 'feb'
+        && options.value.years[fromYear.value-1] !== 0
+        && Number(options.value.years[fromYear.value-1]) % 4 === 0) {
+        
+        fromSlice = 29;
+      }
+      
+      return days.slice(0, fromSlice);
+    });
+
+    const toDaysArray = computed(() => {
+      if (fromMonth.value === 0) return [];
+      let fromSlice = options.value.months[fromMonth.value].days;
+
+      if (fromMonth.value === 'feb'
+        && options.value.years[fromYear.value-1] !== 0
+        && Number(options.value.years[fromYear.value-1]) % 4 === 0) {
+        
+        fromSlice = 29;
+      }
+      
+      return days.slice(0, fromSlice);
+    });
+
+    const submit = () => ctx.emit('submit', {
+      fromYear: options.value.years[fromYear.value-1],
+      fromMonth: fromMonth.value === 0 ? undefined : fromMonth.value,
+      fromDay: options.value.days[fromDay.value-1],
+      
+      toYear: options.value.years[toYear.value-1],
+      toMonth: toMonth.value === 0 ? undefined : toMonth.value,
+      toDay: options.value.days[toDay.value-1],
+    });
+
+    return {
+      fromYear,
+      fromMonth,
+      fromDay,
+      toYear,
+      toMonth,
+      toDay,
+      options,
+      fromDaysArray,
+      toDaysArray,
+
+      submit,
+    };
   }
 };
 
