@@ -13,7 +13,7 @@
     "start": "node server.js",
     "start-windows": "(for /F \"tokens=*\" %i in (.env) do set %i) && npm start",
     "start-linux": "export $(cat .env | xargs) && npm start",
-    "build": "npm run build --prefix ./client",
+    "build": "npm run build --prefix client",
     "install:server": "npm install",
     "install:client": "cd ./client && npm install",
     "install-full": "npm run install:server && npm run install:client",

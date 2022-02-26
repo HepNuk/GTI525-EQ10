@@ -6,6 +6,9 @@ import { VitePluginNode } from 'vite-plugin-node';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    outDir: `${path.resolve(__dirname, '../', 'public')}/`
+  },
   resolve: {
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
@@ -24,9 +27,5 @@ export default defineConfig({
         }
       }
     })
-  ],
-  // server: {
-  //   port: 3000,
-  // },
-  // base: 'client',
+  ]
 });
