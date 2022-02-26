@@ -2,9 +2,21 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import content from '@originjs/vite-plugin-content';
+import { VitePluginNode } from 'vite-plugin-node';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    outDir: `${path.resolve(__dirname, '../', 'server/', 'public')}/`
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000/',
+        changeOrigin: true,
+      },
+    }
+  },
   resolve: {
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
@@ -22,7 +34,6 @@ export default defineConfig({
           cast: true
         }
       }
-    }),
-  ],
-  base: '',
+    })
+  ]
 });

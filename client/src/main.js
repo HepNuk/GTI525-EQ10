@@ -1,9 +1,9 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-// import VuePapaParse from 'vue-papa-parse';
 import MyButton from './component/shared/MyButton.vue';
 import MyTable from './component/shared/MyTable.vue';
 import FontAwesomeIcon from './fortawesome-icons';
+import router from './router';
 
 const app = createApp(App);
 
@@ -11,4 +11,5 @@ const app = createApp(App);
 app.component("fa", FontAwesomeIcon);
 app.component("MyButton", MyButton);
 app.component("MyTable", MyTable);
+app.use(router);
 app.mount('#app');
