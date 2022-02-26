@@ -14,7 +14,7 @@ const testRoute = require('./routes/api/testRoute');
 // If we use vue-router all of the routes from vue router should be included here. 
 // Could use and filter the route from the vue-router file if possible. 
 const vueRoutes = ['/'] 
-const pathToVueProdIndex = path.resolve(__dirname, 'client', 'dist', 'index.html')
+const pathToVueProdIndex = path.resolve(__dirname, 'public', 'index.html')
 // sendFile handler for vue app's built for production index file.
 const vueAppHandler = (req, res, next) => res.sendFile(pathToVueProdIndex);
 
