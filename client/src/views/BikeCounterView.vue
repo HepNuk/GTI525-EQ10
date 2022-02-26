@@ -1,42 +1,52 @@
 <template>
   <div class="bike-counter-view content-view">
-    <div class="content-view-header p-3">
-      <h2 class="title">
-        Comptages de vélos
-      </h2>
-
-      <Sort
-        title="Trier par: "
-        :sort-options="filteredHeader"
-        :sort="sort"
-        @toggle-sort="toggleSort"
+    <template v-if="!chartDetails">
+      <div class="content-view-header p-3">
+        <h2 class="title">
+          Comptages de vélos
+        </h2>
+  
+        <Sort
+          title="Trier par: "
+          :sort-options="filteredHeader"
+          :sort="sort"
+          @toggle-sort="toggleSort"
+        />
+      </div>
+  
+      <MyTable
+        v-if="bikeCounterData"
+        :header="headerRow"
+        :filtered-header="filteredHeader"
+        :data="filteredBikeData"
+        :action-buttons="tableActionButtons"
+        :paginate="15"
+        show-bottom-separator
+        class="table"
       />
-    </div>
+  
+      <Stats 
+        v-if="showStatsFor"
+        @submit="logSubmit"
+        @close="closeStats"
+      />
+    </template>
 
-    <MyTable
-      v-if="bikeCounterData"
-      :header="headerRow"
-      :filtered-header="filteredHeader"
-      :data="filteredBikeData"
-      :action-buttons="tableActionButtons"
-      :paginate="15"
-      show-bottom-separator
-      class="table"
-    />
+    <template v-else>
 
-    <StatsView v-if="showStatsFor" @close="closeStats"/>
+    </template>
   </div>
 </template>
 
 <script>
 import csvFile from 'src/assets/csv/compteurs.csv';
 import Sort from 'src/component/shared/Sort.vue';
-import StatsView from './StatsView.vue';
+import Stats from '../component/shared/Stats.vue';
 
 export default {
   components: {
     Sort,
-    StatsView,
+    Stats,
   },
 
   data() {
@@ -130,6 +140,10 @@ export default {
     
     closeStats() {
       this.showStatsFor = undefined;
+    },
+
+    logSubmit(payload) {
+      console.log(payload);
     }
   }
 };

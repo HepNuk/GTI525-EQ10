@@ -82,6 +82,12 @@ export default {
       type: Boolean,
       required: false,
       default: true,
+    },
+
+    routerLink: {
+      type: String,
+      required: false,
+      default: null,
     }
   },
   
