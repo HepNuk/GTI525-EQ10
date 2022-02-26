@@ -19,7 +19,7 @@ const vueRoutes = [
   '/add_poi',
 ];
 
-const pathToVueProdIndex = path.resolve(__dirname, 'client', 'dist', 'index.html')
+const pathToVueProdIndex = path.resolve(__dirname, 'public', 'index.html')
 // sendFile handler for vue app's built for production index file.
 const vueAppHandler = (req, res, next) => res.sendFile(pathToVueProdIndex);
 

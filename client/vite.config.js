@@ -6,6 +6,17 @@ import { VitePluginNode } from 'vite-plugin-node';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    outDir: `${path.resolve(__dirname, '../', 'server/', 'public')}/`
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000/',
+        changeOrigin: true,
+      },
+    }
+  },
   resolve: {
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
@@ -24,9 +35,5 @@ export default defineConfig({
         }
       }
     })
-  ],
-  // server: {
-  //   port: 3000,
-  // },
-  // base: 'client',
+  ]
 });
