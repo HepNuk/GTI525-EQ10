@@ -9,7 +9,8 @@ const path = require('path');
 const { PORT, mongoUri } = require('./config');
 
 // Example route files DELETE later I guess when we have actual routes.
-const testRoute = require('./routes/api/testRoute');
+const routeCompteur = require('./routes/api/routeCompteur');
+
 // If we use vue-router all of the routes from vue router should be included here. 
 // Could use and filter the route from the vue-router file if possible. 
 const vueRoutes = [
@@ -41,7 +42,8 @@ app
 // example routes : 
 // http://localhost:8000/api/test_route/
 // http://localhost:8000/api/test_route/route2
-app.use('/api/test_route', testRoute)
+app.use('/gti525/compteur', routeCompteur);
+
 // ***
 
 // set up rate limiter: maximum of five requests per minute
@@ -56,7 +58,7 @@ app.use(limiter)
 
 // If production (npm run start-linux or npm run start-windows)
 if (ENV['NODE_ENV'] == 'production') {
-  app.use(express.static('client/dist'));
+  app.use(express.static('public'));
   // For each possible vue route (which can be multiple if using vue-router) set the handler on that route to serve the index.html
   vueRoutes.forEach((route) => app.get(route, vueAppHandler));
 }
