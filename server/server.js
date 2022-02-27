@@ -42,7 +42,7 @@ app
 // example routes : 
 // http://localhost:8000/api/test_route/
 // http://localhost:8000/api/test_route/route2
-app.use('/gti525/compteur', routeCompteur);
+app.use('/gti525/v1/compteurs', routeCompteur);
 
 // ***
 
