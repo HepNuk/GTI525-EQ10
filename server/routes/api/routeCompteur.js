@@ -8,7 +8,7 @@ router.get('/:id', (req, res) => {
   let start = req.query['debut'];
   let end = req.query['fin'];
 
-  res.send(getData("counter_stats_2019"));
+  res.send(fetchDataBetweenDate(start,end));
 })
 
 module.exports = router;
