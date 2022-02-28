@@ -1,49 +1,50 @@
 <template>
   <div>
-    <p>
-      <button @click="showModal">
-        Show modal
-      </button>
-    </p>
-
-    <MyModal
+    <Modal
       v-model="isShow"
       :close="closeModal"
     >
       <div class="modal">
         <p>
-          Hello
+           MODAL
         </p>
-        <button @click="closeModal">
-          close
-        </button>
+        <slot name="modal" :closeModal="closeModal"/>
       </div>
-    </MyModal>
+    </Modal>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script>
+import { ref } from 'vue'
 
-export default defineComponent({
-  setup () {
-    const isShow = ref(false)
+export default {
+  emits: ['show-modal', 'close-modal', 'submit'],
+
+  props: {
+    isShow: {
+      type: Boolean,
+      required: true,
+    }
+  },
+
+  setup (props, ctx) {
 
     function showModal () {
-      isShow.value = true
+      ctx.emit('show-modal', true)
     }
 
     function closeModal () {
-      isShow.value = false
+      ctx.emit('close-modal', false)
     }
 
     return {
-      isShow,
+      // isShow,
       showModal,
       closeModal
     }
   }
-})
+};
+
 </script>
 
 <style scoped lang="scss">
@@ -54,5 +55,6 @@ export default defineComponent({
   background-color: #fff;
   font-size: 20px;
   text-align: center;
+  display: flex;
 }
 </style>

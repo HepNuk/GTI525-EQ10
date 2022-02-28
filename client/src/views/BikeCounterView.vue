@@ -31,8 +31,8 @@
         @close="closeStats"
       />
 
-      <!-- <MyModal/> -->
-
+      <!-- <MyModal :is-show="showModal" @close-modal="closeModal"/> -->
+      <MapModal :is-show="showModal" @close-modal="closeModal"/>
     </template>
 
     <template v-else>
@@ -42,20 +42,60 @@
 </template>
 
 <script>
+import { ref, computed } from 'vue';
+
 import csvFile from 'src/assets/csv/compteurs.csv';
 import Sort from 'src/component/shared/Sort.vue';
-import Stats from '../component/shared/Stats.vue';
-import MyModal from '../component/shared/MyModal.vue';
+import Stats from 'src/component/shared/Stats.vue';
+import MyModal from 'src/component/shared/MyModal.vue';
+import MapModal from 'src/component/shared/modals/MapModal.vue';
 
 export default {
   components: {
     Sort,
     Stats,
     MyModal,
+    MapModal,
+  },
+
+  setup() {
+    const showModal = ref(false);
+
+    const openModal = () => {
+      showModal.value = true;
+    };
+
+    const closeModal = () => {
+      showModal.value = false;
+    }
+
+    const tableActionButtons = computed(() => [
+      {
+        type: 'icon',
+        icon: 'map-marker-alt',
+        click: (row) => { 
+          showModal.value = true;
+          console.log(row.Longitude, row.Latitude); 
+        },
+      },
+      {
+        type: 'text',
+        text: 'Statistique',
+        // click: (row) => this.openStats(row),
+      }
+    ]);
+
+    return {
+      tableActionButtons,
+      openModal,
+      closeModal,
+      showModal,
+    }
   },
 
   data() {
     return {
+      chartDetails: false,
       bikeCounterData: csvFile,
 
       showStatsFor: undefined,
@@ -110,20 +150,23 @@ export default {
       };
     },
 
-    tableActionButtons() {
-      return [
-        {
-          type: 'icon',
-          icon: 'map-marker-alt',
-          click: (row) => { console.log(row.Longitude, row.Latitude); },
-        },
-        {
-          type: 'text',
-          text: 'Statistique',
-          click: (row) => this.openStats(row),
-        }
-      ];
-    },
+    // tableActionButtons() {
+    //   return [
+    //     {
+    //       type: 'icon',
+    //       icon: 'map-marker-alt',
+    //       click: (row) => { 
+    //         this.showModal = true;
+    //         console.log(row.Longitude, row.Latitude); 
+    //       },
+    //     },
+    //     {
+    //       type: 'text',
+    //       text: 'Statistique',
+    //       click: (row) => this.openStats(row),
+    //     }
+    //   ];
+    // },
   },
 
   methods: {
