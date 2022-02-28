@@ -33,7 +33,7 @@
     </template>
 
     <template v-else>
-
+      <BaseBarChart />
     </template>
   </div>
 </template>
@@ -42,15 +42,18 @@
 import csvFile from 'src/assets/csv/compteurs.csv';
 import Sort from 'src/component/shared/Sort.vue';
 import Stats from '../component/shared/Stats.vue';
+import BaseBarChart from 'src/component/shared/charts/baseCharts/BaseBarChart.vue';
 
 export default {
   components: {
     Sort,
     Stats,
+    BaseBarChart,
   },
 
   data() {
     return {
+      chartDetails: true,
       bikeCounterData: csvFile,
 
       showStatsFor: undefined,

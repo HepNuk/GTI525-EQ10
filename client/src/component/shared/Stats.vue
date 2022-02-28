@@ -47,11 +47,11 @@ import { years, months, days } from 'src/constants';
 import { ref, computed } from 'vue';
 
 export default {
-  emits: ['close', 'submit'],
-
   components: {
     MySelectionInput
   },
+  
+  emits: ['close', 'submit'],
 
   setup(_, ctx) {
     const fromYear = ref(0);
@@ -61,13 +61,11 @@ export default {
     const toMonth = ref(0);
     const toDay = ref(0);
 
-    const options = computed(() => {
-      return {
-        years: years,
-        months: months,
-        days: days,
-      };
-    });
+    const options = computed(() => ({
+      years: years,
+      months: months,
+      days: days,
+    }));
 
     const fromDaysArray = computed(() => {
       if (fromMonth.value === 0) return [];
