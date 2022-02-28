@@ -44,53 +44,55 @@ export default {
       type: String,
       required: false,
       default: '#000',
-      validator: (value) => (/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(value))
+      validator: (value) =>
+        /#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(value)
     },
 
     border: {
       type: Boolean,
       required: false,
-      default: false,
+      default: false
     },
 
     fill: {
       type: Boolean,
       required: false,
-      default: false,
+      default: false
     },
 
     disabled: {
       type: Boolean,
       required: false,
-      default: false,
+      default: false
     },
 
     hoverColor: {
       type: String,
       required: false,
       default: '#EEE',
-      validator: (value) => (/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(value))
+      validator: (value) =>
+        /#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(value)
     },
 
     hover: {
       type: Boolean,
       required: false,
-      default: true,
+      default: true
     },
 
     active: {
       type: Boolean,
       required: false,
-      default: true,
+      default: true
     },
 
     routerLink: {
       type: String,
       required: false,
-      default: null,
+      default: null
     }
   },
-  
+
   computed: {
     btnType() {
       return 'btn-' + (this.active ? this.type : this.notActiveType);
@@ -101,29 +103,33 @@ export default {
     },
 
     btnBorder() {
-      return (this.border ? {
-        borderWidth: '2px',
-        borderColor: this.borderColor 
-      } : { borderWidth: '0px' });
+      return this.border
+        ? {
+            borderWidth: '2px',
+            borderColor: this.borderColor
+          }
+        : { borderWidth: '0px' };
     },
 
     btnHoverColor() {
-      return (this.hover ? {
-        '--color-hover': this.hoverColor,
-      }: {});
+      return this.hover
+        ? {
+            '--color-hover': this.hoverColor
+          }
+        : {};
     },
-    
+
     btnHover() {
       return this.hover ? 'button-hover' : '';
-    },
+    }
   }
 };
 </script>
 
 <style lang="scss" scopped>
-@import "src/assets/css/vars.scss";
+@import 'src/assets/css/vars.scss';
 
-button { 
+button {
   cursor: pointer;
   border-radius: 0px !important;
 }

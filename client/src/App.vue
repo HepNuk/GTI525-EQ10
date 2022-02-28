@@ -1,8 +1,8 @@
 <template>
   <div class="app">
-    <HeaderComponent/>
-    <MainContent :view="view" @change-view="changeView"/>
-    <FooterComponent/>
+    <HeaderComponent />
+    <MainContent :viewtest-test="view" @change-view="changeView" />
+    <FooterComponent />
   </div>
 </template>
 
@@ -18,23 +18,17 @@ export default {
     FooterComponent
   },
 
-  props: {
-  
-  },
+  props: {},
 
   data() {
     return {
-      view: 'bike-counter',
+      view: 'bike-counter'
     };
   },
 
-  computed: {
+  computed: {},
 
-  },
-
-  mounted() {
-
-  },
+  mounted() {},
 
   methods: {
     changeView(toView) {
@@ -45,13 +39,12 @@ export default {
 </script>
 
 <style lang="scss">
-@import "src/assets/css/vars.scss";
-@import "src/assets/css/styles.scss";
+@import 'src/assets/css/vars.scss';
+@import 'src/assets/css/styles.scss';
 
 .app {
   margin: 0 auto;
   flex-direction: column;
   max-width: 1400px;
 }
-
 </style>

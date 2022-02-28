@@ -8,8 +8,8 @@ import router from './router';
 const app = createApp(App);
 
 // app.use(VuePapaParse);
-app.component("fa", FontAwesomeIcon);
-app.component("MyButton", MyButton);
-app.component("MyTable", MyTable);
+app.component('Fa', FontAwesomeIcon);
+app.component('MyButton', MyButton);
+app.component('MyTable', MyTable);
 app.use(router);
 app.mount('#app');
