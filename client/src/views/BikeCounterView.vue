@@ -5,7 +5,7 @@
         <h2 class="title">
           Comptages de vélos
         </h2>
-  
+
         <Sort
           title="Trier par: "
           :sort-options="filteredHeader"
@@ -13,7 +13,7 @@
           @toggle-sort="toggleSort"
         />
       </div>
-  
+
       <MyTable
         v-if="bikeCounterData"
         :header="headerRow"
@@ -24,8 +24,8 @@
         show-bottom-separator
         class="table"
       />
-  
-      <Stats 
+
+      <Stats
         v-if="showStatsFor"
         @submit="logSubmit"
         @close="closeStats"
@@ -35,6 +35,9 @@
     <template v-else>
       <BaseBarChart />
     </template>
+    <button @click="chartDetails = !chartDetails">
+      {{ chartDetails ? 'Hide Chart.js' : 'Test Me Chart.js' }}
+    </button>
   </div>
 </template>
 
@@ -48,21 +51,20 @@ export default {
   components: {
     Sort,
     Stats,
-    BaseBarChart,
+    BaseBarChart
   },
 
   data() {
     return {
-      chartDetails: true,
+      chartDetails: false,
       bikeCounterData: csvFile,
 
       showStatsFor: undefined,
 
       sort: {
         key: 'ID',
-        direction: 'asc',
+        direction: 'asc'
       }
-      
     };
   },
 
@@ -103,8 +105,8 @@ export default {
       return {
         ID: 'ID',
         Nom: 'Nom du compteur',
-        Statut: 'Statut', 
-        Annee_implante: 'Annee Implantée',
+        Statut: 'Statut',
+        Annee_implante: 'Annee Implantée'
       };
     },
 
@@ -113,22 +115,24 @@ export default {
         {
           type: 'icon',
           icon: 'map-marker-alt',
-          click: (row) => { console.log(row.Longitude, row.Latitude); },
+          click: (row) => {
+            console.log(row.Longitude, row.Latitude);
+          }
         },
         {
           type: 'text',
           text: 'Statistique',
-          click: (row) => this.openStats(row),
+          click: (row) => this.openStats(row)
         }
       ];
-    },
+    }
   },
 
   methods: {
     toggleSort(key) {
       const newSort = {
         key,
-        direction: 'asc',
+        direction: 'asc'
       };
 
       if (this.sort.key === key && this.sort.direction === 'asc') {
@@ -140,7 +144,7 @@ export default {
     openStats(row) {
       this.showStatsFor = row.ID;
     },
-    
+
     closeStats() {
       this.showStatsFor = undefined;
     },
@@ -150,8 +154,6 @@ export default {
     }
   }
 };
-
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
