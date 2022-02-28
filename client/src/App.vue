@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <HeaderComponent />
-    <MainContent :viewtest-test="view" @change-view="changeView" />
+    <MainContent />
     <FooterComponent />
   </div>
 </template>
@@ -16,24 +16,6 @@ export default {
     HeaderComponent,
     MainContent,
     FooterComponent
-  },
-
-  props: {},
-
-  data() {
-    return {
-      view: 'bike-counter'
-    };
-  },
-
-  computed: {},
-
-  mounted() {},
-
-  methods: {
-    changeView(toView) {
-      this.view = toView;
-    }
   }
 };
 </script>
