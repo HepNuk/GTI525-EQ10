@@ -1,15 +1,15 @@
 <template>
-    <div class="middle-component">
-      <NavBar 
-        :nav-items="navBarActionItems"
-        class="nav-view"
-        @change-view="changeViewTo"
-      />
+  <div class="middle-component">
+    <NavBar 
+      :nav-items="navBarActionItems"
+      class="nav-view"
+      @change-view="changeViewTo"
+    />
 
-      <div class="data-view">
-        <router-view class="main-view" />
-      </div>
+    <div class="data-view">
+      <router-view class="main-view" />
     </div>
+  </div>
 </template>
 
 <script>

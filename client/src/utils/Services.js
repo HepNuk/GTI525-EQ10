@@ -14,7 +14,7 @@ export const testAxios = () => {
 };
 
 export const getAllCompteur = () => {
-  return axios.get(`/gti525/v1/compteurs`);
+  return axios.get('/gti525/v1/compteurs');
 };
 
 // End of examples.

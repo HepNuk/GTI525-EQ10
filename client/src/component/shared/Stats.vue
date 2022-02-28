@@ -16,17 +16,45 @@
       </span>
 
       <div class="input-line from-inputs mb-1">
-        <label for="de">De: </label>
-        <MySelectionInput v-model="fromYear" :options="options.years" placeholder="Année"/>
-        <MySelectionInput v-model="fromMonth" :options="options.months" placeholder="Mois"/>
-        <MySelectionInput v-model="fromDay" :options="fromDaysArray" placeholder="Jours"/>
+        <label for="de">
+          De:
+        </label>
+        <MySelectionInput
+          v-model="fromYear"
+          :options="options.years"
+          placeholder="Année"
+        />
+        <MySelectionInput
+          v-model="fromMonth"
+          :options="options.months"
+          placeholder="Mois"
+        />
+        <MySelectionInput
+          v-model="fromDay"
+          :options="fromDaysArray"
+          placeholder="Jours"
+        />
       </div>
 
       <div class="input-line to-inputs px-2">
-        <label for="a">A: </label>
-        <MySelectionInput v-model="toYear" :options="options.years" placeholder="Année"/>
-        <MySelectionInput v-model="toMonth" :options="options.months" placeholder="Mois"/>
-        <MySelectionInput v-model="toDay" :options="toDaysArray" placeholder="Jours"/>
+        <label for="a">
+          A:
+        </label>
+        <MySelectionInput
+          v-model="toYear"
+          :options="options.years"
+          placeholder="Année"
+        />
+        <MySelectionInput
+          v-model="toMonth"
+          :options="options.months"
+          placeholder="Mois"
+        />
+        <MySelectionInput
+          v-model="toDay"
+          :options="toDaysArray"
+          placeholder="Jours"
+        />
       </div>
     </div>
 

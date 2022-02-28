@@ -10,7 +10,7 @@
           <DropDownButton
             :drop-down-options="navItem.dropDownOptions"
             type="dark"
-            notActiveType="pale-grey"
+            not-active-type="pale-grey"
             border
             border-color="#333"
             :active="false"
@@ -25,7 +25,7 @@
           v-else
           fill
           type="dark"
-          notActiveType="pale-grey"
+          not-active-type="pale-grey"
           border
           border-color="#333"
           :hover="!navItem.active"

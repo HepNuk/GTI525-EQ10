@@ -1,6 +1,10 @@
 <template>
   <header>
-    <img class="logo" :src="logoImg" alt="" >
+    <img
+      class="logo"
+      :src="logoImg"
+      alt=""
+    >
     <div class="message">
       <h1 class="mt-1">
         Bienvenue sur Mobi-Urbaine

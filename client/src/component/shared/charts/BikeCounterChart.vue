@@ -47,9 +47,9 @@ export default {
     });
 
     const chartTitleText = computed(() => {
-      let text = `Bike Counter: ${props.bikeCounterId}`
-      if (props.startFromData) text += ` | From: ${props.startFromData}`
-      if (props.endFromData) text += ` | To: ${props.endFromData}`
+      let text = `Bike Counter: ${props.bikeCounterId}`;
+      if (props.startFromData) text += ` | From: ${props.startFromData}`;
+      if (props.endFromData) text += ` | To: ${props.endFromData}`;
 
       return text;
     });
@@ -72,7 +72,7 @@ export default {
       datasets: [
         {
           data: bikeCounterData.value ? [] : bikeCounterData.value.data, // bikeCounterData.data array,
-          backgroundColor: "#A5C8ED",
+          backgroundColor: '#A5C8ED',
           barPercentage: 1.0,
           categoryPercentage: 1.0,
         }
