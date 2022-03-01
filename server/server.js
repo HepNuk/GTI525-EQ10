@@ -43,6 +43,8 @@ app
 // http://localhost:8000/api/test_route/
 // http://localhost:8000/api/test_route/route2
 app.use('/gti525/v1/compteurs', routeCompteur);
+app.use('/fontaines', routeCompteur);
+app.use('/compteurs', routeCompteur);
 
 // ***
 
