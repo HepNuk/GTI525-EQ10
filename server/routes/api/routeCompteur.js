@@ -1,20 +1,18 @@
 const { Router } = require('express');
+const {getData,fetchDataBetweenDate} = require("../../src/parseData.js");
 const router = Router();
 
-router.get('/', (req, res) => {
-  console.log('params: ', req.params);
-  console.log('body: ', req.body);
-  console.log('query: ', req.query);
+router.get('/:id', (req, res) => {
 
-  res.send({message: "hello"});
+  let compteurId = req.params.id;
+  let start = req.query['debut'];
+  let end = req.query['fin'];
+
+  res.status(200).send(fetchDataBetweenDate(compteurId,start,end));
 })
 
-router.post('/', (req, res) => {
-  console.log('params: ', req.params);
-  console.log('body: ', req.body);
-  console.log('query: ', req.query);
-  
-  res.send({message: "hello"});
+router.get('/', (req, res) => {
+  res.status(200).send(getData("compteurs"));
 })
 
 module.exports = router;
