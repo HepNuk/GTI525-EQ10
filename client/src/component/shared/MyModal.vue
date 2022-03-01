@@ -5,9 +5,6 @@
       :close="closeModal"
     >
       <div class="modal">
-        <p>
-           MODAL
-        </p>
         <slot name="modal" :closeModal="closeModal"/>
       </div>
     </Modal>

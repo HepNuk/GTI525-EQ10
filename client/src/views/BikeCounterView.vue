@@ -31,7 +31,6 @@
         @close="closeStats"
       />
 
-      <!-- <MyModal :is-show="showModal" @close-modal="closeModal"/> -->
       <MapModal :is-show="showModal" @close-modal="closeModal"/>
     </template>
 
