@@ -1,0 +1,43 @@
+{
+  "extends": ["plugin:vue/vue3-recommended", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "no-unused-vars": "off",
+    "vue/no-unused-components": "warn",
+    "no-constant-condition": "warn",
+    "vue/prop-name-casing": ["warn", "camelCase"],
+    "quotes": ["warn", "single"],
+    "semi": ["warn", "always"],
+    "vue/multi-word-component-names": "off",
+    "vue/v-on-event-hyphenation": ["error", "always"],
+    "vue/attribute-hyphenation": ["error", "always"],
+    "vue/no-use-v-if-with-v-for": ["error", {
+      "allowUsingIterationVar": false
+    }],
+    "vue/require-explicit-emits": "off",
+    "vue/singleline-html-element-content-newline": ["warn", {
+      "ignoreWhenNoAttributes": false,
+      "ignoreWhenEmpty": true,
+      "ignores": ["pre", "textarea"]
+    }],
+    "vue/html-indent": ["warn", 2, {
+      "attribute": 1,
+      "baseIndent": 1,
+      "closeBracket": 0,
+      "alignAttributesVertically": true,
+      "ignores": []
+      }],
+    "vue/html-closing-bracket-newline": ["warn", {
+      "singleline": "never",
+      "multiline": "always"
+    }],
+    "vue/max-attributes-per-line": ["warn", {
+      "singleline": {
+        "max": 2
+      },      
+      "multiline": {
+        "max": 1
+      }
+    }]
+  }
+}
