@@ -5,14 +5,14 @@
 import { shuffle } from 'lodash';
 
 import { computed, ref } from 'vue';
-import { BarChart, useBarChart } from 'vue-chart-3'; 
+import { BarChart, useBarChart } from 'vue-chart-3';
 
 // Dont Remove needed for chart to work.
 import Chart from 'chart.js/auto';
 
 export default {
   components: {
-    BarChart,
+    BarChart
   },
 
   props: {
@@ -23,14 +23,13 @@ export default {
         plugins: {
           legend: {
             display: true,
-            labels: {
-            }
+            labels: {}
           },
           title: {
             display: true,
-            text: 'Chart.js Car Chart (No Options)',
-          },
-        },
+            text: 'Chart.js Car Chart (No Options)'
+          }
+        }
       })
     },
 
@@ -48,7 +47,7 @@ export default {
             color: 'rgba(255, 0, 0, 0.1)',
             borderWidth: 1,
             barPercentage: 1.01,
-            categoryPercentage: 1.0,
+            categoryPercentage: 1.0
           }
         ]
       })
@@ -57,31 +56,19 @@ export default {
     plugins: {
       type: Array,
       required: false,
-      default: () => [],
+      default: () => []
     }
   },
 
   setup(props, ctx) {
-    const dataValues = ref([30, 40, 60, 70, 5]);
-    const toggleLegend = ref(true);
-
     const { barChartProps, barChartRef, update } = useBarChart({
       chartData: props.chartData,
       options: props.chartOptions,
-      plugins: [],
+      plugins: []
     });
 
-    // test function
-    function shuffleData() {
-      dataValues.value = shuffle(dataValues.value);
-      console.log(barChartRef.value);
-    }
-
-    return { barChartProps, barChartRef, update, shuffleData };
-  },
+    return { barChartProps, barChartRef, update };
+  }
 };
-
 </script>
-<style lang="scss" scopped>
-  
-</style>
+<style lang="scss" scopped></style>

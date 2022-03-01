@@ -1,6 +1,6 @@
 <template>
   <div class="bike-counter-view content-view">
-    <template v-if="!chartDetails">
+    <template v-if="!chartInfo">
       <div class="content-view-header p-3">
         <h2 class="title">
           Comptages de vélos
@@ -25,19 +25,20 @@
         class="table"
       />
 
-      <Stats
-        v-if="showStatsFor"
-        @submit="logSubmit"
-        @close="closeStats"
-      />
+      <MySpinner v-if="loadingChart" show-text />
+      <template v-else>
+        <Stats
+          v-if="showStatsFor"
+          ref="stats"
+          @submit="loadChartDatails"
+          @close="closeStats"
+        />
+      </template>
     </template>
 
     <template v-else>
-      <BaseBarChart />
+      <BikeCounterChart v-if="chartInfo" v-bind="chartInfo" />
     </template>
-    <button @click="chartDetails = !chartDetails">
-      {{ chartDetails ? 'Hide Chart.js' : 'Test Me Chart.js' }}
-    </button>
   </div>
 </template>
 
@@ -45,18 +46,23 @@
 import csvFile from 'src/assets/csv/compteurs.csv';
 import Sort from 'src/component/shared/Sort.vue';
 import Stats from '../component/shared/Stats.vue';
-import BaseBarChart from 'src/component/shared/charts/baseCharts/BaseBarChart.vue';
+import BikeCounterChart from 'src/component/shared/charts/BikeCounterChart.vue';
+
+import { getCompteurDetailsBetweenDates } from '../utils/Services';
+import MySpinner from '../component/shared/MySpinner.vue';
 
 export default {
   components: {
     Sort,
     Stats,
-    BaseBarChart
+    BikeCounterChart,
+    MySpinner
   },
 
   data() {
     return {
-      chartDetails: false,
+      loadingChart: false,
+      chartInfo: undefined,
       bikeCounterData: csvFile,
 
       showStatsFor: undefined,
@@ -149,8 +155,39 @@ export default {
       this.showStatsFor = undefined;
     },
 
-    logSubmit(payload) {
-      console.log(payload);
+    statsErrorMessage(message) {
+      this.$refs.stats.errorMessage = message;
+    },
+
+    loadChartDatails(p) {
+      const startDate = '' + p.fromYear + p.fromMonth + p.fromDay;
+      const endDate = '' + p.toYear + p.toMonth + p.toDay;
+
+      if (Number(startDate) >= Number(endDate)) {
+        this.statsErrorMessage(
+          'La date de fin doit etre avant la date de début.'
+        );
+        return;
+      }
+
+      this.loadingChart = true;
+      getCompteurDetailsBetweenDates(this.showStatsFor, startDate, endDate)
+        .then((res) => {
+          this.chartInfo = {
+            bikeCounterName: res.data.name,
+            bikeCounterId: this.showStatsFor,
+            startDate: `${p.fromYear}-${p.fromMonth}-${p.fromDay}`,
+            endDate: `${p.fromYear}-${p.fromMonth}-${p.fromDay}`,
+            labels: res.data.label,
+            count: res.data.count
+          };
+        })
+        .catch((err) => console.error(err))
+        .finally(() => (this.loadingChart = false));
+    },
+
+    closeChartDetails() {
+      this.chartInfo = undefined;
     }
   }
 };

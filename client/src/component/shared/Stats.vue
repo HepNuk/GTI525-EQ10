@@ -57,7 +57,9 @@
         />
       </div>
     </div>
-
+    <p v-if="errorMessage" style="color: red">
+      {{ errorMessage }}
+    </p>
     <MyButton
       hover-color="#555"
       fill
@@ -78,7 +80,7 @@ export default {
   components: {
     MySelectionInput
   },
-  
+
   emits: ['close', 'submit'],
 
   setup(_, ctx) {
@@ -92,46 +94,77 @@ export default {
     const options = computed(() => ({
       years: years,
       months: months,
-      days: days,
+      days: days
     }));
 
     const fromDaysArray = computed(() => {
       if (fromMonth.value === 0) return [];
       let fromSlice = options.value.months[fromMonth.value].days;
 
-      if (fromMonth.value === 'feb'
-        && options.value.years[fromYear.value-1] !== 0
-        && Number(options.value.years[fromYear.value-1]) % 4 === 0) {
-        
+      if (
+        fromMonth.value === 'feb' &&
+        options.value.years[fromYear.value - 1] !== 0 &&
+        Number(options.value.years[fromYear.value - 1]) % 4 === 0
+      ) {
         fromSlice = 29;
       }
-      
+
       return days.slice(0, fromSlice);
     });
 
     const toDaysArray = computed(() => {
-      if (fromMonth.value === 0) return [];
-      let fromSlice = options.value.months[fromMonth.value].days;
+      if (toMonth.value === 0) return [];
+      let toSlice = options.value.months[toMonth.value].days;
 
-      if (fromMonth.value === 'feb'
-        && options.value.years[fromYear.value-1] !== 0
-        && Number(options.value.years[fromYear.value-1]) % 4 === 0) {
-        
-        fromSlice = 29;
+      if (
+        toMonth.value === 'feb' &&
+        options.value.years[toYear.value - 1] !== 0 &&
+        Number(options.value.years[toYear.value - 1]) % 4 === 0
+      ) {
+        toSlice = 29;
       }
-      
-      return days.slice(0, fromSlice);
+
+      return days.slice(0, toSlice);
     });
 
-    const submit = () => ctx.emit('submit', {
-      fromYear: options.value.years[fromYear.value-1],
-      fromMonth: fromMonth.value === 0 ? undefined : fromMonth.value,
-      fromDay: options.value.days[fromDay.value-1],
-      
-      toYear: options.value.years[toYear.value-1],
-      toMonth: toMonth.value === 0 ? undefined : toMonth.value,
-      toDay: options.value.days[toDay.value-1],
-    });
+    const errorMessage = ref('');
+    const submit = () => {
+      const fY = options.value.years[fromYear.value - 1];
+      const fM =
+        fromMonth.value === 0
+          ? undefined
+          : Object.keys(months).indexOf(fromMonth.value)
+          ? '' + (Object.keys(months).indexOf(fromMonth.value) + 1)
+          : '0' + (Object.keys(months).indexOf(fromMonth.value) + 1);
+      const fD = options.value.days[fromDay.value - 1];
+      const tY = options.value.years[toYear.value - 1];
+      const tM =
+        toMonth.value === 0
+          ? undefined
+          : Object.keys(months).indexOf(toMonth.value) > 9
+          ? '' + (Object.keys(months).indexOf(toMonth.value) + 1)
+          : '0' + (Object.keys(months).indexOf(toMonth.value) + 1);
+      const tD = options.value.days[toDay.value - 1];
+
+      console.log(fY, fM, fD, tY, tM, tD);
+
+      if (!fY || !fM || !fD || !tY || !tM || !tD) {
+        errorMessage.value = 'Veuillez remplir tous les champs SVP.';
+        return;
+      }
+
+      errorMessage.value = '';
+
+      ctx.emit('submit', {
+        fromYear: fY,
+        fromMonth: fM,
+        fromDay: fD,
+
+        toYear: tY,
+        toMonth: tM,
+        toDay: tD
+      });
+    };
 
     return {
       fromYear,
@@ -144,15 +177,15 @@ export default {
       fromDaysArray,
       toDaysArray,
 
-      submit,
+      errorMessage,
+      submit
     };
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
-@import "src/assets/css/vars.scss";
+@import 'src/assets/css/vars.scss';
 
 .title {
   display: inline-flex;
@@ -168,7 +201,7 @@ export default {
   span {
     padding-right: 2px;
     padding-left: 2px;
-    
+
     &:hover {
       cursor: pointer;
       background-color: $pale-grey;

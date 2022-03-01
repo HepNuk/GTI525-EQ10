@@ -2,7 +2,7 @@
   <select v-model="newValue">
     <option
       :value="0"
-      disabledProp
+      disabled
       selected
     >
       {{ placeholder }}

@@ -55,7 +55,7 @@ for (let i = 1; i <= 31; i++) {
 }
 
 const years = [];
-for(let i = 22; i >= 0; i--) {
+for(let i = 21; i >= 18; i--) {
   years.push(`20${(i > 9 ? i : `0${i}`)}`);
 }
 
