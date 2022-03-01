@@ -10,6 +10,7 @@ const { PORT, mongoUri } = require('./config');
 
 // Example route files DELETE later I guess when we have actual routes.
 const routeCompteur = require('./routes/api/routeCompteur');
+const routeFountain = require('./routes/api/routeFountain');
 
 // If we use vue-router all of the routes from vue router should be included here. 
 // Could use and filter the route from the vue-router file if possible. 
@@ -43,8 +44,7 @@ app
 // http://localhost:8000/api/test_route/
 // http://localhost:8000/api/test_route/route2
 app.use('/gti525/v1/compteurs', routeCompteur);
-app.use('/fontaines', routeCompteur);
-app.use('/compteurs', routeCompteur);
+app.use('/gti525/v1/fontaines', routeFountain);
 
 // ***
 
