@@ -16,17 +16,45 @@
       </span>
 
       <div class="input-line from-inputs mb-1">
-        <label for="de">De: </label>
-        <MySelectionInput v-model="fromYear" :options="options.years" placeholder="Année"/>
-        <MySelectionInput v-model="fromMonth" :options="options.months" placeholder="Mois"/>
-        <MySelectionInput v-model="fromDay" :options="fromDaysArray" placeholder="Jours"/>
+        <label for="de">
+          De:
+        </label>
+        <MySelectionInput
+          v-model="fromYear"
+          :options="options.years"
+          placeholder="Année"
+        />
+        <MySelectionInput
+          v-model="fromMonth"
+          :options="options.months"
+          placeholder="Mois"
+        />
+        <MySelectionInput
+          v-model="fromDay"
+          :options="fromDaysArray"
+          placeholder="Jours"
+        />
       </div>
 
       <div class="input-line to-inputs px-2">
-        <label for="a">A: </label>
-        <MySelectionInput v-model="toYear" :options="options.years" placeholder="Année"/>
-        <MySelectionInput v-model="toMonth" :options="options.months" placeholder="Mois"/>
-        <MySelectionInput v-model="toDay" :options="toDaysArray" placeholder="Jours"/>
+        <label for="a">
+          A:
+        </label>
+        <MySelectionInput
+          v-model="toYear"
+          :options="options.years"
+          placeholder="Année"
+        />
+        <MySelectionInput
+          v-model="toMonth"
+          :options="options.months"
+          placeholder="Mois"
+        />
+        <MySelectionInput
+          v-model="toDay"
+          :options="toDaysArray"
+          placeholder="Jours"
+        />
       </div>
     </div>
 
@@ -47,11 +75,11 @@ import { years, months, days } from 'src/constants';
 import { ref, computed } from 'vue';
 
 export default {
-  emits: ['close', 'submit'],
-
   components: {
     MySelectionInput
   },
+  
+  emits: ['close', 'submit'],
 
   setup(_, ctx) {
     const fromYear = ref(0);
@@ -61,13 +89,11 @@ export default {
     const toMonth = ref(0);
     const toDay = ref(0);
 
-    const options = computed(() => {
-      return {
-        years: years,
-        months: months,
-        days: days,
-      };
-    });
+    const options = computed(() => ({
+      years: years,
+      months: months,
+      days: days,
+    }));
 
     const fromDaysArray = computed(() => {
       if (fromMonth.value === 0) return [];

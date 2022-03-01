@@ -16,7 +16,7 @@
       <slot />
     </MyButton>
     
-    <div class="px-3 drop-down-menu" v-if="!collapsed">
+    <div v-if="!collapsed" class="px-3 drop-down-menu">
       <MyButton
         v-for="(option, index) in dropDownOptions"
         :key="'dropdown-' + index"

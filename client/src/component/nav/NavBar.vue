@@ -1,7 +1,7 @@
 <template>
   <nav>
     <ul class="nav gap-1">
-      <li 
+      <li
         v-for="navItem in navItems"
         :key="navItem.value"
         class="nav-item d-grid"
@@ -10,12 +10,11 @@
           <DropDownButton
             :drop-down-options="navItem.dropDownOptions"
             type="dark"
-            notActiveType="pale-grey"
+            not-active-type="pale-grey"
             border
             border-color="#333"
             :active="false"
             fill
-            @change-view="$emit('change-view', $event)"
           >
             {{ navItem.title }}
           </DropDownButton>
@@ -25,7 +24,7 @@
           v-else
           fill
           type="dark"
-          notActiveType="pale-grey"
+          not-active-type="pale-grey"
           border
           border-color="#333"
           :hover="!navItem.active"
@@ -44,17 +43,16 @@ import DropDownButton from 'src/component/shared/DropDownButton.vue';
 
 export default {
   components: {
-    DropDownButton,
+    DropDownButton
   },
 
   props: {
     navItems: {
       type: Array,
-      required: true,
+      required: true
     }
-  },
+  }
 };
-
 </script>
 
 <style lang="scss" scoped>

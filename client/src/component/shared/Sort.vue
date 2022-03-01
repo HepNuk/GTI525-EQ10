@@ -14,7 +14,9 @@
           class="px-1"
           @click="$emit('toggle-sort', key)"
         >
-          <span>{{ option }}</span>
+          <span>
+            {{ option }}
+          </span>
 
           <fa 
             v-if="sort.key === key && sort.direction === 'asc'"
