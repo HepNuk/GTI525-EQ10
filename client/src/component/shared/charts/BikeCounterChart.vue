@@ -10,35 +10,35 @@ export default {
   props: {
     bikeCounterId: {
       type: String,
-      required: true
+      required: true,
     },
 
     bikeCounterName: {
       type: String,
-      required: true
+      required: true,
     },
 
     startDate: {
       type: String,
       required: false,
-      default: undefined
+      default: undefined,
     },
 
     endDate: {
       type: String,
       required: false,
-      default: undefined
+      default: undefined,
     },
 
     labels: {
       type: Array,
-      required: true
+      required: true,
     },
 
     count: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
 
   setup(props) {
@@ -55,13 +55,13 @@ export default {
     const chartOptions = computed(() => ({
       plugins: {
         legend: {
-          display: false
+          display: false,
         },
         title: {
           display: true,
-          text: chartTitleText.value
-        }
-      }
+          text: chartTitleText.value,
+        },
+      },
     }));
 
     const chartData = computed(() => ({
@@ -73,17 +73,17 @@ export default {
           borderColor: '#A0C0E0',
           borderWidth: 0,
           barPercentage: 1,
-          categoryPercentage: 1.0
-        }
-      ]
+          categoryPercentage: 1.0,
+        },
+      ],
     }));
 
     return {
       bikeCounterData,
       chartData,
-      chartOptions
+      chartOptions,
     };
-  }
+  },
 };
 </script>
 

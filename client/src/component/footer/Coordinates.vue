@@ -29,23 +29,23 @@ export default {
           firstName: 'Jimmy',
           lastName: 'Mai',
           email: 'jimmy.mai.1@ens.etsmtl.ca',
-          code: 'MAIJ09079505'
+          code: 'MAIJ09079505',
         },
         {
           firstName: 'Ai-Vi',
           lastName: 'Nguyen',
           email: 'ai-vi.nguyen.1@ens.etsmtl.ca',
-          code: 'NGUA16569307'
+          code: 'NGUA16569307',
         },
         {
           firstName: 'Nikola',
           lastName: 'Perotic',
           email: 'nikola.perotic.1@ens.etsmtl.ca',
-          code: 'PERN06049400'
-        }
+          code: 'PERN06049400',
+        },
       ];
-    }
-  }
+    },
+  },
 };
 
 </script>

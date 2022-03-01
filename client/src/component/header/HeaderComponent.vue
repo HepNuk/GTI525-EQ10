@@ -19,7 +19,7 @@ import logoImg from '~/assets/img/logo.png';
 export default {
   setup() {
     return {
-      logoImg
+      logoImg,
     };
   },
 };

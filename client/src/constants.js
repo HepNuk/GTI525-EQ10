@@ -46,7 +46,7 @@ const months = {
   dec: {
     name: 'Décembre',
     days: 31,
-  }
+  },
 };
 
 const days = [];
@@ -68,5 +68,5 @@ export {
   years,
   months,
   days,
-  hours,
+  hours
 };

@@ -12,7 +12,7 @@ import Chart from 'chart.js/auto';
 
 export default {
   components: {
-    BarChart
+    BarChart,
   },
 
   props: {
@@ -23,14 +23,14 @@ export default {
         plugins: {
           legend: {
             display: true,
-            labels: {}
+            labels: {},
           },
           title: {
             display: true,
-            text: 'Chart.js Car Chart (No Options)'
-          }
-        }
-      })
+            text: 'Chart.js Car Chart (No Options)',
+          },
+        },
+      }),
     },
 
     chartData: {
@@ -47,28 +47,28 @@ export default {
             color: 'rgba(255, 0, 0, 0.1)',
             borderWidth: 1,
             barPercentage: 1.01,
-            categoryPercentage: 1.0
-          }
-        ]
-      })
+            categoryPercentage: 1.0,
+          },
+        ],
+      }),
     },
 
     plugins: {
       type: Array,
       required: false,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
 
   setup(props, ctx) {
     const { barChartProps, barChartRef, update } = useBarChart({
       chartData: props.chartData,
       options: props.chartOptions,
-      plugins: []
+      plugins: [],
     });
 
     return { barChartProps, barChartRef, update };
-  }
+  },
 };
 </script>
 <style lang="scss" scopped></style>

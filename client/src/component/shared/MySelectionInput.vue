@@ -35,18 +35,18 @@ export default {
   props: {
     modelValue: {
       type: [String, Number],
-      required: true
+      required: true,
     },
     placeholder: {
       type: String,
       required: false,
-      default: '-'
+      default: '-',
     },
 
     options: {
       type: [Array, Object],
-      required: true
-    }
+      required: true,
+    },
   },
 
   emits: ['update:modelValue'],
@@ -55,7 +55,7 @@ export default {
     watch(newValue, (to) => ctx.emit('update:modelValue', to));
 
     return { newValue };
-  }
+  },
 };
 </script>
 

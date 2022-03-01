@@ -24,9 +24,9 @@ export default {
     showText: {
       type: Boolean,
       required: false,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>
 

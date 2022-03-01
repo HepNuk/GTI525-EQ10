@@ -56,7 +56,7 @@ export default {
     Sort,
     Stats,
     BikeCounterChart,
-    MySpinner
+    MySpinner,
   },
 
   data() {
@@ -69,8 +69,8 @@ export default {
 
       sort: {
         key: 'ID',
-        direction: 'asc'
-      }
+        direction: 'asc',
+      },
     };
   },
 
@@ -112,7 +112,7 @@ export default {
         ID: 'ID',
         Nom: 'Nom du compteur',
         Statut: 'Statut',
-        Annee_implante: 'Annee Implantée'
+        Annee_implante: 'Annee Implantée',
       };
     },
 
@@ -123,22 +123,22 @@ export default {
           icon: 'map-marker-alt',
           click: (row) => {
             console.log(row.Longitude, row.Latitude);
-          }
+          },
         },
         {
           type: 'text',
           text: 'Statistique',
-          click: (row) => this.openStats(row)
-        }
+          click: (row) => this.openStats(row),
+        },
       ];
-    }
+    },
   },
 
   methods: {
     toggleSort(key) {
       const newSort = {
         key,
-        direction: 'asc'
+        direction: 'asc',
       };
 
       if (this.sort.key === key && this.sort.direction === 'asc') {
@@ -179,7 +179,7 @@ export default {
             startDate: `${p.fromYear}-${p.fromMonth}-${p.fromDay}`,
             endDate: `${p.fromYear}-${p.fromMonth}-${p.fromDay}`,
             labels: res.data.label,
-            count: res.data.count
+            count: res.data.count,
           };
         })
         .catch((err) => console.error(err))
@@ -188,8 +188,8 @@ export default {
 
     closeChartDetails() {
       this.chartInfo = undefined;
-    }
-  }
+    },
+  },
 };
 </script>
 

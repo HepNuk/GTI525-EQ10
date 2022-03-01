@@ -119,7 +119,7 @@ export default {
     filteredHeader: {
       type: Object,
       required: false,
-      default: undefined
+      default: undefined,
     },
 
     limitHeight: {
@@ -143,14 +143,14 @@ export default {
     columnSettings: {
       type: Object,
       required: false,
-      default: () => {}
+      default: () => {},
     },
 
     showBottomSeparator: {
       type: Boolean,
       required: false,
       default: false,
-    }
+    },
   },
 
   data() {
@@ -177,7 +177,7 @@ export default {
 
     maxPage() {
       return Math.ceil(this.data.length / this.paginate);
-    }
+    },
   },
 };
 

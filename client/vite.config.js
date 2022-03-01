@@ -7,7 +7,7 @@ import { VitePluginNode } from 'vite-plugin-node';
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
-    outDir: `${path.resolve(__dirname, '../', 'server/', 'public')}/`
+    outDir: `${path.resolve(__dirname, '../', 'server/', 'public')}/`,
   },
   server: {
     proxy: {
@@ -16,7 +16,7 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
         ws: true,
-      }
+      },
     },
   },
   resolve: {
@@ -33,9 +33,9 @@ export default defineConfig({
         csvOptions: {
           group_columns_by_name: true,
           columns: true,
-          cast: true
-        }
-      }
-    })
-  ]
+          cast: true,
+        },
+      },
+    }),
+  ],
 });

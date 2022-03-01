@@ -21,7 +21,7 @@ const types = [
   'light',
   'dark',
   'link',
-  'pale-grey'
+  'pale-grey',
 ];
 
 export default {
@@ -30,14 +30,14 @@ export default {
       type: String,
       required: false,
       default: 'dark',
-      validator: (value) => types.includes(value)
+      validator: (value) => types.includes(value),
     },
 
     notActiveType: {
       type: String,
       required: false,
       default: 'secondary',
-      validator: (value) => types.includes(value)
+      validator: (value) => types.includes(value),
     },
 
     borderColor: {
@@ -45,25 +45,25 @@ export default {
       required: false,
       default: '#000',
       validator: (value) =>
-        /#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(value)
+        /#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(value),
     },
 
     border: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
 
     fill: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
 
     disabled: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
 
     hoverColor: {
@@ -71,26 +71,26 @@ export default {
       required: false,
       default: '#EEE',
       validator: (value) =>
-        /#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(value)
+        /#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(value),
     },
 
     hover: {
       type: Boolean,
       required: false,
-      default: true
+      default: true,
     },
 
     active: {
       type: Boolean,
       required: false,
-      default: true
+      default: true,
     },
 
     routerLink: {
       type: String,
       required: false,
-      default: null
-    }
+      default: null,
+    },
   },
 
   computed: {
@@ -106,7 +106,7 @@ export default {
       return this.border
         ? {
             borderWidth: '2px',
-            borderColor: this.borderColor
+            borderColor: this.borderColor,
           }
         : { borderWidth: '0px' };
     },
@@ -114,15 +114,15 @@ export default {
     btnHoverColor() {
       return this.hover
         ? {
-            '--color-hover': this.hoverColor
+            '--color-hover': this.hoverColor,
           }
         : {};
     },
 
     btnHover() {
       return this.hover ? 'button-hover' : '';
-    }
-  }
+    },
+  },
 };
 </script>
 

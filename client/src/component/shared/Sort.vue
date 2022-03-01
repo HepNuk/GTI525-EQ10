@@ -54,18 +54,18 @@ export default {
     sort: {
       type: Object,
       required: true,
-    }
+    },
   },
 
   computed: {
     iconStyle() {
       return {
-        color: 'red'
+        color: 'red',
       };
 
 
-    }
-  }
+    },
+  },
 };
 </script>
 

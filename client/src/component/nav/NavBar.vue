@@ -43,15 +43,15 @@ import DropDownButton from 'src/component/shared/DropDownButton.vue';
 
 export default {
   components: {
-    DropDownButton
+    DropDownButton,
   },
 
   props: {
     navItems: {
       type: Array,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>
 

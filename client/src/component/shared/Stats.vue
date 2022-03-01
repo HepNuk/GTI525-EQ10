@@ -78,7 +78,7 @@ import { ref, computed } from 'vue';
 
 export default {
   components: {
-    MySelectionInput
+    MySelectionInput,
   },
 
   emits: ['close', 'submit'],
@@ -94,7 +94,7 @@ export default {
     const options = computed(() => ({
       years: years,
       months: months,
-      days: days
+      days: days,
     }));
 
     const fromDaysArray = computed(() => {
@@ -162,7 +162,7 @@ export default {
 
         toYear: tY,
         toMonth: tM,
-        toDay: tD
+        toDay: tD,
       });
     };
 
@@ -178,9 +178,9 @@ export default {
       toDaysArray,
 
       errorMessage,
-      submit
+      submit,
     };
-  }
+  },
 };
 </script>
 
