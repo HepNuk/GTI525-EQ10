@@ -1,4 +1,5 @@
 <template>
+  <hr />
   <BaseBarChart :chart-options="chartOptions" :chart-data="chartData" />
 </template>
 <script>
@@ -58,8 +59,8 @@ export default {
           display: false,
         },
         title: {
-          display: true,
-          text: chartTitleText.value,
+          display: false,
+          // text: chartTitleText.value,
         },
       },
     }));
@@ -70,9 +71,7 @@ export default {
         {
           data: props.count,
           backgroundColor: '#6387ad',
-          borderColor: '#A0C0E0',
-          borderWidth: 0,
-          barPercentage: 1,
+          barPercentage: 1.0,
           categoryPercentage: 1.0,
         },
       ],
