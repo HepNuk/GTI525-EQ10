@@ -14,10 +14,7 @@ function fetchDataBetweenDate(compteurId, start, end) {
     let array = [];
     for (let i = parseInt(start.slice(0, 4)); i <= parseInt(end.slice(0, 4)); i++) {
         try {
-            let tmp_array = getData("counter_stats_" + i);
-            for (let j = 0; j < tmp_array.length; j++) {
-                array.push(tmp_array[j]);
-            }
+            array = array.concat(getData("counter_stats_" + i));
         } catch (err) {
         }
     }
@@ -30,18 +27,18 @@ function fetchDataBetweenDate(compteurId, start, end) {
     };
 }
 
-function getDateArray(array) {
-    let date_array = [];
-    for (let i = 0; i < array.length; i++) {
-        date_array.push(array[i]['Date']);
-    }
-    return date_array;
-}
+// function getDateArray(array) {
+//     let date_array = [];
+//     for (let i = 0; i < array.length; i++) {
+//         date_array.push(array[i]['Date']);
+//     }
+//     return date_array;
+// }
 
 function getCounterCountByDate(start, end, tmp_array, compteurID) {
     let array = []
     let start_date = createNewDate(start);
-    let date_array = getDateArray(tmp_array);
+    let date_array = tmp_array.map((e) => e['Date']);
     start_date.set({
         hour: 0,
         minute: 0,
@@ -76,7 +73,7 @@ function getCounterCountByDate(start, end, tmp_array, compteurID) {
                 value = 0;
             }
             sum += value;
-            start_date = moment(start_date).add(1, 'hours');
+            start_date = next_day;
             i++;
         }
         array.push(sum);
