@@ -1,5 +1,6 @@
 const {load} = require('csv-load-sync');
 const path = require('path');
+const moment = require('moment')
 
 
 function getData(filename) {
@@ -7,54 +8,102 @@ function getData(filename) {
 }
 
 function fetchDataBetweenDate(compteurId, start, end) {
-    const start_year = start.slice(0, 4);
-    const start_month = start.slice(4, 6);
-    const start_day = start.slice(6, 8);
-
-    const end_year = end.slice(0, 4);
-    const end_month = end.slice(4, 6);
-    const end_day = end.slice(6, 8);
 
     let count_array = [];
     let label_array = [];
-
-    for (let i = parseInt(start_year); i <= parseInt(end_year); i++) {
-        let tmp_array = getData("counter_stats_" + i);
-        let sum = 0;
-        let current_date = start_year+"-"+start_month+"-"+start_day;
-        for (let j = 0; j < tmp_array.length; j++) {
-            let check_day = (tmp_array[j]['Date'].split('-')[2]).split(" ")[0]
-            let check_month = tmp_array[j]['Date'].split('-')[1]
-
-            if ((parseInt(check_month) >= start_month && parseInt(check_month) <= end_month)
-                && (parseInt(check_day) >= start_day && parseInt(check_day) <= end_day)) {
-
-                if (current_date === i + "-" + check_month + "-" + check_day) {
-                    if (start_year === "2018") {
-                        sum += parseInt(tmp_array[j][getKeyFromID(compteurId)]);
-                    } else {
-                        sum += parseInt(tmp_array[j][compteurId]);
-                    }
-                } else {
-                    label_array.push(current_date);
-                    count_array.push(sum);
-                    sum = 0;
-                    if (start_year === "2018") {
-                        sum += parseInt(tmp_array[j][getKeyFromID(compteurId)]);
-                    } else {
-                        sum += parseInt(tmp_array[j][compteurId]);
-                    }
-                    current_date = i + "-" + check_month + "-" + check_day
-                }
+    let array = [];
+    for (let i = parseInt(start.slice(0, 4)); i <= parseInt(end.slice(0, 4)); i++) {
+        try {
+            let tmp_array = getData("counter_stats_" + i);
+            for (let j = 0; j < tmp_array.length; j++) {
+                array.push(tmp_array[j]);
             }
+        } catch (err) {
         }
-        label_array.push(current_date);
-        count_array.push(sum);
     }
+    label_array = getAllDate(start, end);
+    count_array = getCounterCountByDate(start, end, array, compteurId);
     return {
         "label": label_array,
         "count": count_array
+    };
+}
+
+function getDateArray(array) {
+    let date_array = [];
+    for (let i = 0; i < array.length; i++) {
+        date_array.push(array[i]['Date']);
     }
+    return date_array;
+}
+
+function getCounterCountByDate(start, end, tmp_array, compteurID) {
+    let array = []
+    let start_date = createNewDate(start);
+    let date_array = getDateArray(tmp_array);
+    start_date.set({
+        hour: 0,
+        minute: 0,
+        second: 0,
+        millisecond: 0,
+    })
+    let end_date = createNewDate(end)
+    end_date.set({
+        hour: 0,
+        minute: 0,
+        second: 0,
+        millisecond: 0,
+    })
+    let sum = 0;
+    let i = 0;
+    while (start_date <= end_date) {
+        let next_day = moment(start_date).add(1, 'days');
+        let value = 0;
+        while (start_date < next_day) {
+            const tmp_date = moment(start_date).format('YYYY-MM-DD HH:mm:ss');
+            if (date_array.includes(tmp_date)) {
+                const year = moment(start_date).format('YYYY');
+                try {
+                    if (year === "2018") {
+                        value = parseInt(tmp_array[i][getKeyFromID(compteurID)]);
+                    } else {
+                        value = parseInt(tmp_array[i][compteurID]);
+                    }
+                }catch (err){}
+            }
+            if (isNaN(value)) {
+                value = 0;
+            }
+            sum += value;
+            start_date = moment(start_date).add(1, 'hours');
+            i++;
+        }
+        array.push(sum);
+        sum = 0;
+    }
+    return array;
+}
+
+function createNewDate(date) {
+    const start_year = date.slice(0, 4);
+    const start_month = date.slice(4, 6);
+    const start_day = date.slice(6, 8);
+
+    let new_date = new Date(start_year + "-" + start_month + "-" + start_day);
+    return moment(new_date).add(1, 'days');
+}
+
+function getAllDate(start, end) {
+
+    let array = [];
+    let start_date = createNewDate(start);
+    let end_date = createNewDate(end)
+
+    while (start_date <= end_date) {
+        array.push(moment(start_date).format('YYYY-MM-DD'))
+        start_date = moment(start_date).add(1, 'days')
+    }
+    return array;
 }
 
 function getKeyFromID(compteurID) {
