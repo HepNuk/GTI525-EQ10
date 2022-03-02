@@ -59,7 +59,7 @@ function getCounterCountByDate(start, end, tmp_array, compteurID) {
         let value = 0;
         while (start_date < next_day) {
             const tmp_date = moment(start_date).format('YYYY-MM-DD HH:mm:ss');
-            if (date_array.includes(tmp_date)) {
+            if (!tmp_array[i]) {
                 const year = moment(start_date).format('YYYY');
                 try {
                     if (year === "2018") {
@@ -67,7 +67,7 @@ function getCounterCountByDate(start, end, tmp_array, compteurID) {
                     } else {
                         value = parseInt(tmp_array[i][compteurID]);
                     }
-                }catch (err){}
+                } catch (err){ }
             }
             if (isNaN(value)) {
                 value = 0;
