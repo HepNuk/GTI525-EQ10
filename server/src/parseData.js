@@ -59,7 +59,7 @@ function getCounterCountByDate(start, end, tmp_array, compteurID) {
         let value = 0;
         while (start_date < next_day) {
             const tmp_date = moment(start_date).format('YYYY-MM-DD HH:mm:ss');
-            if (!tmp_array[i]) {
+            if (tmp_array[i]) {
                 const year = moment(start_date).format('YYYY');
                 try {
                     if (year === "2018") {
