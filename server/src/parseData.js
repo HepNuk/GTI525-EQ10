@@ -9,8 +9,6 @@ function getData(filename) {
 
 function fetchDataBetweenDate(compteurId, start, end) {
 
-    let count_array = [];
-    let label_array = [];
     let array = [];
     for (let i = parseInt(start.slice(0, 4)); i <= parseInt(end.slice(0, 4)); i++) {
         try {
@@ -18,27 +16,17 @@ function fetchDataBetweenDate(compteurId, start, end) {
         } catch (err) {
         }
     }
-    label_array = getAllDate(start, end);
-    count_array = getCounterCountByDate(start, end, array, compteurId);
+
     return {
-        "label": label_array,
-        "count": count_array,
+        "label": getAllDate(start,end),
+        "count": getCounterCountByDate(start,end,array,compteurId),
         "name":getKeyFromID(compteurId)
     };
 }
 
-// function getDateArray(array) {
-//     let date_array = [];
-//     for (let i = 0; i < array.length; i++) {
-//         date_array.push(array[i]['Date']);
-//     }
-//     return date_array;
-// }
-
 function getCounterCountByDate(start, end, tmp_array, compteurID) {
     let array = []
     let start_date = createNewDate(start);
-    let date_array = tmp_array.map((e) => e['Date']);
     start_date.set({
         hour: 0,
         minute: 0,
@@ -58,7 +46,6 @@ function getCounterCountByDate(start, end, tmp_array, compteurID) {
         let next_day = moment(start_date).add(1, 'days');
         let value = 0;
         while (start_date < next_day) {
-            const tmp_date = moment(start_date).format('YYYY-MM-DD HH:mm:ss');
             if (tmp_array[i]) {
                 const year = moment(start_date).format('YYYY');
                 try {
