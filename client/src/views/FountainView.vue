@@ -51,7 +51,7 @@ export default {
       sort: {
         key: 'Arrondissement',
         direction: 'asc',
-      }
+      },
     };
   },
 
@@ -63,19 +63,19 @@ export default {
     columnSettings() {
       return {
         Arrondissement: {
-          maxWidth: '300px'
+          maxWidth: '300px',
         },
         Proximité_jeux_repère: {
-          maxWidth: '150px'
+          maxWidth: '150px',
         },
         Nom_parc_lieu: {
-          maxWidth: '300px'
+          maxWidth: '300px',
         },
         Intersection: {
-          maxWidth: '200px'
+          maxWidth: '200px',
         },
         buttonActions: {
-          maxWidth: '20px'
+          maxWidth: '20px',
         },
       };
     },
@@ -124,7 +124,7 @@ export default {
           type: 'icon',
           icon: 'map-marker-alt',
           click: (row) => this.openPOIDetails(row),
-        }
+        },
       ];
     },
   },
@@ -148,8 +148,8 @@ export default {
 
     closePOIDetails() {
       this.showPOIDetails = undefined;
-    }
-  }
+    },
+  },
 };
 
 </script>

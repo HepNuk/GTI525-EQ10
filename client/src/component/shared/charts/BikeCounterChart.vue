@@ -1,20 +1,9 @@
 <template>
-  <template v-if="bikeCounterData">
-    <BaseBarChart 
-      :chart-options="chartOptions"
-      :chart-data="charData"
-    />
-  </template>
-  <template v-else>
-    <!-- Replace with a Spinner component later -->
-    Loading ... 
-  </template>
+  <BaseBarChart :chart-options="chartOptions" :chart-data="chartData" />
 </template>
 <script>
 import { ref, computed } from 'vue';
 import BaseBarChart from './baseCharts/BaseBarChart.vue';
-
-import { getCompteur } from 'src/utils/Services.js';
 
 export default {
   components: { BaseBarChart },
@@ -24,32 +13,41 @@ export default {
       required: true,
     },
 
-    startFromData: {
+    bikeCounterName: {
+      type: String,
+      required: true,
+    },
+
+    startDate: {
       type: String,
       required: false,
       default: undefined,
     },
 
-    endFromData: {
+    endDate: {
       type: String,
       required: false,
       default: undefined,
-    }
+    },
+
+    labels: {
+      type: Array,
+      required: true,
+    },
+
+    count: {
+      type: Array,
+      required: true,
+    },
   },
 
   setup(props) {
     const bikeCounterData = ref(undefined);
-    
-
-    // FIXME: Adapte once backend is figured out.
-    getCompteur(props.bikeCounterId).then((res) => {
-      data = res.data;
-    });
 
     const chartTitleText = computed(() => {
-      let text = `Bike Counter: ${props.bikeCounterId}`;
-      if (props.startFromData) text += ` | From: ${props.startFromData}`;
-      if (props.endFromData) text += ` | To: ${props.endFromData}`;
+      let text = `Bike Counter: ${props.bikeCounterName}`;
+      if (props.startDate) text += ` | From: ${props.startDate}`;
+      if (props.endDate) text += ` | To: ${props.endDate}`;
 
       return text;
     });
@@ -61,25 +59,26 @@ export default {
         },
         title: {
           display: true,
-          text: chartTitleText.value
-        }
-      }
+          text: chartTitleText.value,
+        },
+      },
     }));
 
     const chartData = computed(() => ({
-      // Set up data based on data recieved
-      labels: bikeCounterData.value ? [] : bikeCounterData.value.labels, // Should come from bikeCounterData backend setup.
+      labels: props.labels,
       datasets: [
         {
-          data: bikeCounterData.value ? [] : bikeCounterData.value.data, // bikeCounterData.data array,
-          backgroundColor: '#A5C8ED',
-          barPercentage: 1.0,
+          data: props.count,
+          backgroundColor: '#6387ad',
+          borderColor: '#A0C0E0',
+          borderWidth: 0,
+          barPercentage: 1,
           categoryPercentage: 1.0,
-        }
-      ]
+        },
+      ],
     }));
 
-    return { 
+    return {
       bikeCounterData,
       chartData,
       chartOptions,
@@ -87,6 +86,5 @@ export default {
   },
 };
 </script>
-<style lang="scss" scopped>
-  
-</style>
+
+<style lang="scss" scopped></style>

@@ -4,6 +4,13 @@
   "rules": {
     "no-unused-vars": "off",
     "vue/no-unused-components": "warn",
+    "comma-dangle": ["warn", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "never",
+      "functions": "never"
+    }],
     "no-constant-condition": "warn",
     "vue/prop-name-casing": ["warn", "camelCase"],
     "quotes": ["warn", "single"],

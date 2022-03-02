@@ -9,7 +9,7 @@ import Coordinates from 'src/component/footer/Coordinates.vue';
 export default {
   components: {
     Coordinates,
-  }
+  },
 };
 
 </script>

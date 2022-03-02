@@ -33,8 +33,8 @@ export default {
     pointOfInterest: {
       type: [Object, undefined],
       required: false,
-      default: undefined
-    }
+      default: undefined,
+    },
   },
 };
 </script>

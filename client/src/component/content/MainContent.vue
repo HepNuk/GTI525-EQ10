@@ -15,12 +15,12 @@ const views = {
   bikeCounter: 'BikeCounter',
   waterFountain: 'Fountain',
   bikeRepair: 'BikeRepair',
-  addPoi: 'AddIntPoint'
+  addPoi: 'AddIntPoint',
 };
 
 export default {
   components: {
-    NavBar
+    NavBar,
   },
 
   computed: {
@@ -30,12 +30,12 @@ export default {
           title: 'Comptages de vélos',
           value: views.bikeCounter,
           active: this.$route.name === views.bikeCounter,
-          action: () => this.$router.push({ name: views.bikeCounter })
+          action: () => this.$router.push({ name: views.bikeCounter }),
         },
         {
           title: 'Points d\'intérêt',
-          dropDownOptions: this.pointOfInterestDropDownOptions
-        }
+          dropDownOptions: this.pointOfInterestDropDownOptions,
+        },
       ];
     },
 
@@ -45,23 +45,23 @@ export default {
           title: 'Fontaines à boire',
           value: views.waterFountain,
           active: this.$route.name === views.waterFountain,
-          action: () => this.$router.push({ name: views.waterFountain })
+          action: () => this.$router.push({ name: views.waterFountain }),
         },
         {
           title: 'Réparation vélos',
           value: views.bikeRepair,
           active: this.$route.name === views.bikeRepair,
-          action: () => this.$router.push({ name: views.bikeRepair })
+          action: () => this.$router.push({ name: views.bikeRepair }),
         },
         {
           title: 'Ajouter un point d\'intérêt',
           value: views.addPoi,
           active: this.$route.name === views.addPoi,
-          action: () => this.$router.push({ name: views.addPoi })
-        }
+          action: () => this.$router.push({ name: views.addPoi }),
+        },
       ];
-    }
-  }
+    },
+  },
 };
 </script>
 
