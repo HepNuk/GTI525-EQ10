@@ -73,7 +73,7 @@ function getCounterCountByDate(start, end, tmp_array, compteurID) {
                 value = 0;
             }
             sum += value;
-            start_date = next_day;
+            start_date = moment(start_date).add(1, 'hours');
             i++;
         }
         array.push(sum);
