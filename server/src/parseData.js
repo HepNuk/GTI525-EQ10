@@ -25,7 +25,8 @@ function fetchDataBetweenDate(compteurId, start, end) {
     count_array = getCounterCountByDate(start, end, array, compteurId);
     return {
         "label": label_array,
-        "count": count_array
+        "count": count_array,
+        "name":getKeyFromID(compteurId)
     };
 }
 
