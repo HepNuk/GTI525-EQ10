@@ -37,7 +37,11 @@
     </template>
 
     <template v-else>
-      <BikeCounterChart v-if="chartInfo" v-bind="chartInfo" />
+      <BikeCounterChart
+        v-if="chartInfo"
+        v-bind="chartInfo"
+        @close="chartInfo = undefined"
+      />
     </template>
   </div>
 </template>

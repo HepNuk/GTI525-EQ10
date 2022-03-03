@@ -1,9 +1,25 @@
 <template>
   <div>
     <div class="chart-hearder">
-      <h2 class="title">
-        Comptages de vélos
-      </h2>
+      <div
+        class="d-flex"
+        style="
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <h6
+          style="align-self: flex-start; cursor: pointer"
+          @click="$emit('close')"
+        >
+          <!-- TODO: -->
+          {{ '<- Go Back' }}
+        </h6>
+        <h3 class="title ms-3">
+          Comptages de vélos
+        </h3>
+      </div>
 
       <div style="display: flex; flex-direction: column">
         <h5 class="mx-2">
@@ -31,7 +47,7 @@
   </div>
 </template>
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import BaseBarChart from './baseCharts/BaseBarChart.vue';
 
 export default {
@@ -71,10 +87,10 @@ export default {
   },
 
   setup(props) {
-    const groupBy = ref('days');
+    const groupBy = ref('day');
     const groupByOptions = computed(() => [
       {
-        value: 'days',
+        value: 'day',
         label: 'Jours',
       },
       {
@@ -133,11 +149,21 @@ export default {
       },
     }));
 
+    const labels = computed(() => {
+      if (groupBy.value === 'day') return ['day'];
+      if (groupBy.value === 'week') return ['week'];
+      return ['month'];
+    });
+
+    const data = computed(() => {
+      return [1];
+    });
+
     const chartData = computed(() => ({
-      labels: props.labels,
+      labels: labels.value,
       datasets: [
         {
-          data: props.count,
+          data: data.value,
           backgroundColor: '#6387ad',
           barPercentage: 1.0,
           categoryPercentage: 1.0,
