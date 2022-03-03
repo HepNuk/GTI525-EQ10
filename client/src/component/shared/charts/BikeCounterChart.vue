@@ -2,16 +2,16 @@
   <div>
     <div class="chart-hearder">
       <div
-        class="d-flex"
-        style="
+          class="d-flex"
+          style="
           flex-direction: column;
           align-items: center;
           justify-content: center;
         "
       >
         <h6
-          style="align-self: flex-start; cursor: pointer"
-          @click="$emit('close')"
+            style="align-self: flex-start; cursor: pointer"
+            @click="$emit('close')"
         >
           <!-- TODO: -->
           {{ '<- Go Back' }}
@@ -40,18 +40,19 @@
         </span>
       </div>
 
-      <MyRadioChoices v-model="groupBy" :options="groupByOptions" />
+      <MyRadioChoices v-model="groupBy" :options="groupByOptions"/>
     </div>
-    <hr />
-    <BaseBarChart :chart-options="chartOptions" :chart-data="chartData" />
+    <hr/>
+    <BaseBarChart :chart-options="chartOptions" :chart-data="chartData"/>
   </div>
 </template>
 <script>
-import { ref, computed, watch } from 'vue';
+import {ref, computed, watch} from 'vue';
 import BaseBarChart from './baseCharts/BaseBarChart.vue';
+import moment from "moment";
 
 export default {
-  components: { BaseBarChart },
+  components: {BaseBarChart},
   props: {
     bikeCounterId: {
       type: String,
@@ -152,17 +153,39 @@ export default {
     // TODO: in these 2 computed properties filter out array based on selection
     const groupedValues = computed(() => {
       if (groupBy.value === 'week') {
+
+
         return {
-          labels: [],
+          labels: props.labels,
           data: [],
-        }; // grouped by week
+        };
       }
 
+
       if (groupBy.value === 'month') {
+        let start_date = new Date(props.labels[0]);
+        start_date = moment(start_date).add(1, 'days');
+        let end_date = new Date(props.labels[props.labels.length - 1]);
+        let month_label = [];
+        let month_data = [];
+
+        while (start_date <= end_date) {
+          month_label.push(moment(start_date).format('YYYY-MM'))
+          start_date = moment(start_date).add(1, 'month')
+        }
+        for (let i = 0; i < month_label.length; i++) {
+          let count = 0;
+          for (let j = 0; j < props.labels.length; j++) {
+            if (month_label[i] === moment(props.labels[j]).format('YYYY-MM')) {
+                count+=props.count[j];
+            }
+          }
+          month_data.push(count);
+        }
         return {
-          labels: [],
-          data: [],
-        }; // grouped by month
+          labels: month_label,
+          data: month_data,
+        }
       }
 
       return {
@@ -191,7 +214,8 @@ export default {
       chartData,
       chartOptions,
     };
-  },
+  }
+  ,
 };
 </script>
 
