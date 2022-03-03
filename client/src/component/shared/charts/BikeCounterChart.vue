@@ -150,21 +150,23 @@ export default {
     }));
 
     // TODO: in these 2 computed properties filter out array based on selection
-    const labels = computed(() => {
-      if (groupBy.value === 'day') return ['day'];
-      if (groupBy.value === 'week') return ['week'];
-      return ['month'];
-    });
+    const groupedValues = computed(() => {
+      if (groupBy.value === 'week') {
+        return [[], []]; // grouped by week
+      }
 
-    const data = computed(() => {
-      return [1];
+      if (groupBy.value === 'month') {
+        return [[], []]; // grouped by month
+      }
+
+      return [[...props.labels], [...props.count]]; // already grouped by day
     });
 
     const chartData = computed(() => ({
-      labels: props.labels,
+      labels: groupedValues.value[0],
       datasets: [
         {
-          data: props.count,
+          data: groupedValues.value[1],
           backgroundColor: '#6387ad',
           barPercentage: 1.0,
           categoryPercentage: 1.0,
@@ -173,6 +175,7 @@ export default {
     }));
 
     return {
+      groupedValues,
       groupBy,
       groupByOptions,
       bikeCounterData,
