@@ -152,21 +152,30 @@ export default {
     // TODO: in these 2 computed properties filter out array based on selection
     const groupedValues = computed(() => {
       if (groupBy.value === 'week') {
-        return [[], []]; // grouped by week
+        return {
+          labels: [],
+          data: [],
+        }; // grouped by week
       }
 
       if (groupBy.value === 'month') {
-        return [[], []]; // grouped by month
+        return {
+          labels: [],
+          data: [],
+        }; // grouped by month
       }
 
-      return [[...props.labels], [...props.count]]; // already grouped by day
+      return {
+        labels: props.labels,
+        data: props.count,
+      }; // already grouped by day
     });
 
     const chartData = computed(() => ({
-      labels: groupedValues.value[0],
+      labels: groupedValues.value.labels,
       datasets: [
         {
-          data: groupedValues.value[1],
+          data: groupedValues.value.data,
           backgroundColor: '#6387ad',
           barPercentage: 1.0,
           categoryPercentage: 1.0,
