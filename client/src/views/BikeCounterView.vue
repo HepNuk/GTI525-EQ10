@@ -181,7 +181,7 @@ export default {
             bikeCounterName: res.data.name,
             bikeCounterId: this.showStatsFor,
             startDate: `${p.fromYear}-${p.fromMonth}-${p.fromDay}`,
-            endDate: `${p.fromYear}-${p.fromMonth}-${p.fromDay}`,
+            endDate: `${p.toYear}-${p.toMonth}-${p.toDay}`,
             labels: res.data.label,
             count: res.data.count,
           };
