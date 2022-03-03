@@ -15,7 +15,7 @@ export default {
   components: {
     HeaderComponent,
     MainContent,
-    FooterComponent
+    FooterComponent,
   },
 
   props: {

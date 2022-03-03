@@ -46,12 +46,15 @@ export default {
 
 <style scoped lang="scss">
 .modal {
-  width: 300px;
+  width: full;
+  height: full;
+  background-color: transparent !important;
   padding: 30px;
   box-sizing: border-box;
   background-color: #fff;
   font-size: 20px;
-  text-align: center;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

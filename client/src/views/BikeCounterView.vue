@@ -31,7 +31,7 @@
         @close="closeStats"
       />
 
-      <MapModal :is-show="showModal" @close-modal="closeModal"/>
+      <MapModal :is-show="showModal" :data="showModal" @close-modal="closeModal"/>
     </template>
 
     <template v-else>
@@ -74,7 +74,8 @@ export default {
         icon: 'map-marker-alt',
         click: (row) => { 
           showModal.value = true;
-          console.log(row.Longitude, row.Latitude); 
+          console.log([row.Latitude, row.Longitude]); 
+          showModal.value = [row.Latitude, row.Longitude]
         },
       },
       {
