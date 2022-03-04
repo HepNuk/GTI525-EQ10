@@ -11,6 +11,7 @@
         :checked="modelValue === value"
         :value="value"
         :name="value + index"
+        :disabled="disabled"
         type="radio"
         @change="$emit('update:modelValue', $event.target.value)"
       />
@@ -28,8 +29,6 @@
 </template>
 
 <script>
-import { computed } from 'vue';
-
 export default {
   props: {
     modelValue: {
@@ -46,6 +45,11 @@ export default {
       type: String,
       default: 'vertical',
       validate: (v) => ['horizontal', 'vertical'].includes(v),
+    },
+
+    disabled: {
+      type: Boolean,
+      default: true,
     },
   },
 };

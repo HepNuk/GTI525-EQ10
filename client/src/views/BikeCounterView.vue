@@ -30,6 +30,8 @@
         <Stats
           v-if="showStatsFor"
           ref="stats"
+          :counter-name="counterName"
+          :counter-id="showStatsFor"
           @submit="loadChartDatails"
           @close="closeStats"
         />
@@ -70,6 +72,7 @@ export default {
       bikeCounterData: csvFile,
 
       showStatsFor: undefined,
+      counterName: '',
 
       sort: {
         key: 'ID',
@@ -152,11 +155,14 @@ export default {
     },
 
     openStats(row) {
-      this.showStatsFor = row.ID;
+      this.showStatsFor = row['ID'];
+      this.counterName = row['Nom'];
+      console.log(row['Nom']);
     },
 
     closeStats() {
       this.showStatsFor = undefined;
+      this.counterName = '';
     },
 
     statsErrorMessage(message) {
