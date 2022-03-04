@@ -7,7 +7,7 @@
       align-items: center;
     "
   >
-    <div class="loading">
+    <div v-if="!hideSpinner" class="loading">
       <div></div>
       <div></div>
       <div></div>
@@ -22,6 +22,12 @@
 export default {
   props: {
     showText: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+
+    hideSpinner: {
       type: Boolean,
       required: false,
       default: false,

@@ -30,6 +30,8 @@
         <Stats
           v-if="showStatsFor"
           ref="stats"
+          :counter-name="counterName"
+          :counter-id="showStatsFor"
           @submit="loadChartDatails"
           @close="closeStats"
         />
@@ -37,7 +39,11 @@
     </template>
 
     <template v-else>
-      <BikeCounterChart v-if="chartInfo" v-bind="chartInfo" />
+      <BikeCounterChart
+        v-if="chartInfo"
+        v-bind="chartInfo"
+        @close="chartInfo = undefined"
+      />
     </template>
   </div>
 </template>
@@ -66,6 +72,7 @@ export default {
       bikeCounterData: csvFile,
 
       showStatsFor: undefined,
+      counterName: '',
 
       sort: {
         key: 'ID',
@@ -148,11 +155,13 @@ export default {
     },
 
     openStats(row) {
-      this.showStatsFor = row.ID;
+      this.showStatsFor = row['ID'];
+      this.counterName = row['Nom'];
     },
 
     closeStats() {
       this.showStatsFor = undefined;
+      this.counterName = '';
     },
 
     statsErrorMessage(message) {
@@ -177,7 +186,7 @@ export default {
             bikeCounterName: res.data.name,
             bikeCounterId: this.showStatsFor,
             startDate: `${p.fromYear}-${p.fromMonth}-${p.fromDay}`,
-            endDate: `${p.fromYear}-${p.fromMonth}-${p.fromDay}`,
+            endDate: `${p.toYear}-${p.toMonth}-${p.toDay}`,
             labels: res.data.label,
             count: res.data.count,
           };

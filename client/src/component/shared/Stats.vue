@@ -2,7 +2,7 @@
   <div class="stats-view p-3">
     <div class="title">
       <h5>
-        Statistique du compteur
+        Statistique du compteur : ({{ counterId }}) {{ counterName }}
       </h5>
 
       <span @click="$emit('close')">
@@ -79,6 +79,18 @@ import { ref, computed } from 'vue';
 export default {
   components: {
     MySelectionInput,
+  },
+
+  props: {
+    counterName: {
+      type: String,
+      default: '',
+    },
+
+    counterId: {
+      type: [String, Number],
+      default: '',
+    },
   },
 
   emits: ['close', 'submit'],

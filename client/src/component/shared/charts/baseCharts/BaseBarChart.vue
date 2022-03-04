@@ -4,7 +4,7 @@
 <script>
 import { shuffle } from 'lodash';
 
-import { computed, ref } from 'vue';
+import { computed, ref, watch, onMounted } from 'vue';
 import { BarChart, useBarChart } from 'vue-chart-3';
 
 // Dont Remove needed for chart to work.
@@ -61,12 +61,20 @@ export default {
   },
 
   setup(props, ctx) {
+    // Deconstruct props into computed values or else chart is not reactive for some reason.
+    const data = computed(() => ({
+      ...props.chartData,
+    }));
+
+    const options = computed(() => ({
+      ...props.chartOptions,
+    }));
+
     const { barChartProps, barChartRef, update } = useBarChart({
-      chartData: props.chartData,
-      options: props.chartOptions,
+      chartData: data,
+      options,
       plugins: [],
     });
-
     return { barChartProps, barChartRef, update };
   },
 };
