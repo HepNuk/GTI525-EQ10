@@ -157,7 +157,6 @@ export default {
     openStats(row) {
       this.showStatsFor = row['ID'];
       this.counterName = row['Nom'];
-      console.log(row['Nom']);
     },
 
     closeStats() {
