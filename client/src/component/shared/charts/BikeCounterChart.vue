@@ -152,20 +152,41 @@ export default {
 
     // TODO: in these 2 computed properties filter out array based on selection
     const groupedValues = computed(() => {
-      if (groupBy.value === 'week') {
 
+      let start_date = new Date(props.labels[0]);
+      start_date = moment(start_date).add(1, 'days');
+      let end_date = new Date(props.labels[props.labels.length - 1]);
+
+      if (groupBy.value === 'week') {
+        let week_label = [];
+        let week_data = [];
+        while (start_date <= end_date) {
+          let weekStart = start_date.clone().startOf('week');
+          week_label.push(moment(weekStart).format('YYYY-MM-DD'))
+          start_date = moment(start_date).add(1, 'week')
+        }
+
+        for (let i = 0; i < week_label.length - 1; i++) {
+          let count = 0;
+          let startWeek = moment(week_label[i], 'YYYY-MM-DD');
+          let endWeek = moment(week_label[i + 1], 'YYYY-MM-DD');
+          for (let j = 0; j < props.labels.length; j++) {
+            let currentDate = moment(props.labels[j])
+            if (currentDate.isBetween(startWeek, endWeek)) {
+              count += props.count[j];
+            }
+          }
+          week_data.push(count);
+        }
 
         return {
-          labels: props.labels,
-          data: [],
+          labels: week_label,
+          data: week_data,
         };
       }
 
 
       if (groupBy.value === 'month') {
-        let start_date = new Date(props.labels[0]);
-        start_date = moment(start_date).add(1, 'days');
-        let end_date = new Date(props.labels[props.labels.length - 1]);
         let month_label = [];
         let month_data = [];
 
@@ -177,7 +198,7 @@ export default {
           let count = 0;
           for (let j = 0; j < props.labels.length; j++) {
             if (month_label[i] === moment(props.labels[j]).format('YYYY-MM')) {
-                count+=props.count[j];
+              count += props.count[j];
             }
           }
           month_data.push(count);
