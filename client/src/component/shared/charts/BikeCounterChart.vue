@@ -16,13 +16,13 @@
           <fa icon="arrow-left" size="1x" /> Retour
         </h6>
         <h3 class="title ms-3">
-          Comptages de vélos
+          {{bikeCounterName}}
         </h3>
       </div>
 
       <div style="display: flex; flex-direction: column">
         <h5 class="mx-2">
-          Prériode:
+          Période:
         </h5>
         <span class="d-flex" style="justify-content: space-between">
           <strong class="me-2">
