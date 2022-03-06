@@ -1,8 +1,14 @@
 <template>
   <select v-model="newValue">
-    <option :value="0" disabled selected>{{ placeholder }}</option>
+    <option
+      :value="0"
+      disabled
+      selected
+    >
+      {{ placeholder }}
+    </option>
     <template v-if="Array.isArray(options)">
-      <option 
+      <option
         v-for="(option, i) in options"
         :key="i"
         :value="i + 1"
@@ -12,7 +18,7 @@
     </template>
 
     <template v-else>
-      <option 
+      <option
         v-for="(option, key) in options"
         :key="key"
         :value="key"
@@ -26,8 +32,6 @@
 <script>
 import { ref, watch } from 'vue';
 export default {
-  emits: ['update:modelValue'],
-  
   props: {
     modelValue: {
       type: [String, Number],
@@ -42,9 +46,10 @@ export default {
     options: {
       type: [Array, Object],
       required: true,
-    }
+    },
   },
 
+  emits: ['update:modelValue'],
   setup(props, ctx) {
     const newValue = ref(props.modelValue);
     watch(newValue, (to) => ctx.emit('update:modelValue', to));
@@ -54,6 +59,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scopped>
-
-</style>
+<style lang="scss" scopped></style>

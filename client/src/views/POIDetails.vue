@@ -1,18 +1,26 @@
 <template>
   <div class="poi-details p-3">
-    <fa class="me-4" icon="map-marked-alt" size="8x"/>
+    <fa
+      class="me-4"
+      icon="map-marked-alt"
+      size="8x"
+    />
     <div class="details">
       <h5>
         Détails
       </h5>
 
       <span>
-        <strong>Proximité: </strong>
+        <strong>
+          Proximité:
+        </strong>
         {{ pointOfInterest ? pointOfInterest['Proximité_jeux_repère'] : '' }}
       </span>
 
       <span>
-        <strong>Remarque: </strong>
+        <strong>
+          Remarque:
+        </strong>
         {{ pointOfInterest ? pointOfInterest.Remarque : ''}}
       </span>
     </div>
@@ -25,8 +33,8 @@ export default {
     pointOfInterest: {
       type: [Object, undefined],
       required: false,
-      default: undefined
-    }
+      default: undefined,
+    },
   },
 };
 </script>

@@ -1,11 +1,11 @@
 <template>
   <div class="bike-counter-view content-view">
-    <template v-if="!chartDetails">
+    <template v-if="!chartInfo">
       <div class="content-view-header p-3">
         <h2 class="title">
           Comptages de vélos
         </h2>
-  
+
         <Sort
           title="Trier par: "
           :sort-options="filteredHeader"
@@ -13,7 +13,7 @@
           @toggle-sort="toggleSort"
         />
       </div>
-  
+
       <MyTable
         v-if="bikeCounterData"
         :header="headerRow"
@@ -24,18 +24,26 @@
         show-bottom-separator
         class="table"
       />
-  
-      <Stats 
-        v-if="showStatsFor"
-        @submit="logSubmit"
-        @close="closeStats"
-      />
 
-      <MapModal :is-show="showModal" :data="showModal" @close-modal="closeModal"/>
+      <MySpinner v-if="loadingChart" show-text />
+      <template v-else>
+        <Stats
+          v-if="showStatsFor"
+          ref="stats"
+          :counter-name="counterName"
+          :counter-id="showStatsFor"
+          @submit="loadChartDatails"
+          @close="closeStats"
+        />
+      </template>
     </template>
 
     <template v-else>
-
+      <BikeCounterChart
+        v-if="chartInfo"
+        v-bind="chartInfo"
+        @close="chartInfo = undefined"
+      />
     </template>
   </div>
 </template>
@@ -45,16 +53,18 @@ import { ref, computed } from 'vue';
 
 import csvFile from 'src/assets/csv/compteurs.csv';
 import Sort from 'src/component/shared/Sort.vue';
-import Stats from 'src/component/shared/Stats.vue';
-import MyModal from 'src/component/shared/MyModal.vue';
-import MapModal from 'src/component/shared/modals/MapModal.vue';
+import Stats from '../component/shared/Stats.vue';
+import BikeCounterChart from 'src/component/shared/charts/BikeCounterChart.vue';
+
+import { getCompteurDetailsBetweenDates } from '../utils/Services';
+import MySpinner from '../component/shared/MySpinner.vue';
 
 export default {
   components: {
     Sort,
     Stats,
-    MyModal,
-    MapModal,
+    BikeCounterChart,
+    MySpinner,
   },
 
   setup() {
@@ -95,16 +105,17 @@ export default {
 
   data() {
     return {
-      chartDetails: false,
+      loadingChart: false,
+      chartInfo: undefined,
       bikeCounterData: csvFile,
 
       showStatsFor: undefined,
+      counterName: '',
 
       sort: {
         key: 'ID',
         direction: 'asc',
-      }
-      
+      },
     };
   },
 
@@ -145,28 +156,27 @@ export default {
       return {
         ID: 'ID',
         Nom: 'Nom du compteur',
-        Statut: 'Statut', 
+        Statut: 'Statut',
         Annee_implante: 'Annee Implantée',
       };
     },
 
-    // tableActionButtons() {
-    //   return [
-    //     {
-    //       type: 'icon',
-    //       icon: 'map-marker-alt',
-    //       click: (row) => { 
-    //         this.showModal = true;
-    //         console.log(row.Longitude, row.Latitude); 
-    //       },
-    //     },
-    //     {
-    //       type: 'text',
-    //       text: 'Statistique',
-    //       click: (row) => this.openStats(row),
-    //     }
-    //   ];
-    // },
+    tableActionButtons() {
+      return [
+        {
+          type: 'icon',
+          icon: 'map-marker-alt',
+          click: (row) => {
+            console.log(row.Longitude, row.Latitude);
+          },
+        },
+        {
+          type: 'text',
+          text: 'Statistique',
+          click: (row) => this.openStats(row),
+        },
+      ];
+    },
   },
 
   methods: {
@@ -183,20 +193,51 @@ export default {
     },
 
     openStats(row) {
-      this.showStatsFor = row.ID;
+      this.showStatsFor = row['ID'];
+      this.counterName = row['Nom'];
     },
-    
+
     closeStats() {
       this.showStatsFor = undefined;
+      this.counterName = '';
     },
 
-    logSubmit(payload) {
-      console.log(payload);
-    }
-  }
-};
+    statsErrorMessage(message) {
+      this.$refs.stats.errorMessage = message;
+    },
 
+    loadChartDatails(p) {
+      const startDate = '' + p.fromYear + p.fromMonth + p.fromDay;
+      const endDate = '' + p.toYear + p.toMonth + p.toDay;
+
+      if (Number(startDate) >= Number(endDate)) {
+        this.statsErrorMessage(
+          'La date de fin doit etre avant la date de début.'
+        );
+        return;
+      }
+
+      this.loadingChart = true;
+      getCompteurDetailsBetweenDates(this.showStatsFor, startDate, endDate)
+        .then((res) => {
+          this.chartInfo = {
+            bikeCounterName: res.data.name,
+            bikeCounterId: this.showStatsFor,
+            startDate: `${p.fromYear}-${p.fromMonth}-${p.fromDay}`,
+            endDate: `${p.toYear}-${p.toMonth}-${p.toDay}`,
+            labels: res.data.label,
+            count: res.data.count,
+          };
+        })
+        .catch((err) => console.error(err))
+        .finally(() => (this.loadingChart = false));
+    },
+
+    closeChartDetails() {
+      this.chartInfo = undefined;
+    },
+  },
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

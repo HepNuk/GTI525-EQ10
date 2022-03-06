@@ -14,7 +14,9 @@
           class="px-1"
           @click="$emit('toggle-sort', key)"
         >
-          <span>{{ option }}</span>
+          <span>
+            {{ option }}
+          </span>
 
           <fa 
             v-if="sort.key === key && sort.direction === 'asc'"
@@ -52,18 +54,18 @@ export default {
     sort: {
       type: Object,
       required: true,
-    }
+    },
   },
 
   computed: {
     iconStyle() {
       return {
-        color: 'red'
+        color: 'red',
       };
 
 
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -1,0 +1,24 @@
+{
+  "scripts": {
+    "server": "cd ./server && npm run server",
+    "start": "cd ./server && npm run start",
+    "start:windows": "cd ./server && npm run start-windows",
+    "start:linux": "cd ./server && npm run start-linux",
+    "dev": "cd ./client && npm run dev",
+    "install:server": "cd ./server && npm install",
+    "install:client": "cd ./client && npm install",
+    "install:all": "npm install && npm run install:server && npm run install:client",
+    "lint": "cd ./client && npm run lint",
+    "lint-fix": "cd ./client && npm run lint-fix"
+  },
+  "devDependencies": {
+    "eslint": "^8.10.0",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.5.0",
+    "prettier": "2.5.1",
+    "vue": "^3.2.31"
+  }
+}

@@ -1,15 +1,11 @@
 <template>
-    <div class="middle-component">
-      <NavBar 
-        :nav-items="navBarActionItems"
-        class="nav-view"
-        @change-view="changeViewTo"
-      />
+  <div class="middle-component">
+    <NavBar :nav-items="navBarActionItems" class="nav-view" />
 
-      <div class="data-view">
-        <router-view class="main-view" />
-      </div>
+    <div class="data-view">
+      <router-view class="main-view" />
     </div>
+  </div>
 </template>
 
 <script>
@@ -27,39 +23,19 @@ export default {
     NavBar,
   },
 
-  props: {
-    view: {
-      type: String,
-      required: true,
-    }
-  },
-
   computed: {
-    showBikeView() {
-      return this.view === views.bikeCounter;
-    },
-    showWaterFountainView(){
-      return this.view === views.waterFountain;
-    },
-    showBikeRepairView(){
-      return this.view === views.bikeRepair;
-    },
-    showAddIntPointView(){
-      return this.view === views.addPoi;
-    },
-
     navBarActionItems() {
       return [
         {
           title: 'Comptages de vélos',
           value: views.bikeCounter,
           active: this.$route.name === views.bikeCounter,
-          action: () => this.$router.push({ name: views.bikeCounter})
+          action: () => this.$router.push({ name: views.bikeCounter }),
         },
         {
           title: 'Points d\'intérêt',
           dropDownOptions: this.pointOfInterestDropDownOptions,
-        }
+        },
       ];
     },
 
@@ -68,34 +44,25 @@ export default {
         {
           title: 'Fontaines à boire',
           value: views.waterFountain,
-          active: (this.$route.name === views.waterFountain),
-          action: () => this.$router.push({ name: views.waterFountain })
+          active: this.$route.name === views.waterFountain,
+          action: () => this.$router.push({ name: views.waterFountain }),
         },
         {
           title: 'Réparation vélos',
           value: views.bikeRepair,
-          active: (this.$route.name === views.bikeRepair),
-          action: () => this.$router.push({ name: views.bikeRepair })
+          active: this.$route.name === views.bikeRepair,
+          action: () => this.$router.push({ name: views.bikeRepair }),
         },
         {
           title: 'Ajouter un point d\'intérêt',
           value: views.addPoi,
-          active: (this.$route.name === views.addPoi),
-          action: () => this.$router.push({ name: views.addPoi })
-        }
+          active: this.$route.name === views.addPoi,
+          action: () => this.$router.push({ name: views.addPoi }),
+        },
       ];
-    } 
+    },
   },
-
-  methods: {
-    changeViewTo(toView) {
-      if (this.view !== toView) {
-        this.$emit('change-view', toView);
-      }
-    }
-  }
 };
-
 </script>
 
 <style lang="scss" scoped>
@@ -109,7 +76,8 @@ export default {
   min-height: 10rem;
 }
 
-.data-view, .nav-view{
+.data-view,
+.nav-view {
   border: 2px solid black;
   padding: 5px;
   margin: 5px;

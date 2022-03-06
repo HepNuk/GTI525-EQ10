@@ -2,7 +2,7 @@
   <div class="stats-view p-3">
     <div class="title">
       <h5>
-        Statistique du compteur
+        Statistique du compteur : ({{ counterId }}) {{ counterName }}
       </h5>
 
       <span @click="$emit('close')">
@@ -16,20 +16,50 @@
       </span>
 
       <div class="input-line from-inputs mb-1">
-        <label for="de">De: </label>
-        <MySelectionInput v-model="fromYear" :options="options.years" placeholder="Année"/>
-        <MySelectionInput v-model="fromMonth" :options="options.months" placeholder="Mois"/>
-        <MySelectionInput v-model="fromDay" :options="fromDaysArray" placeholder="Jours"/>
+        <label for="de">
+          De:
+        </label>
+        <MySelectionInput
+          v-model="fromYear"
+          :options="options.years"
+          placeholder="Année"
+        />
+        <MySelectionInput
+          v-model="fromMonth"
+          :options="options.months"
+          placeholder="Mois"
+        />
+        <MySelectionInput
+          v-model="fromDay"
+          :options="fromDaysArray"
+          placeholder="Jours"
+        />
       </div>
 
       <div class="input-line to-inputs px-2">
-        <label for="a">A: </label>
-        <MySelectionInput v-model="toYear" :options="options.years" placeholder="Année"/>
-        <MySelectionInput v-model="toMonth" :options="options.months" placeholder="Mois"/>
-        <MySelectionInput v-model="toDay" :options="toDaysArray" placeholder="Jours"/>
+        <label for="a">
+          A:
+        </label>
+        <MySelectionInput
+          v-model="toYear"
+          :options="options.years"
+          placeholder="Année"
+        />
+        <MySelectionInput
+          v-model="toMonth"
+          :options="options.months"
+          placeholder="Mois"
+        />
+        <MySelectionInput
+          v-model="toDay"
+          :options="toDaysArray"
+          placeholder="Jours"
+        />
       </div>
     </div>
-
+    <p v-if="errorMessage" style="color: red">
+      {{ errorMessage }}
+    </p>
     <MyButton
       hover-color="#555"
       fill
@@ -47,11 +77,23 @@ import { years, months, days } from 'src/constants';
 import { ref, computed } from 'vue';
 
 export default {
-  emits: ['close', 'submit'],
-
   components: {
-    MySelectionInput
+    MySelectionInput,
   },
+
+  props: {
+    counterName: {
+      type: String,
+      default: '',
+    },
+
+    counterId: {
+      type: [String, Number],
+      default: '',
+    },
+  },
+
+  emits: ['close', 'submit'],
 
   setup(_, ctx) {
     const fromYear = ref(0);
@@ -61,51 +103,80 @@ export default {
     const toMonth = ref(0);
     const toDay = ref(0);
 
-    const options = computed(() => {
-      return {
-        years: years,
-        months: months,
-        days: days,
-      };
-    });
+    const options = computed(() => ({
+      years: years,
+      months: months,
+      days: days,
+    }));
 
     const fromDaysArray = computed(() => {
       if (fromMonth.value === 0) return [];
       let fromSlice = options.value.months[fromMonth.value].days;
 
-      if (fromMonth.value === 'feb'
-        && options.value.years[fromYear.value-1] !== 0
-        && Number(options.value.years[fromYear.value-1]) % 4 === 0) {
-        
+      if (
+        fromMonth.value === 'feb' &&
+        options.value.years[fromYear.value - 1] !== 0 &&
+        Number(options.value.years[fromYear.value - 1]) % 4 === 0
+      ) {
         fromSlice = 29;
       }
-      
+
       return days.slice(0, fromSlice);
     });
 
     const toDaysArray = computed(() => {
-      if (fromMonth.value === 0) return [];
-      let fromSlice = options.value.months[fromMonth.value].days;
+      if (toMonth.value === 0) return [];
+      let toSlice = options.value.months[toMonth.value].days;
 
-      if (fromMonth.value === 'feb'
-        && options.value.years[fromYear.value-1] !== 0
-        && Number(options.value.years[fromYear.value-1]) % 4 === 0) {
-        
-        fromSlice = 29;
+      if (
+        toMonth.value === 'feb' &&
+        options.value.years[toYear.value - 1] !== 0 &&
+        Number(options.value.years[toYear.value - 1]) % 4 === 0
+      ) {
+        toSlice = 29;
       }
-      
-      return days.slice(0, fromSlice);
+
+      return days.slice(0, toSlice);
     });
 
-    const submit = () => ctx.emit('submit', {
-      fromYear: options.value.years[fromYear.value-1],
-      fromMonth: fromMonth.value === 0 ? undefined : fromMonth.value,
-      fromDay: options.value.days[fromDay.value-1],
-      
-      toYear: options.value.years[toYear.value-1],
-      toMonth: toMonth.value === 0 ? undefined : toMonth.value,
-      toDay: options.value.days[toDay.value-1],
-    });
+    const errorMessage = ref('');
+    const submit = () => {
+      const fY = options.value.years[fromYear.value - 1];
+      const fM =
+        fromMonth.value === 0
+          ? undefined
+          : Object.keys(months).indexOf(fromMonth.value)
+          ? '' + (Object.keys(months).indexOf(fromMonth.value) + 1)
+          : '0' + (Object.keys(months).indexOf(fromMonth.value) + 1);
+      const fD = options.value.days[fromDay.value - 1];
+      const tY = options.value.years[toYear.value - 1];
+      const tM =
+        toMonth.value === 0
+          ? undefined
+          : Object.keys(months).indexOf(toMonth.value) > 9
+          ? '' + (Object.keys(months).indexOf(toMonth.value) + 1)
+          : '0' + (Object.keys(months).indexOf(toMonth.value) + 1);
+      const tD = options.value.days[toDay.value - 1];
+
+      console.log(fY, fM, fD, tY, tM, tD);
+
+      if (!fY || !fM || !fD || !tY || !tM || !tD) {
+        errorMessage.value = 'Veuillez remplir tous les champs SVP.';
+        return;
+      }
+
+      errorMessage.value = '';
+
+      ctx.emit('submit', {
+        fromYear: fY,
+        fromMonth: fM,
+        fromDay: fD,
+
+        toYear: tY,
+        toMonth: tM,
+        toDay: tD,
+      });
+    };
 
     return {
       fromYear,
@@ -118,15 +189,15 @@ export default {
       fromDaysArray,
       toDaysArray,
 
+      errorMessage,
       submit,
     };
-  }
+  },
 };
-
 </script>
 
 <style lang="scss" scoped>
-@import "src/assets/css/vars.scss";
+@import 'src/assets/css/vars.scss';
 
 .title {
   display: inline-flex;
@@ -142,7 +213,7 @@ export default {
   span {
     padding-right: 2px;
     padding-left: 2px;
-    
+
     &:hover {
       cursor: pointer;
       background-color: $pale-grey;

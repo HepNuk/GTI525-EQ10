@@ -9,7 +9,8 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faGripHorizontal } from '@fortawesome/free-solid-svg-icons';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
-
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faInfoCircle);
 library.add(faChevronUp);
@@ -19,5 +20,7 @@ library.add(faChevronRight);
 library.add(faGripHorizontal);
 library.add(faMapMarkerAlt);
 library.add(faMapMarkedAlt);
+library.add(faTimes);
+library.add(faArrowLeft);
 
 export default FontAwesomeIcon;

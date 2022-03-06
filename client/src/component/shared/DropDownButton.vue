@@ -16,7 +16,7 @@
       <slot />
     </MyButton>
     
-    <div class="px-3 drop-down-menu" v-if="!collapsed">
+    <div v-if="!collapsed" class="px-3 drop-down-menu">
       <MyButton
         v-for="(option, index) in dropDownOptions"
         :key="'dropdown-' + index"
@@ -48,7 +48,7 @@ const types = [
   'light',
   'dark',
   'link',
-  'pale-grey'
+  'pale-grey',
 ];
 
 
@@ -64,14 +64,14 @@ export default {
       type: String,
       required: false,
       default: 'primary',
-      validator: (value) => types.includes(value)
+      validator: (value) => types.includes(value),
     },
 
     notActiveType: {
       type: String,
       required: false,
       default: 'secondary',
-      validator: (value) => types.includes(value)
+      validator: (value) => types.includes(value),
     },
 
     border: {
@@ -84,7 +84,7 @@ export default {
       type: String,
       required: false,
       default: '#000',
-      validator: (value) => (/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(value))
+      validator: (value) => (/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(value)),
     },
 
     fill: {
@@ -103,7 +103,7 @@ export default {
       type: Boolean,
       required: false,
       default: true,
-    }
+    },
   },
 
   data() {
@@ -127,7 +127,7 @@ export default {
       }
 
       return false;
-    }
+    },
   },
 
   methods: {
@@ -138,7 +138,7 @@ export default {
         this.nativeCollapsed = !this.collapsed;
       }
     },
-  }
+  },
 };
 </script>
 

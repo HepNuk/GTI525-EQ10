@@ -39,8 +39,8 @@
               </td>
             </template>
 
-            <td class="table-action-buttons" v-if="actionButtons">
-              <div :key="'action-' + index" v-for="(action, index) in actionButtons">
+            <td v-if="actionButtons" class="table-action-buttons">
+              <div v-for="(action, index) in actionButtons" :key="'action-' + index">
                 <template v-if="action.type === 'icon'">
                   <span @click="action.click(row)">
                     <fa 
@@ -76,8 +76,16 @@
           <fa icon="chevron-left" />
         </MyButton>
 
-        <input v-model="page" type="number" :min="1" :max="maxPage" placeholder="page"/> 
-        <span>/ {{ maxPage }}</span>
+        <input
+          v-model="page"
+          type="number"
+          :min="1"
+          :max="maxPage"
+          placeholder="page"
+        /> 
+        <span>
+          / {{ maxPage }}
+        </span>
 
         <MyButton
           type="light"
@@ -111,7 +119,7 @@ export default {
     filteredHeader: {
       type: Object,
       required: false,
-      default: undefined
+      default: undefined,
     },
 
     limitHeight: {
@@ -135,14 +143,14 @@ export default {
     columnSettings: {
       type: Object,
       required: false,
-      default: () => {}
+      default: () => {},
     },
 
     showBottomSeparator: {
       type: Boolean,
       required: false,
       default: false,
-    }
+    },
   },
 
   data() {
@@ -169,7 +177,7 @@ export default {
 
     maxPage() {
       return Math.ceil(this.data.length / this.paginate);
-    }
+    },
   },
 };
 
