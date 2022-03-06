@@ -21,14 +21,14 @@ const vueRoutes = [
   '/add_poi',
 ];
 
-const pathToVueProdIndex = path.resolve(__dirname, 'public', 'index.html')
+const pathToVueProdIndex = path.resolve(__dirname, 'public', 'index.html');
 // sendFile handler for vue app's built for production index file.
 const vueAppHandler = (req, res, next) => res.sendFile(pathToVueProdIndex);
 
 app
   .use(cors())
   .use(morgan('tiny'))
-  .use(bodyParser.json())
+  .use(bodyParser.json());
 
 // // For later if they make us use a DB
 // mongoose
@@ -52,11 +52,11 @@ app.use('/gti525/v1/fontaines', routeFountain);
 var RateLimit = require('express-rate-limit');
 var limiter = new RateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 10
-})
+  max: 10,
+});
 
 // apply rate limiter to all requests
-app.use(limiter)
+app.use(limiter);
 
 // If production (npm run start-linux or npm run start-windows)
 if (ENV['NODE_ENV'] == 'production') {
@@ -66,5 +66,5 @@ if (ENV['NODE_ENV'] == 'production') {
 }
 
 app.listen(PORT, () => {
-  console.log((`Server App listening at http://localhost:${PORT}`))
+  console.log((`Server App listening at http://localhost:${PORT}`));
 });
