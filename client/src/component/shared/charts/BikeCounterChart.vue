@@ -143,7 +143,7 @@ export default {
           },
         },
         xAxes: {
-          title: { 
+          title: {
             display: true,
             text: 'Date',
             font: {

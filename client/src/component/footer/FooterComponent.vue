@@ -11,7 +11,6 @@ export default {
     Coordinates,
   },
 };
-
 </script>
 
 <style lang="scss" scoped>

@@ -7,7 +7,7 @@
         fill,
         disabled,
         border,
-        borderColor
+        borderColor,
       }"
       :active="active || activeItem"
       :hover="!(active || activeItem)"
@@ -15,7 +15,7 @@
     >
       <slot />
     </MyButton>
-    
+
     <div v-if="!collapsed" class="px-3 drop-down-menu">
       <MyButton
         v-for="(option, index) in dropDownOptions"
@@ -51,7 +51,6 @@ const types = [
   'pale-grey',
 ];
 
-
 export default {
   props: {
     dropDownOptions: {
@@ -84,7 +83,8 @@ export default {
       type: String,
       required: false,
       default: '#000',
-      validator: (value) => (/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(value)),
+      validator: (value) =>
+        /#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/.test(value),
     },
 
     fill: {
@@ -142,5 +142,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scopped>
-</style>
+<style lang="scss" scopped></style>

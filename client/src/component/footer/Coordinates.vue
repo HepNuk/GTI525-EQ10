@@ -1,8 +1,5 @@
 <template>
-  <MyTable 
-    :header="header"
-    :data="studentMembers"
-  />
+  <MyTable :header="header" :data="studentMembers" />
 </template>
 
 <script>
@@ -33,7 +30,6 @@ export default {
           email: 'jimmy.mai.1@ens.etsmtl.ca',
           code: 'MAIJ09079505',
           groupe: '10',
-
         },
         {
           firstName: 'Ai-Vi',
@@ -41,7 +37,6 @@ export default {
           email: 'ai-vi.nguyen.1@ens.etsmtl.ca',
           code: 'NGUA16569307',
           groupe: '10',
-
         },
         {
           firstName: 'Nikola',
@@ -49,15 +44,11 @@ export default {
           email: 'nikola.perotic.1@ens.etsmtl.ca',
           code: 'PERN06049400',
           groupe: '10',
-
         },
       ];
     },
   },
 };
-
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

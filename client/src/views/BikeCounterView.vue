@@ -92,7 +92,6 @@ export default {
         type: 'icon',
         icon: 'map-marker-alt',
         click: (row) => {
-          console.log([row.Latitude, row.Longitude]);
           showModal.value = {
             id: row['ID'],
             nom: row['Nom'],

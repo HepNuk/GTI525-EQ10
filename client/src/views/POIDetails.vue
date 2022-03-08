@@ -21,7 +21,7 @@
         <strong>
           Remarque:
         </strong>
-        {{ pointOfInterest ? pointOfInterest.Remarque : ''}}
+        {{ pointOfInterest ? pointOfInterest.Remarque : '' }}
       </span>
     </div>
   </div>

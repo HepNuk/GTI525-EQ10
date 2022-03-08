@@ -5,7 +5,6 @@
         Point d'intérêts: Fontaines à boire
       </h2>
 
-
       <!-- TODO: Add Later if needed else Remove -->
       <!-- <Sort
         title="Trier par: "
@@ -17,7 +16,7 @@
 
     <MyTable
       v-if="fountainData"
-      :header="headerRow" 
+      :header="headerRow"
       :filtered-header="filteredHeader"
       :data="filteredFountainData"
       :action-buttons="tableActionButtons"
@@ -28,10 +27,7 @@
     />
 
     <div>
-      <fa 
-        :icon="['fa', 'map-marked-alt']"
-        class="map-marked-icon"
-      />
+      <fa :icon="['fa', 'map-marked-alt']" class="map-marked-icon" />
       <span>
       </span>
       <span>
@@ -50,7 +46,7 @@ export default {
     // Sort,
     POIDetails,
   },
-  
+
   data() {
     return {
       fountainData: csvFile,
@@ -89,7 +85,7 @@ export default {
       };
     },
 
-    filteredFountainData(){
+    filteredFountainData() {
       const filteredFountainData = [...this.fountainData];
 
       filteredFountainData.sort((a, b) => {
@@ -118,7 +114,7 @@ export default {
       return filteredFountainData;
     },
 
-    filteredHeader(){
+    filteredHeader() {
       return {
         Arrondissement: 'Arrondissement',
         Proximité_jeux_repère: 'Type',
@@ -162,11 +158,10 @@ export default {
     },
   },
 };
-
 </script>
 
 <style lang="scss" scoped>
-.map-marked-icon{
+.map-marked-icon {
   height: 100px;
   width: 100px;
 }

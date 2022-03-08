@@ -158,8 +158,6 @@ export default {
           : '0' + (Object.keys(months).indexOf(toMonth.value) + 1);
       const tD = options.value.days[toDay.value - 1];
 
-      console.log(fY, fM, fD, tY, tM, tD);
-
       if (!fY || !fM || !fD || !tY || !tM || !tD) {
         errorMessage.value = 'Veuillez remplir tous les champs SVP.';
         return;

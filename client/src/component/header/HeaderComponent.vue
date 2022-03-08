@@ -4,7 +4,7 @@
       class="logo"
       :src="logoImg"
       alt=""
-    >
+    />
     <div class="message">
       <h1 class="mt-1">
         Bienvenue sur Mobi-Urbaine
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header{
+header {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -36,29 +36,29 @@ header{
   margin: 5px;
 }
 
-.logo, .message{
+.logo,
+.message {
   max-height: 5rem;
   border: 2px solid black;
   padding: 5px;
   margin: 5px;
 }
 
-.message{
+.message {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  
+
   max-height: 5rem;
   flex-grow: 1;
 }
 
 h1 {
-  font-family: "Gill Sans", sans-serif;
+  font-family: 'Gill Sans', sans-serif;
   font-size: 4.5vw;
-  
+
   @media screen and (min-width: 1200px) {
     font-size: 50px;
   }
 }
-
 </style>
