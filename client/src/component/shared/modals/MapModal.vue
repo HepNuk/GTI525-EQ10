@@ -5,11 +5,8 @@
       <button class="close-button" @click="$emit('close-modal')">
         X
       </button>
-      <Map 
-        :markers="filtered"
-        class="map"
-      />
-        <!-- :center-coordinates="center" -->
+      <Map :markers="filtered" class="map" />
+      <!-- :center-coordinates="center" -->
     </template>
   </MyModal>
 </template>
@@ -33,28 +30,30 @@ export default {
     },
     list: {
       type: Array,
-      default: ()=>[],
+      default: () => [],
     },
   },
 
-  setup(props){
+  setup(props) {
     console.log(props.selected);
 
-    const filtered = computed(()=>{
-      return props.list.map((element)=>{
+    const filtered = computed(() => {
+      return props.list.map((element) => {
         return {
           ...element,
-          color: (element.id !== props.selected.id) ? 'blue': 'red',
-          selected: (element.id === props.selected.id),
+          color: element.id !== props.selected.id ? 'blue' : 'red',
+          selected: element.id === props.selected.id,
         };
       });
     });
 
     const center = computed(() => {
-      return [0,0]
+      return [0, 0];
       return [
-        props.list.map(e => e.latitude).reduce((p, c) => p + c) / props.list.length,
-        props.list.map(e => e.longitude).reduce((p, c)=> p + c) / props.list.length,
+        props.list.map((e) => e.latitude).reduce((p, c) => p + c) /
+          props.list.length,
+        props.list.map((e) => e.longitude).reduce((p, c) => p + c) /
+          props.list.length,
       ];
     });
 
@@ -80,19 +79,17 @@ export default {
     //   return zoom;
     // });
 
-
     return {
       filtered,
       center,
       // zoom,
     };
-    
   },
 };
 </script>
 
 <style scoped lang="scss">
-.map{
+.map {
   // display: flex;
   // max-height: 600px;
   // max-width: 600px;
@@ -101,7 +98,7 @@ export default {
   margin: 25px;
 }
 // temporary, need to import icon
-.close-button{
+.close-button {
   color: #d8d8d8;
   border-radius: 50% !important;
   background: #2c2c2c;

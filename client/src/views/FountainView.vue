@@ -5,7 +5,6 @@
         Point d'intérêts: Fontaines à boire
       </h2>
 
-
       <!-- TODO: Add Later if needed else Remove -->
       <!-- <Sort
         title="Trier par: "
@@ -17,7 +16,7 @@
 
     <MyTable
       v-if="fountainData"
-      :header="headerRow" 
+      :header="headerRow"
       :filtered-header="filteredHeader"
       :data="filteredFountainData"
       :action-buttons="tableActionButtons"
@@ -28,12 +27,9 @@
     />
 
     <div>
-      <fa 
-        :icon="['fa', 'map-marked-alt']"
-        class="map-marked-icon"
-      />
       <span>
       </span>
+      <POIDetails v-if="showPOIDetails" :point-of-interest="showPOIDetails" />
       <span>
       </span>
     </div>
@@ -50,7 +46,7 @@ export default {
     // Sort,
     POIDetails,
   },
-  
+
   data() {
     return {
       fountainData: csvFile,
@@ -74,7 +70,7 @@ export default {
         Arrondissement: {
           maxWidth: '300px',
         },
-        Proximité_jeux_repère: {
+        Type: {
           maxWidth: '150px',
         },
         Nom_parc_lieu: {
@@ -89,8 +85,15 @@ export default {
       };
     },
 
-    filteredFountainData(){
-      const filteredFountainData = [...this.fountainData];
+    filteredDataExtra() {
+      return this.fountainData.map((e) => {
+        return { ...e, Type: 'Fontaine à boire' };
+      });
+    },
+
+    filteredFountainData() {
+      // const filteredFountainData = [...this.fountainData];
+      const filteredFountainData = [...this.filteredDataExtra];
 
       filteredFountainData.sort((a, b) => {
         a = a[this.sort.key];
@@ -118,14 +121,14 @@ export default {
       return filteredFountainData;
     },
 
-    filteredHeader(){
+    filteredHeader() {
       return {
         Arrondissement: 'Arrondissement',
-        Proximité_jeux_repère: 'Type',
+        Type: 'Type',
         Nom_parc_lieu: 'Nom du lieu',
         Intersection: 'Adresse',
-        Proximité_jeux_repère: 'Proximité',
-        Remarque: 'Remarque',
+        // Proximité_jeux_repère: 'Proximité',
+        // Remarque: 'Remarque',
       };
     },
 
@@ -154,6 +157,7 @@ export default {
     },
 
     openPOIDetails(row) {
+      console.log(row);
       this.showPOIDetails = row;
     },
 
@@ -162,11 +166,10 @@ export default {
     },
   },
 };
-
 </script>
 
 <style lang="scss" scoped>
-.map-marked-icon{
+.map-marked-icon {
   height: 100px;
   width: 100px;
 }
