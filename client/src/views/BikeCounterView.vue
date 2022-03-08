@@ -8,7 +8,7 @@
           :list="coordinatesArray"
           @close-modal="closeModal"
         />
-        
+
         <h2 class="title">
           Comptages de vélos
         </h2>
@@ -91,8 +91,8 @@ export default {
       {
         type: 'icon',
         icon: 'map-marker-alt',
-        click: (row) => { 
-          console.log([row.Latitude, row.Longitude]); 
+        click: (row) => {
+          console.log([row.Latitude, row.Longitude]);
           showModal.value = {
             id: row['ID'],
             nom: row['Nom'],
@@ -133,8 +133,8 @@ export default {
   },
 
   computed: {
-    coordinatesArray(){
-      return this.bikeCounterData.map((element)=>{
+    coordinatesArray() {
+      return this.bikeCounterData.map((element) => {
         return {
           id: element['ID'],
           longitude: element['Longitude'],

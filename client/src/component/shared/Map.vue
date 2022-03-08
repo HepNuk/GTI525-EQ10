@@ -10,27 +10,29 @@
     />
     <l-control-layers />
 
-    <template v-for="item in markers" :key="item.id">
-      <l-marker
-        v-if="!item.selected"
-        :lat-lng="[item.latitude, item.longitude]"
-        :icon="getIcon(item.color)"
-      >
-        <l-popup
-          :content="item.nom"
-        />
-      </l-marker>
-    </template>
-
     <l-marker
       v-if="selectedMarker"
       ref="marker"
       :lat-lng="[selectedMarker.latitude, selectedMarker.longitude]"
       :icon="getIcon(selectedMarker.color)"
     >
-      <l-popup ref="popup" :content="selectedMarker.nom" @ready="ready">
-      </l-popup>
+      <l-popup 
+        ref="popup" 
+        :content="selectedMarker.nom"
+        @ready="ready"
+      />
     </l-marker>
+
+    <template v-for="item in markers" :key="item.id">
+      <l-marker
+        v-if="!item.selected"
+        :lat-lng="[item.latitude, item.longitude]"
+        :icon="getIcon(item.color)"
+      >
+        <l-popup :content="item.nom"/>
+      </l-marker>
+    </template>
+    
   </l-map>
 </template>
 
@@ -39,10 +41,8 @@ import Leaflet from 'leaflet';
 import { ref, onBeforeMount, onMounted, nextTick } from 'vue';
 import {
   LMap,
-  LIcon,
   LTileLayer,
   LMarker,
-  LTooltip,
   LPopup,
 } from '@vue-leaflet/vue-leaflet';
 

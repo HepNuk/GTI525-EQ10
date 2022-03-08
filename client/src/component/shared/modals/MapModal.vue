@@ -7,9 +7,9 @@
       </button>
       <Map 
         :markers="filtered"
-        :center-coordinates="center"
         class="map"
       />
+        <!-- :center-coordinates="center" -->
     </template>
   </MyModal>
 </template>
