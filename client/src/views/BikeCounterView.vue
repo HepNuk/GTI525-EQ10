@@ -2,6 +2,8 @@
   <div class="bike-counter-view content-view">
     <template v-if="!chartInfo">
       <div class="content-view-header p-3">
+        <MapModal :is-show="!!showModal" :selected="showModal" :list="coordinatesArray" @close-modal="closeModal"/>
+        
         <h2 class="title">
           Comptages de vélos
         </h2>
@@ -58,6 +60,7 @@ import BikeCounterChart from 'src/component/shared/charts/BikeCounterChart.vue';
 
 import { getCompteurDetailsBetweenDates } from '../utils/Services';
 import MySpinner from '../component/shared/MySpinner.vue';
+import MapModal from 'src/component/shared/modals/MapModal.vue';
 
 export default {
   components: {
@@ -65,10 +68,11 @@ export default {
     Stats,
     BikeCounterChart,
     MySpinner,
+    MapModal,
   },
 
   setup() {
-    const showModal = ref(false);
+    const showModal = ref(undefined);
 
     const openModal = () => {
       showModal.value = true;
@@ -83,16 +87,20 @@ export default {
         type: 'icon',
         icon: 'map-marker-alt',
         click: (row) => { 
-          showModal.value = true;
           console.log([row.Latitude, row.Longitude]); 
-          showModal.value = [row.Latitude, row.Longitude]
+          showModal.value = {
+            id: row['ID'],
+            nom: row['Nom'],
+            longitude: row['Longitude'],
+            latitude: row['Latitude']
+          };
         },
       },
       {
         type: 'text',
         text: 'Statistique',
         // click: (row) => this.openStats(row),
-      }
+      },
     ]);
 
     return {
@@ -120,6 +128,17 @@ export default {
   },
 
   computed: {
+    coordinatesArray(){
+      return this.bikeCounterData.map((element)=>{
+        return {
+          id: element['ID'],
+          longitude: element['Longitude'],
+          latitude: element['Latitude'],
+          nom: element['Nom'],
+        };
+      });
+    },
+
     headerRow() {
       return Object.keys(csvFile[0]);
     },
@@ -159,23 +178,6 @@ export default {
         Statut: 'Statut',
         Annee_implante: 'Annee Implantée',
       };
-    },
-
-    tableActionButtons() {
-      return [
-        {
-          type: 'icon',
-          icon: 'map-marker-alt',
-          click: (row) => {
-            console.log(row.Longitude, row.Latitude);
-          },
-        },
-        {
-          type: 'text',
-          text: 'Statistique',
-          click: (row) => this.openStats(row),
-        },
-      ];
     },
   },
 
