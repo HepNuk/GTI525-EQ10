@@ -27,7 +27,16 @@
       class="table"
     />
 
-    <POIDetails :point-of-interest="showPOIDetails"/>
+    <div>
+      <fa 
+        :icon="['fa', 'map-marked-alt']"
+        class="map-marked-icon"
+      />
+      <span>
+      </span>
+      <span>
+      </span>
+    </div>
   </div>
 </template>
 
@@ -115,6 +124,8 @@ export default {
         Proximité_jeux_repère: 'Type',
         Nom_parc_lieu: 'Nom du lieu',
         Intersection: 'Adresse',
+        Proximité_jeux_repère: 'Proximité',
+        Remarque: 'Remarque',
       };
     },
 
@@ -155,4 +166,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.map-marked-icon{
+  height: 100px;
+  width: 100px;
+}
 </style>
