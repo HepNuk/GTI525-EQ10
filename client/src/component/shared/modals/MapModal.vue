@@ -1,7 +1,7 @@
 <template>
   <MyModal>
     MAP MODAL
-    <template #modal="{ closeModal }">
+    <template #modal="">
       <button class="close-button" @click="$emit('close-modal')">
         X
       </button>
@@ -28,7 +28,7 @@ export default {
   },
   props: {
     selected: {
-      type: Object,
+      type: [Object, Boolean],
       default: undefined,
     },
     list: {
@@ -39,43 +39,52 @@ export default {
 
   setup(props){
     console.log(props.selected);
-    
-      // const center = computed(()=>{
-      //   const centerLat = 0;
-      //   const centerLon = 0;
-      //   for(let i = 0; i< props.list.length; i++){
-      //     centerLat += props.list[i].latitude;
-      //     centerLon += props.list[i].longitude;
-      //   }
-      //   return [centerLat, centerLon];
-      // });
 
     const filtered = computed(()=>{
       return props.list.map((element)=>{
-        return {...element, color: (element.id !== props.selected.id)? 'blue': 'red', ref: (element.id === props.selected.id)? 'selected': ''};
+        return {
+          ...element,
+          color: (element.id !== props.selected.id) ? 'blue': 'red',
+          selected: (element.id === props.selected.id),
+        };
       });
     });
 
-    // const center = computed(()=>{
-    //   return props.list.reduce((coord, props)=>{
-    //     return coord + props.list.latitude;
+    const center = computed(() => {
+      return [0,0]
+      return [
+        props.list.map(e => e.latitude).reduce((p, c) => p + c) / props.list.length,
+        props.list.map(e => e.longitude).reduce((p, c)=> p + c) / props.list.length,
+      ];
+    });
+
+    // const zoom = computed(() => {
+    //   let furtestMarkerCoord = center.value;
+
+    //   props.list.forEach((e) => {
+    //     const deltaLat = Math.abs(center.value[0] - e.lat);
+    //     const deltaLng = Math.abs(center.value[1] - e.lng);
+
+    //     const dist = deltaLat*deltaLat + deltaLng*deltaLng;
+
+    //     if (
+    //       dist >
+    //       (furtestMarkerCoord[0]*furtestMarkerCoord[0] + furtestMarkerCoord[1]*furtestMarkerCoord[1])
+    //     ) {
+    //       furtestMarkerCoord = [deltaLat, deltaLng];
+    //     }
     //   });
+
+    //   const zoom = 0; // Calczoom with furtestMarkerCoord and center.value
+
+    //   return zoom;
     // });
 
-    // const center = computed(()=>{
-    //   let lat = 0;
-    //   let long = 0;
-    //   for (let key in props.items){
-    //     lat += props.items[key].latitude;
-    //     long += props.items[key].longitude;
-    //   }
-
-    //   return [lat, long];
-    // });
 
     return {
       filtered,
-      // center,
+      center,
+      // zoom,
     };
     
   },
@@ -85,8 +94,10 @@ export default {
 <style scoped lang="scss">
 .map{
   // display: flex;
-  height: 300px;
-  max-width: 600px;
+  // max-height: 600px;
+  // max-width: 600px;
+  max-width: 50%;
+  max-height: 65%;
   margin: 25px;
 }
 // temporary, need to import icon
@@ -97,6 +108,8 @@ export default {
   height: 35px;
   width: 35px;
   z-index: 1001;
+  // display: inline-flex;
+  // align-self: flex-start;
   position: absolute;
   top: calc(50% - 175px);
   right: calc(50% - 285px);
