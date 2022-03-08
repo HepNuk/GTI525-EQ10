@@ -50,7 +50,7 @@ export default {
           code: 'PERN06049400',
           groupe: '10',
 
-        }
+        },
       ];
     },
   },

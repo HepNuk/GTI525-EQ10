@@ -125,7 +125,7 @@ export default {
         Nom_parc_lieu: 'Nom du lieu',
         Intersection: 'Adresse',
         Proximité_jeux_repère: 'Proximité',
-        Remarque: 'Remarque'
+        Remarque: 'Remarque',
       };
     },
 

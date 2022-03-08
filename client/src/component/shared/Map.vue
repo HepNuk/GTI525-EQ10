@@ -21,15 +21,21 @@
       </l-popup>
     </l-marker>
 
-    <l-marker id="fkthis" ref="marker" :lat-lng="center">
-      <l-popup ref="popup" @ready="ready">This is a popup open by default</l-popup>
+    <l-marker
+      id="fkthis"
+      ref="marker"
+      :lat-lng="center"
+    >
+      <l-popup ref="popup" @ready="ready">
+        This is a popup open by default
+      </l-popup>
     </l-marker>
 
   </l-map>
 </template>
 <script>
 import Leaflet from 'leaflet';
-import { ref, onBeforeMount, onMounted, nextTick } from "vue";
+import { ref, onBeforeMount, onMounted, nextTick } from 'vue';
 import {
   LMap,
   LIcon,
@@ -37,9 +43,9 @@ import {
   LMarker,
   LTooltip,
   LPopup,
-} from "@vue-leaflet/vue-leaflet";
+} from '@vue-leaflet/vue-leaflet';
 
-import "leaflet/dist/leaflet.css";
+import 'leaflet/dist/leaflet.css';
 export default {
   components: {
     LMap,
@@ -71,45 +77,45 @@ export default {
 
     const redMarker = new Leaflet.Icon({
         iconUrl:
-          "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
-          shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+          'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+          shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
           iconSize: [25, 41],
           iconAnchor: [12, 41],
           popupAnchor: [1, -34],
           shadowSize: [41, 41],
-    })
+    });
 
     const blueMarker = new Leaflet.Icon({
         iconUrl:
-          "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png",
-          shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+          'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+          shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
           iconSize: [25, 41],
           iconAnchor: [12, 41],
           popupAnchor: [1, -34],
           shadowSize: [41, 41],
-    })
+    });
 
     const getIcon = (color) => {
       if (color === 'red') return redMarker;
       if (color === 'blue') return blueMarker;
-    }
+    };
 
     const geojson = ref({
-      type: "Feature",
+      type: 'Feature',
       geometry: {
-        type: "Point",
-        coordinates: [45.470493, -73.609566]
+        type: 'Point',
+        coordinates: [45.470493, -73.609566],
       },
       // features: [
       //   // ...
       // ],
-    })
+    });
 
-    const geojsonOptions = ref({})
+    const geojsonOptions = ref({});
 
     onBeforeMount(async () => {
       // HERE is where to load Leaflet components!
-      const { circleMarker } = await import("leaflet/dist/leaflet-src.esm");
+      const { circleMarker } = await import('leaflet/dist/leaflet-src.esm');
 
       // And now the Leaflet circleMarker function can be used by the options:
       geojsonOptions.value.pointToLayer = (feature, latLng) =>
@@ -127,11 +133,11 @@ export default {
     const test =
       [{
       		position: L.latLng(47.413220, -1.219482),
-          text: "Marker 1"
+          text: 'Marker 1',
         },
         {
       		position: L.latLng(47.313220, -1.219482),
-          text: "Marker 2"
+          text: 'Marker 2',
         },
      ];
 

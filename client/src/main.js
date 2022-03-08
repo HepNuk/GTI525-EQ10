@@ -6,8 +6,8 @@ import MySpinner from './component/shared/MySpinner.vue';
 import MyRadioChoices from './component/shared/MyRadioChoices.vue';
 import FontAwesomeIcon from './fortawesome-icons';
 import router from './router';
-import 'vue-universal-modal/dist/index.css'
-import VueUniversalModal from 'vue-universal-modal'
+import 'vue-universal-modal/dist/index.css';
+import VueUniversalModal from 'vue-universal-modal';
 
 const app = createApp(App);
 
@@ -21,5 +21,5 @@ app.use(router);
 app.mount('#app');
 app.use(VueUniversalModal, {
   teleportTarget: '#my-modal',
-  modalComponent: 'Modal'
-})
+  modalComponent: 'Modal',
+});

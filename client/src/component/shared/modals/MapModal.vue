@@ -1,14 +1,15 @@
 <template>
   <MyModal>
     MAP MODAL
-    <template v-slot:modal="{ closeModal }">
-      <button @click="$emit('close-modal')" class="close-button">
+    <template #modal="{ closeModal }">
+      <button class="close-button" @click="$emit('close-modal')">
         X
       </button>
       <Map 
-      :markers="filtered"
-      :center-coordinates="center"
-      class="map"/>
+        :markers="filtered"
+        :center-coordinates="center"
+        class="map"
+      />
     </template>
   </MyModal>
 </template>
@@ -16,8 +17,8 @@
 <script>
 import Map from '../Map.vue';
 import MyModal from 'src/component/shared/MyModal.vue';
-import { computed } from "vue";
-import Leaflet from "leaflet";
+import { computed } from 'vue';
+import Leaflet from 'leaflet';
 import { localeData } from 'moment';
 
 export default {

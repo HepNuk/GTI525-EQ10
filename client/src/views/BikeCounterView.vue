@@ -2,7 +2,12 @@
   <div class="bike-counter-view content-view">
     <template v-if="!chartInfo">
       <div class="content-view-header p-3">
-        <MapModal :is-show="!!showModal" :selected="showModal" :list="coordinatesArray" @close-modal="closeModal"/>
+        <MapModal
+          :is-show="!!showModal"
+          :selected="showModal"
+          :list="coordinatesArray"
+          @close-modal="closeModal"
+        />
         
         <h2 class="title">
           Comptages de vélos
@@ -80,7 +85,7 @@ export default {
 
     const closeModal = () => {
       showModal.value = false;
-    }
+    };
 
     const tableActionButtons = computed(() => [
       {
@@ -92,7 +97,7 @@ export default {
             id: row['ID'],
             nom: row['Nom'],
             longitude: row['Longitude'],
-            latitude: row['Latitude']
+            latitude: row['Latitude'],
           };
         },
       },
@@ -108,7 +113,7 @@ export default {
       openModal,
       closeModal,
       showModal,
-    }
+    };
   },
 
   data() {
