@@ -1,16 +1,15 @@
 <template>
   <div>
+    <!-- eslint-disable-next-line vue/no-mutating-props -->
     <Modal v-model="isShow" :close="closeModal">
       <div class="modal">
-        <slot name="modal" :closeModal="closeModal" />
+        <slot :closeModal="closeModal" />
       </div>
     </Modal>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
-
 export default {
   props: {
     isShow: {
@@ -20,7 +19,7 @@ export default {
   },
   emits: ['show-modal', 'close-modal', 'submit'],
 
-  setup(props, ctx) {
+  setup(_, ctx) {
     function showModal() {
       ctx.emit('show-modal', true);
     }

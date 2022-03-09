@@ -26,13 +26,7 @@
       class="table"
     />
 
-    <div>
-      <span>
-      </span>
-      <POIDetails v-if="showPOIDetails" :point-of-interest="showPOIDetails" />
-      <span>
-      </span>
-    </div>
+    <POIDetails v-if="showPOIDetails" :point-of-interest="showPOIDetails" />
   </div>
 </template>
 

@@ -5,9 +5,12 @@
     :center="centerCoordinates"
     @ready="mapReady"
   >
-    <span @click="$emit('close-modal')">
-      <fa class="close-button" :icon="['fa', 'times-circle']" />
-    </span>
+    <fa
+      class="close-button"
+      :icon="['fa', 'times-circle']"
+      style="cursor: pointer"
+      @click="$emit('close-modal')"
+    />
     <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
     <l-control-layers />
 

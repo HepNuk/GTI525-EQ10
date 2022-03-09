@@ -1,12 +1,10 @@
 <template>
   <MyModal>
-    <template #modal="">
-      <Map
-        :markers="filtered"
-        class="map"
-        @click="$emit('close-modal')"
-      />
-    </template>
+    <Map
+      :markers="filtered"
+      class="map"
+      @close-modal="$emit('close-modal')"
+    />
   </MyModal>
 </template>
 
