@@ -5,30 +5,27 @@
     </p>
 
     <div class="sort-options">
-      <div 
+      <div
         v-for="(option, key) in sortOptions"
         :key="`options-${key}`"
         class="sort-option"
       >
-        <span 
-          class="px-1"
-          @click="$emit('toggle-sort', key)"
-        >
+        <span class="px-1" @click="$emit('toggle-sort', key)">
           <span>
             {{ option }}
           </span>
 
-          <fa 
+          <fa
             v-if="sort.key === key && sort.direction === 'asc'"
             :style="iconStyle"
-            :icon="['fa', 'chevron-down']" 
+            :icon="['fa', 'chevron-down']"
           />
-          <fa 
+          <fa
             v-else-if="sort.key === key && sort.direction === 'desc'"
             :style="iconStyle"
-            :icon="['fa', 'chevron-up']" 
+            :icon="['fa', 'chevron-up']"
           />
-          <div v-else style="width: 0.8em;" /> 
+          <div v-else style="width: 0.8em" />
         </span>
       </div>
     </div>
@@ -37,8 +34,7 @@
 
 <script>
 export default {
-  components: {
-  },
+  components: {},
 
   props: {
     title: {
@@ -62,15 +58,13 @@ export default {
       return {
         color: 'red',
       };
-
-
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.sort { 
+.sort {
   display: flex;
   flex-direction: row;
 }

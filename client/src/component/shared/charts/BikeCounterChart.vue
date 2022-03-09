@@ -16,7 +16,7 @@
           <fa icon="arrow-left" size="1x" /> Retour
         </h6>
         <h3 class="title ms-3">
-          {{bikeCounterName}}
+          {{ bikeCounterName }}
         </h3>
       </div>
 
@@ -162,7 +162,7 @@ export default {
       });
     });
 
-    // TODO: in these 2 computed properties filter out array based on selection
+    // TODO: https://stackoverflow.com/questions/56774051/how-to-compress-an-array-of-dates-to-their-months
     const groupedValuesBySelection = () => {
       return new Promise((resolve) => {
         setTimeout(() => {

@@ -5,15 +5,15 @@
         <thead class="table-dark">
           <tr>
             <template v-if="filteredHeader">
-              <th 
-                v-for="(col, key) in filteredHeader" 
-                :key="`col-${key}`" 
+              <th
+                v-for="(col, key) in filteredHeader"
+                :key="`col-${key}`"
                 :style="columnSettings ? columnSettings[key] : ''"
               >
                 {{ col }}
               </th>
             </template>
-            <template v-else>      
+            <template v-else>
               <th v-for="(col, colIndex) in header" :key="`col-${colIndex}`">
                 {{ col }}
               </th>
@@ -25,7 +25,7 @@
         <tbody>
           <tr v-for="(row, rowIndex) in paginatedData" :key="`row-${rowIndex}`">
             <template v-if="filteredHeader">
-              <td 
+              <td
                 v-for="(value, key) in filteredHeader"
                 :key="`col-${key}-row-${rowIndex}`"
                 :style="columnSettings ? columnSettings[key] : ''"
@@ -34,28 +34,28 @@
               </td>
             </template>
             <template v-else>
-              <td v-for="(value, colIndex) in row" :key="`col-${colIndex}-row-${rowIndex}`">
+              <td
+                v-for="(value, colIndex) in row"
+                :key="`col-${colIndex}-row-${rowIndex}`"
+              >
                 {{ value }}
               </td>
             </template>
 
             <td v-if="actionButtons" class="table-action-buttons">
-              <div v-for="(action, index) in actionButtons" :key="'action-' + index">
+              <div
+                v-for="(action, index) in actionButtons"
+                :key="'action-' + index"
+              >
                 <template v-if="action.type === 'icon'">
                   <span @click="action.click(row)">
-                    <fa 
-                      :icon="action.icon"
-                      color="red"
-                    />
+                    <fa :icon="action.icon" color="red" />
                     {{ action.text ? action.text : '' }}
                   </span>
                 </template>
 
                 <template v-else-if="action.type === 'text'">
-                  <span 
-                    class="text-action-button"
-                    @click="action.click(row)" 
-                  >
+                  <span class="text-action-button" @click="action.click(row)">
                     {{ action.text }}
                   </span>
                 </template>
@@ -82,7 +82,7 @@
           :min="1"
           :max="maxPage"
           placeholder="page"
-        /> 
+        />
         <span>
           / {{ maxPage }}
         </span>
@@ -99,7 +99,7 @@
       </div>
     </div>
 
-    <hr v-if="showBottomSeparator" class="my-2">
+    <hr v-if="showBottomSeparator" class="my-2" />
   </div>
 </template>
 
@@ -170,7 +170,10 @@ export default {
       }
 
       const startIndex = (this.page - 1) * this.paginate;
-      const endIndex = (this.paginate > this.data.length) ? this.data.length : (this.page * this.paginate);
+      const endIndex =
+        this.paginate > this.data.length
+          ? this.data.length
+          : this.page * this.paginate;
 
       return this.data.slice(startIndex, endIndex);
     },
@@ -180,14 +183,14 @@ export default {
     },
   },
 };
-
 </script>
 
 <style lang="scss" scoped>
 table {
-  td, th { 
+  td,
+  th {
     text-align: center;
-    white-space: nowrap; 
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -202,14 +205,14 @@ table {
 
     .text-action-button {
       color: black;
-      
+
       &:hover {
         text-decoration: underline;
       }
     }
 
     span:hover {
-        text-decoration: underline;
+      text-decoration: underline;
     }
   }
 }
@@ -231,7 +234,7 @@ table {
     margin: 0;
   }
 
-  input[type=number]{
+  input[type='number'] {
     border: 1px solid #cacaca;
     font-size: 14px;
     line-height: 25px;
@@ -258,7 +261,7 @@ table {
 
     thead {
       position: sticky;
-      top:0;
+      top: 0;
     }
   }
 }
