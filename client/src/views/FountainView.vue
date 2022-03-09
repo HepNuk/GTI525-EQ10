@@ -151,7 +151,6 @@ export default {
     },
 
     openPOIDetails(row) {
-      console.log(row);
       this.showPOIDetails = row;
     },
 

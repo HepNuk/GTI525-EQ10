@@ -12,7 +12,7 @@
       @click="$emit('close-modal')"
     />
     <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-    <l-control-layers />
+    <!-- <l-control-layers /> -->
 
     <l-marker
       v-if="selectedMarker"
@@ -42,13 +42,20 @@
 <script>
 import Leaflet from 'leaflet';
 import { ref, onBeforeMount } from 'vue';
-import { LMap, LTileLayer, LMarker, LPopup } from '@vue-leaflet/vue-leaflet';
+import {
+  LMap,
+  LTileLayer,
+  LMarker,
+  LPopup,
+  // LControlLayers,
+} from '@vue-leaflet/vue-leaflet';
 
 import 'leaflet/dist/leaflet.css';
 export default {
   components: {
     LMap,
     LTileLayer,
+    // LControlLayers,
     LMarker,
     LPopup,
   },

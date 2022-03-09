@@ -30,8 +30,6 @@ export default {
   },
 
   setup(props) {
-    console.log(props.selected);
-
     const filtered = computed(() => {
       return props.list.map((element) => {
         return {
