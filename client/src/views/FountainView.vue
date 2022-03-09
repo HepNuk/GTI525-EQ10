@@ -26,13 +26,7 @@
       class="table"
     />
 
-    <div>
-      <fa :icon="['fa', 'map-marked-alt']" class="map-marked-icon" />
-      <span>
-      </span>
-      <span>
-      </span>
-    </div>
+    <POIDetails v-if="showPOIDetails" :point-of-interest="showPOIDetails" />
   </div>
 </template>
 
@@ -70,7 +64,7 @@ export default {
         Arrondissement: {
           maxWidth: '300px',
         },
-        Proximité_jeux_repère: {
+        Type: {
           maxWidth: '150px',
         },
         Nom_parc_lieu: {
@@ -85,8 +79,15 @@ export default {
       };
     },
 
+    filteredDataExtra() {
+      return this.fountainData.map((e) => {
+        return { ...e, Type: 'Fontaine à boire' };
+      });
+    },
+
     filteredFountainData() {
-      const filteredFountainData = [...this.fountainData];
+      // const filteredFountainData = [...this.fountainData];
+      const filteredFountainData = [...this.filteredDataExtra];
 
       filteredFountainData.sort((a, b) => {
         a = a[this.sort.key];
@@ -117,11 +118,11 @@ export default {
     filteredHeader() {
       return {
         Arrondissement: 'Arrondissement',
-        Proximité_jeux_repère: 'Type',
+        Type: 'Type',
         Nom_parc_lieu: 'Nom du lieu',
         Intersection: 'Adresse',
-        Proximité_jeux_repère: 'Proximité',
-        Remarque: 'Remarque',
+        // Proximité_jeux_repère: 'Proximité',
+        // Remarque: 'Remarque',
       };
     },
 

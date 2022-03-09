@@ -39,7 +39,7 @@
           ref="stats"
           :counter-name="counterName"
           :counter-id="showStatsFor"
-          @submit="loadChartDatails"
+          @submit="getCharDetails"
           @close="closeStats"
         />
       </template>
@@ -77,6 +77,7 @@ export default {
   },
 
   setup() {
+    // MapModal
     const showModal = ref(undefined);
 
     const openModal = () => {
@@ -87,6 +88,57 @@ export default {
       showModal.value = false;
     };
 
+    // Statistics
+    const showStatsFor = ref(undefined);
+    const counterName = ref('');
+    const loadingChart = ref(false);
+    const chartInfo = ref(undefined);
+
+    const openStats = (row) => {
+      showStatsFor.value = row['ID'];
+      counterName.value = row['Nom'];
+    };
+
+    const closeStats = () => {
+      showStatsFor.value = undefined;
+      counterName.value = row['Nom'];
+    };
+
+    const stats = ref();
+    const statsErrorMessage = (msg) => {
+      stats.value.errorMessage = msg;
+    };
+
+    const getCharDetails = (q) => {
+      const startDate = '' + q.fromYear + q.fromMonth + q.fromDay;
+      const endDate = '' + q.toYear + q.toMonth + q.toDay;
+
+      if (Number(startDate) >= Number(endDate)) {
+        statsErrorMessage('La date de fin doit etre avant la date de début.');
+        return;
+      }
+
+      loadingChart.value = true;
+      getCompteurDetailsBetweenDates(showStatsFor.value, startDate, endDate)
+        .then((res) => {
+          chartInfo.value = {
+            bikeCounterName: res.data.name,
+            bikeCounterId: showStatsFor.value,
+            startDate: `${q.fromYear}-${q.fromMonth}-${q.fromDay}`,
+            endDate: `${q.toYear}-${q.toMonth}-${q.toDay}`,
+            labels: res.data.label,
+            count: res.data.count,
+          };
+        })
+        .catch((err) => console.error(err))
+        .finally(() => (loadingChart.value = false));
+    };
+
+    const closeChartDetails = () => {
+      chartInfo.value = undefined;
+    };
+
+    // Action Buttons
     const tableActionButtons = computed(() => [
       {
         type: 'icon',
@@ -103,7 +155,7 @@ export default {
       {
         type: 'text',
         text: 'Statistique',
-        // click: (row) => this.openStats(row),
+        click: (row) => openStats(row),
       },
     ]);
 
@@ -112,17 +164,21 @@ export default {
       openModal,
       closeModal,
       showModal,
+
+      openStats,
+      closeStats,
+      closeChartDetails,
+      getCharDetails,
+      showStatsFor,
+      counterName,
+      loadingChart,
+      chartInfo,
     };
   },
 
   data() {
     return {
-      loadingChart: false,
-      chartInfo: undefined,
       bikeCounterData: csvFile,
-
-      showStatsFor: undefined,
-      counterName: '',
 
       sort: {
         key: 'ID',
@@ -196,51 +252,6 @@ export default {
         newSort.direction = 'desc';
       }
       this.sort = newSort;
-    },
-
-    openStats(row) {
-      this.showStatsFor = row['ID'];
-      this.counterName = row['Nom'];
-    },
-
-    closeStats() {
-      this.showStatsFor = undefined;
-      this.counterName = '';
-    },
-
-    statsErrorMessage(message) {
-      this.$refs.stats.errorMessage = message;
-    },
-
-    loadChartDatails(p) {
-      const startDate = '' + p.fromYear + p.fromMonth + p.fromDay;
-      const endDate = '' + p.toYear + p.toMonth + p.toDay;
-
-      if (Number(startDate) >= Number(endDate)) {
-        this.statsErrorMessage(
-          'La date de fin doit etre avant la date de début.'
-        );
-        return;
-      }
-
-      this.loadingChart = true;
-      getCompteurDetailsBetweenDates(this.showStatsFor, startDate, endDate)
-        .then((res) => {
-          this.chartInfo = {
-            bikeCounterName: res.data.name,
-            bikeCounterId: this.showStatsFor,
-            startDate: `${p.fromYear}-${p.fromMonth}-${p.fromDay}`,
-            endDate: `${p.toYear}-${p.toMonth}-${p.toDay}`,
-            labels: res.data.label,
-            count: res.data.count,
-          };
-        })
-        .catch((err) => console.error(err))
-        .finally(() => (this.loadingChart = false));
-    },
-
-    closeChartDetails() {
-      this.chartInfo = undefined;
     },
   },
 };

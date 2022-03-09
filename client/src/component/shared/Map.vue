@@ -1,14 +1,18 @@
 <template>
-  <l-map 
+  <l-map
     id="myMap"
     ref="myMap"
     :center="centerCoordinates"
     @ready="mapReady"
   >
-    <l-tile-layer
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    <fa
+      class="close-button"
+      :icon="['fa', 'times-circle']"
+      style="cursor: pointer"
+      @click="$emit('close-modal')"
     />
-    <l-control-layers />
+    <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+    <!-- <l-control-layers /> -->
 
     <l-marker
       v-if="selectedMarker"
@@ -16,8 +20,8 @@
       :lat-lng="[selectedMarker.latitude, selectedMarker.longitude]"
       :icon="getIcon(selectedMarker.color)"
     >
-      <l-popup 
-        ref="popup" 
+      <l-popup
+        ref="popup"
         :content="selectedMarker.nom"
         @ready="ready"
       />
@@ -29,21 +33,21 @@
         :lat-lng="[item.latitude, item.longitude]"
         :icon="getIcon(item.color)"
       >
-        <l-popup :content="item.nom"/>
+        <l-popup :content="item.nom" />
       </l-marker>
     </template>
-    
   </l-map>
 </template>
 
 <script>
 import Leaflet from 'leaflet';
-import { ref, onBeforeMount, onMounted, nextTick } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import {
   LMap,
   LTileLayer,
   LMarker,
   LPopup,
+  // LControlLayers,
 } from '@vue-leaflet/vue-leaflet';
 
 import 'leaflet/dist/leaflet.css';
@@ -51,6 +55,7 @@ export default {
   components: {
     LMap,
     LTileLayer,
+    // LControlLayers,
     LMarker,
     LPopup,
   },
@@ -58,11 +63,11 @@ export default {
   props: {
     markers: {
       type: Array,
-      default: ()=>[],
+      default: () => [],
     },
     center: {
       type: Array,
-      default: ()=>[45.470493, -73.609566],
+      default: () => [45.470493, -73.609566],
     },
     centerCoordinates: {
       type: Object,
@@ -75,21 +80,25 @@ export default {
     const mapIsReady = ref(false);
 
     const redMarker = new Leaflet.Icon({
-        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41],
+      iconUrl:
+        'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+      shadowUrl:
+        'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41],
     });
 
     const blueMarker = new Leaflet.Icon({
-        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41],
+      iconUrl:
+        'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+      shadowUrl:
+        'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41],
     });
 
     const getIcon = (color) => {
@@ -99,30 +108,27 @@ export default {
 
     const geojsonOptions = ref({});
     onBeforeMount(async () => {
-      // HERE is where to load Leaflet components!
       const { circleMarker } = await import('leaflet/dist/leaflet-src.esm');
 
-      // And now the Leaflet circleMarker function can be used by the options:
       geojsonOptions.value.pointToLayer = (feature, latLng) =>
         circleMarker(latLng, { radius: 8 });
-      mapIsReady.value= true;
-
+      mapIsReady.value = true;
     });
-  
+
     const marker = ref();
     const popup = ref();
     const ready = () => {
       marker.value.leafletObject.openPopup();
-    }; 
+    };
 
     const myMap = ref();
     const mapReady = () => {
       const myPoints = props.markers.map((e) => [e.latitude, e.longitude]);
-      myMap.value.leafletObject.fitBounds(myPoints, {padding: [15,15]});
+      myMap.value.leafletObject.fitBounds(myPoints, { padding: [15, 15] });
     };
 
     const selectedMarker = ref({
-      ...props.markers.find(e => e.selected),
+      ...props.markers.find((e) => e.selected),
     });
 
     return {
@@ -138,3 +144,19 @@ export default {
   },
 };
 </script>
+<style scoped lang="scss">
+#myMap {
+  margin: 0;
+}
+.close-button {
+  background-color: #f3f3f3;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  border-radius: 50% !important;
+  z-index: 1001;
+  position: absolute;
+  right: 1%;
+  top: 1%;
+}
+</style>

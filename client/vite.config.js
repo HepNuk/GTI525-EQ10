@@ -38,4 +38,7 @@ export default defineConfig({
       },
     }),
   ],
+  vueCompilerOptions: {
+    isCustomElement: tag => tag.startsWith('l-control-layers'),
+  },
 });

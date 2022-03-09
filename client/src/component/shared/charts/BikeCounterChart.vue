@@ -65,7 +65,7 @@ export default {
   components: { BaseBarChart, MySpinner },
   props: {
     bikeCounterId: {
-      type: String,
+      type: Number,
       required: true,
     },
 
