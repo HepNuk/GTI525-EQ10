@@ -11,7 +11,7 @@ export default {
         'Nom de famille',
         'Courielle',
         'Code Permanent',
-        'Groupe',
+        'Équipe',
       ];
     },
 
