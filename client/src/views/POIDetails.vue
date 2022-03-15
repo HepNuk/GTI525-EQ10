@@ -1,10 +1,18 @@
 <template>
   <div class="poi-details p-3">
-    <fa
+    <!-- <fa
       class="me-4"
       icon="map-marked-alt"
       size="8x"
-    />
+    /> -->
+
+    <!-- <Map
+      :center="center"
+      :markers="coordinate"
+      class="map"
+      @close-modal="$emit('close-modal')"
+    /> -->
+
     <div class="details">
       <h5>
         Détails
@@ -28,13 +36,34 @@
 </template>
 
 <script>
+import Map from 'src/component/shared/Map.vue';
+
 export default {
+  componenets: {
+    Map,
+  },
+
   props: {
     pointOfInterest: {
       type: [Object, undefined],
       required: false,
       default: undefined,
     },
+  },
+
+  setup(props) {
+    const center = computed(() => {
+      return [props.pointOfInterest.latitude, props.pointOfInterest.longitude];
+    });
+
+    const coordinate = computed(() => {
+      return [{ ...props.pointOfInterest, color: 'red', selected: true }];
+    });
+
+    return {
+      coordinate,
+      center,
+    };
   },
 };
 </script>
@@ -52,5 +81,11 @@ export default {
       font-weight: bold;
     }
   }
+}
+
+.map {
+  max-width: 45%;
+  max-height: 55%;
+  margin: 10px;
 }
 </style>
