@@ -10,10 +10,11 @@ const countersModel = mongoose.model("Counters",mongoose.Schema({
     Annee_implante:Number,
 }))
 
-countersModel.collection.drop()
-const counterTable = countersModel.create(getData("compteurs"));
+function createCountersData(){
+    countersModel.create(getData("compteurs")).then(r => console.log("Add counters data successful"));
+}
 
 function getCounterModel(){
     return countersModel
 }
-module.exports = {getCounterModel}
+module.exports = {getCounterModel,createCountersData}

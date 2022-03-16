@@ -8,8 +8,9 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
 const {PORT, mongoUri} = require('./config');
-const {getFountainModel} = require("./models/fountainModel")
-const {getCounterModel} = require("./models/counterModel")
+const {getCounterModel, createCountersData} = require("./models/counterModel")
+const {getFountainModel, createFountainsData} = require("./models/fountainModel")
+const {getDataStatsModel, createCounterStatsData} = require("./models/dataStatsModel")
 // Example route files DELETE later I guess when we have actual routes.
 const routeCompteur = require('./routes/api/routeCompteur');
 const routeFountain = require('./routes/api/routeFountain');
@@ -32,14 +33,29 @@ app
     .use(morgan('tiny'))
     .use(bodyParser.json());
 
-
 // For later if they make us use a DB
+
 mongoose
     .connect(mongoUri)
-    .then((db) => {
-        console.log('Connection to MongoDB is successful.')
-        console.log(getCounterModel())
-        console.log(getFountainModel())
+    .then(async (db) => {
+        await db.connection.db.listCollections().toArray().then(collection => {
+            for (let i = 0; i < collection.length; i++) {
+                if (collection[i]['name'] === "fountains") {
+                    db.connection.collection("fountains").drop().then(r => console.log("Drop fountains collection"));
+                }
+                if (collection[i]['name'] === "counters") {
+                    db.connection.collection("counters").drop().then(r => console.log("Drop counters collection"));
+                }
+                if (collection[i]['name'] === "datastats") {
+                    db.connection.collection("datastats").drop().then(r => console.log("Drop datastats collection"));
+                }
+            }
+        })
+
+        createCountersData();
+        createFountainsData();
+        createCounterStatsData();
+        console.log("Connection to MongoDB successful")
     })
     .catch((err) => console.log(err));
 
@@ -54,6 +70,7 @@ app.use('/gti525/v1/fontaines', routeFountain);
 
 // set up rate limiter: maximum of five requests per minute
 var RateLimit = require('express-rate-limit');
+;
 var limiter = new RateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
     max: 10,
