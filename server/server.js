@@ -37,20 +37,20 @@ app
 
 mongoose
     .connect(mongoUri)
-    .then(async (db) => {
-        await db.connection.db.listCollections().toArray().then(collection => {
-            for (let i = 0; i < collection.length; i++) {
-                if (collection[i]['name'] === "fountains") {
-                    db.connection.collection("fountains").drop().then(r => console.log("Drop fountains collection"));
-                }
-                if (collection[i]['name'] === "counters") {
-                    db.connection.collection("counters").drop().then(r => console.log("Drop counters collection"));
-                }
-                if (collection[i]['name'] === "datastats") {
-                    db.connection.collection("datastats").drop().then(r => console.log("Drop datastats collection"));
-                }
-            }
-        })
+    .then((db) => {
+        // db.connection.db.listCollections().toArray().then(collection => {
+        //     for (let i = 0; i < collection.length; i++) {
+        //         if (collection[i]['name'] === "fountains") {
+        //             db.connection.collection("fountains").drop().then(r => console.log("Drop fountains collection"));
+        //         }
+        //         if (collection[i]['name'] === "counters") {
+        //             db.connection.collection("counters").drop().then(r => console.log("Drop counters collection"));
+        //         }
+        //         if (collection[i]['name'] === "datastats") {
+        //             db.connection.collection("datastats").drop().then(r => console.log("Drop datastats collection"));
+        //         }
+        //     }
+        // })
 
         createCountersData();
         createFountainsData();

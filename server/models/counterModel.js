@@ -11,7 +11,7 @@ const countersModel = mongoose.model("Counters",mongoose.Schema({
 }))
 
 function createCountersData(){
-    countersModel.create(getData("compteurs")).then(r => console.log("Add counters data successful"));
+    countersModel.collection.insertMany(getData("compteurs")).then(r => console.log("Add counters data successful"));
 }
 
 function getCounterModel(){
