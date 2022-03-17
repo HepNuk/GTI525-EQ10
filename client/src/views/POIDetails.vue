@@ -5,13 +5,9 @@
       icon="map-marked-alt"
       size="8x"
     /> -->
-
-    <!-- <Map
-      :center="center"
-      :markers="coordinate"
-      class="map"
-      @close-modal="$emit('close-modal')"
-    /> -->
+    <div class="my-map">
+      <MiniMap class="map" :marker="marker" />
+    </div>
 
     <div class="details">
       <h5>
@@ -36,33 +32,34 @@
 </template>
 
 <script>
-import Map from 'src/component/shared/Map.vue';
+import { computed } from 'vue';
+import MiniMap from 'src/component/shared/MiniMap.vue';
 
 export default {
-  componenets: {
-    Map,
+  components: {
+    MiniMap,
   },
 
   props: {
     pointOfInterest: {
-      type: [Object, undefined],
+      type: Object,
       required: false,
       default: undefined,
     },
   },
 
   setup(props) {
-    const center = computed(() => {
-      return [props.pointOfInterest.latitude, props.pointOfInterest.longitude];
-    });
-
-    const coordinate = computed(() => {
-      return [{ ...props.pointOfInterest, color: 'red', selected: true }];
+    const marker = computed(() => {
+      return {
+        id: props.pointOfInterest.ID,
+        longitude: props.pointOfInterest.Longitude,
+        latitude: props.pointOfInterest.Latitude,
+        nom: props.pointOfInterest.Nom_parc_lieu,
+      };
     });
 
     return {
-      coordinate,
-      center,
+      marker,
     };
   },
 };
@@ -83,9 +80,15 @@ export default {
   }
 }
 
-.map {
-  max-width: 45%;
-  max-height: 55%;
-  margin: 10px;
+.my-map {
+  width: 200px;
+  height: 200px;
+  margin-right: 1em;
+
+  .map {
+    border-color: black;
+    border: 1px;
+    border-radius: 15px;
+  }
 }
 </style>

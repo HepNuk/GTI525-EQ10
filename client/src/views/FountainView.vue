@@ -111,7 +111,6 @@ export default {
           return 0;
         }
       });
-
       return filteredFountainData;
     },
 
