@@ -8,9 +8,9 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
 const {PORT, mongoUri} = require('./config');
-const {getCounterModel, createCountersData} = require("./models/counterModel")
-const {getFountainModel, createFountainsData} = require("./models/fountainModel")
-const {getDataStatsModel, createCounterStatsData} = require("./models/dataStatsModel")
+const {createCountersData} = require("./models/counterModel")
+const {createFountainsData} = require("./models/fountainModel")
+const {createCounterStatsData} = require("./models/dataStatsModel")
 // Example route files DELETE later I guess when we have actual routes.
 const routeCompteur = require('./routes/api/routeCompteur');
 const routeFountain = require('./routes/api/routeFountain');
@@ -37,20 +37,16 @@ app
 
 mongoose
     .connect(mongoUri)
+    .then((mongoose) => {
+        mongoose.connection.db.dropDatabase();
+        console.log("Dropping DB")
+    })
+    .catch((err) => console.log(err));
+
+
+mongoose
+    .connect(mongoUri)
     .then((db) => {
-        // db.connection.db.listCollections().toArray().then(collection => {
-        //     for (let i = 0; i < collection.length; i++) {
-        //         if (collection[i]['name'] === "fountains") {
-        //             db.connection.collection("fountains").drop().then(r => console.log("Drop fountains collection"));
-        //         }
-        //         if (collection[i]['name'] === "counters") {
-        //             db.connection.collection("counters").drop().then(r => console.log("Drop counters collection"));
-        //         }
-        //         if (collection[i]['name'] === "datastats") {
-        //             db.connection.collection("datastats").drop().then(r => console.log("Drop datastats collection"));
-        //         }
-        //     }
-        // })
 
         createCountersData();
         createFountainsData();

@@ -1,6 +1,8 @@
 const { Router } = require('express');
-const {getData,fetchDataBetweenDate} = require('../../src/parseData.js');
 const router = Router();
+const {getCounterModel} = require('../../models/counterModel')
+const {getDataStatsModel} = require('../../models/dataStatsModel')
+
 
 router.get('/:id', (req, res) => {
 
@@ -8,11 +10,20 @@ router.get('/:id', (req, res) => {
   let start = req.query['debut'];
   let end = req.query['fin'];
 
-  res.status(200).send(fetchDataBetweenDate(compteurId,start,end));
+  console.log(compteurId)
+  getCounterModel().find({},function (err,docs){
+
+    res.status(200).send(docs)
+
+  })
 });
 
 router.get('/', (req, res) => {
-  res.status(200).send(getData('compteurs'));
+  getCounterModel().find({},function (err,docs){
+
+      res.status(200).send(docs)
+
+  })
 });
 
 module.exports = router;
