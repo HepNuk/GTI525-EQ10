@@ -62,10 +62,10 @@ const dataStatsModel = mongoose.model("DataStats", mongoose.Schema({
 }))
 
 function createCounterStatsData() {
-    dataStatsModel.collection.insertMany(getData("counter_stats_2018")).then(r => console.log("Data 2018 successful"))
-    dataStatsModel.collection.insertMany(getData("counter_stats_2019")).then(r => console.log("Data 2019 successful"));
-    dataStatsModel.collection.insertMany(getData("counter_stats_2020")).then(r => console.log("Data 2020 successful"));
-    dataStatsModel.collection.insertMany(getData("counter_stats_2021")).then(r => console.log("Data 2021 successful"));
+    dataStatsModel.insertMany(getData("counter_stats_2018")).then(r => console.log("Data 2018 successful"))
+    dataStatsModel.insertMany(getData("counter_stats_2019")).then(r => console.log("Data 2019 successful"));
+    dataStatsModel.insertMany(getData("counter_stats_2020")).then(r => console.log("Data 2020 successful"));
+    dataStatsModel.insertMany(getData("counter_stats_2021")).then(r => console.log("Data 2021 successful"));
 }
 
 function getDataStatsModel() {

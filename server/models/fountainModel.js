@@ -18,7 +18,7 @@ const fountainsModel = mongoose.model("Fountains", mongoose.Schema({
 }))
 
 function createFountainsData() {
-    fountainsModel.collection.insertMany(getData("fontaines")).then(r => console.log("Add fountains successfully"));
+    fountainsModel.insertMany(getData("fontaines")).then(r => console.log("Add fountains successfully"));
 }
 
 function getFountainModel() {

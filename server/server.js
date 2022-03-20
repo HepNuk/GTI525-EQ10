@@ -34,23 +34,49 @@ app
     .use(bodyParser.json());
 
 // For later if they make us use a DB
+//
+// mongoose
+//     .connect(mongoUri)
+//     .then((mongoose) => {
+//         mongoose.connection.db.dropDatabase();
+//         console.log("Dropping DB")
+//     })
+//     .catch((err) => console.log(err));
+
 
 mongoose
     .connect(mongoUri)
     .then((mongoose) => {
-        mongoose.connection.db.dropDatabase();
-        console.log("Dropping DB")
-    })
-    .catch((err) => console.log(err));
+        mongoose.connection.db.collection("counters").estimatedDocumentCount(function (err,count){
+            if( count == 0) {
+                createCountersData();
+            }
+            else {
+                console.log("No counters to add");
+            }
 
+        })
 
-mongoose
-    .connect(mongoUri)
-    .then((db) => {
+        mongoose.connection.db.collection("fountains").estimatedDocumentCount(function (err,count){
+            if( count == 0) {
+                createFountainsData();
+            }
+            else {
+                console.log("No fountains to add");
+            }
 
-        createCountersData();
-        createFountainsData();
-        createCounterStatsData();
+        })
+
+        mongoose.connection.db.collection("datastats").estimatedDocumentCount(function (err,count){
+            if( count == 0) {
+                createCounterStatsData();
+            }
+            else {
+                console.log("No stats to add");
+            }
+
+        })
+        //
         console.log("Connection to MongoDB successful")
     })
     .catch((err) => console.log(err));
