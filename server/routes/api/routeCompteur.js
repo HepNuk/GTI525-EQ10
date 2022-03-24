@@ -8,6 +8,8 @@ const router = Router();
 
 // GET /gti525/v1/compteurs
 router.get('/', (req, res) => {
+  const limite = req.query['limite']; // TODO: use limite in request
+  
   getCounterModel().find({ }, (err, counters) => {
     res.status(200).send(counters);
   });
@@ -29,6 +31,7 @@ router.get('/:id', async (req, res) => {
   const compteurId = req.params.id;
   const start = req.query['debut'];
   const end = req.query['fin'];
+  const limite = req.query['limite']; // TODO: use limite in request
 
   if (!start || !end) {
     res.status(400).send({ message: 'Missing start or end date' });
