@@ -4,6 +4,7 @@ import MyButton from './component/shared/MyButton.vue';
 import MyTable from './component/shared/MyTable.vue';
 import MySpinner from './component/shared/MySpinner.vue';
 import MyRadioChoices from './component/shared/MyRadioChoices.vue';
+import MyInput from './component/shared/MyInput.vue';
 import FontAwesomeIcon from './fortawesome-icons';
 import router from './router';
 import 'vue-universal-modal/dist/index.css';
@@ -17,6 +18,7 @@ app.component('MyButton', MyButton);
 app.component('MySpinner', MySpinner);
 app.component('MyRadioChoices', MyRadioChoices);
 app.component('MyTable', MyTable);
+app.component('MyInput', MyInput);
 app.use(router);
 app.mount('#app');
 app.use(VueUniversalModal, {
