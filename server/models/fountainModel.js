@@ -8,7 +8,7 @@ const fountainsModel = mongoose.model("Fountains", mongoose.Schema({
     Proximité_jeux_repère: String,
     Intersection: String,
     Etat: String,
-    Date_installation: String,
+    Date_installation: Date,
     Remarque: String,
     Precision_localisation: String,
     X: Number,
