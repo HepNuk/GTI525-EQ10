@@ -14,6 +14,7 @@ const {createCounterStatsData} = require("./models/dataStatsModel")
 // Example route files DELETE later I guess when we have actual routes.
 const routeCompteur = require('./routes/api/routeCompteur');
 const routeFountain = require('./routes/api/routeFountain');
+const routePointOfInterest = require('./routes/api/routePointOfInterest');
 
 // If we use vue-router all of the routes from vue router should be included here. 
 // Could use and filter the route from the vue-router file if possible. 
@@ -54,7 +55,8 @@ mongoose
 
 // * API ROUTES * app.use('/api/routes', routeObject)
 app.use('/gti525/v1/compteurs', routeCompteur);
-app.use('/gti525/v1/fontaines', routeFountain);
+app.use('/gti525/v1/fontaines', routeFountain); // FIXME: leaving for testing remove when longer needed
+app.use('/gti525/v1/pointsdinteret', routePointOfInterest);
 
 // ***
 

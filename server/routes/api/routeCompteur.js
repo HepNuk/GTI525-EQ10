@@ -1,33 +1,44 @@
 const { Router } = require('express');
 const moment = require('moment');
 const mongoose = require('mongoose');
-const router = Router();
 const { getCounterModel } = require('../../models/counterModel');
 const { getDataStatsModel } = require('../../models/dataStatsModel');
 
+const router = Router();
 
-// GET gti525/v1/compteurs/
+// GET /gti525/v1/compteurs
 router.get('/', (req, res) => {
   getCounterModel().find({ }, (err, counters) => {
     res.status(200).send(counters);
   });
 });
 
-// GET gti525/v1/compteurs/:compteurId
+// GET /gti525/v1/compteurs/:compteurId
+router.get('/:id', async (req, res) => {
+  const compteurId = req.params.id;
+
+  await getCounterModel().findOne({ ID: compteurId }).exec((err, result) => {
+    if (err) res.status(400).send(err);
+
+    res.status(200).send(result);
+  });
+});
+
+// GET /gti525/v1/compteurs/:compteurId/passages
 router.get('/:id', async (req, res) => {
   const compteurId = req.params.id;
   const start = req.query['debut'];
   const end = req.query['fin'];
 
+  if (!start || !end) {
+    res.status(400).send({ message: 'Missing start or end date' });
+  }
+
   await getCounterModel().findOne({ ID: compteurId }).exec((err, result) => {
     counter = result;
-  
-    if (!start || !end) {
-      res.status(200).send(counter);
-    }
-    
-    const startDate = moment(req.query['debut']).format('YYYY-MM-DDTHH:mm:ss');
-    const endDate = moment(req.query['fin']).add(1, 'days').format('YYYY-MM-DDTHH:mm:ss');
+
+    const startDate = moment(start).format('YYYY-MM-DDTHH:mm:ss');
+    const endDate = moment(end).add(1, 'days').format('YYYY-MM-DDTHH:mm:ss');
 
     getDataStatsModel().find({ 
       Date: {
