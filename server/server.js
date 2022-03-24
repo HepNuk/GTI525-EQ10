@@ -33,58 +33,26 @@ app
     .use(morgan('tiny'))
     .use(bodyParser.json());
 
-// For later if they make us use a DB
-//
-// mongoose
-//     .connect(mongoUri)
-//     .then((mongoose) => {
-//         mongoose.connection.db.dropDatabase();
-//         console.log("Dropping DB")
-//     })
-//     .catch((err) => console.log(err));
-
-
 mongoose
     .connect(mongoUri)
     .then((mongoose) => {
-        mongoose.connection.db.collection("counters").estimatedDocumentCount(function (err,count){
-            if( count == 0) {
-                createCountersData();
-            }
-            else {
-                console.log("No counters to add");
-            }
-
-        })
-
-        mongoose.connection.db.collection("fountains").estimatedDocumentCount(function (err,count){
-            if( count == 0) {
-                createFountainsData();
-            }
-            else {
-                console.log("No fountains to add");
-            }
-
-        })
-
-        mongoose.connection.db.collection("datastats").estimatedDocumentCount(function (err,count){
-            if( count == 0) {
-                createCounterStatsData();
-            }
-            else {
-                console.log("No stats to add");
-            }
-
-        })
-        //
+        mongoose.connection.db.collection("counters").estimatedDocumentCount((err,count) => {
+            if( count == 0) createCountersData();
+            else console.log("No counters to add");
+        });
+        mongoose.connection.db.collection("fountains").estimatedDocumentCount((err,count) => {
+            if(count == 0) createFountainsData();
+            else console.log("No fountains to add");
+        });
+        mongoose.connection.db.collection("datastats").estimatedDocumentCount((err,count) => {
+            if(count == 0) createCounterStatsData();
+            else console.log("No stats to add");
+        });
         console.log("Connection to MongoDB successful")
     })
     .catch((err) => console.log(err));
 
 // * API ROUTES * app.use('/api/routes', routeObject)
-// example routes : 
-// http://localhost:8000/api/test_route/
-// http://localhost:8000/api/test_route/route2
 app.use('/gti525/v1/compteurs', routeCompteur);
 app.use('/gti525/v1/fontaines', routeFountain);
 

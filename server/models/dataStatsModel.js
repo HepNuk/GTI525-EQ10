@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
-const {getData} = require("../src/parseData.js");
+const { getData } = require("../src/parseData.js");
+const moment = require('moment-timezone');
+const montrealTZ = moment.tz(Date.now(), "America/Montreal");
 
 const dataStatsModel = mongoose.model("DataStats", mongoose.Schema({
-    Date: String,
+    Date: { type: Date, default: montrealTZ },
     100041114: Number,
     100002880: Number,
     100003032: Number,
@@ -62,10 +64,10 @@ const dataStatsModel = mongoose.model("DataStats", mongoose.Schema({
 }))
 
 function createCounterStatsData() {
-    dataStatsModel.insertMany(getData("counter_stats_2018")).then(r => console.log("Data 2018 successful"))
-    dataStatsModel.insertMany(getData("counter_stats_2019")).then(r => console.log("Data 2019 successful"));
-    dataStatsModel.insertMany(getData("counter_stats_2020")).then(r => console.log("Data 2020 successful"));
-    dataStatsModel.insertMany(getData("counter_stats_2021")).then(r => console.log("Data 2021 successful"));
+    dataStatsModel.insertMany(getData("counter_stats_2018")).then((r) => console.log("Data 2018 successful"))
+    dataStatsModel.insertMany(getData("counter_stats_2019")).then((r) => console.log("Data 2019 successful"));
+    dataStatsModel.insertMany(getData("counter_stats_2020")).then((r) => console.log("Data 2020 successful"));
+    dataStatsModel.insertMany(getData("counter_stats_2021")).then((r) => console.log("Data 2021 successful"));
 }
 
 function getDataStatsModel() {
