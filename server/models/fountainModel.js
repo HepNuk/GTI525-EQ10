@@ -8,13 +8,14 @@ const fountainsModel = mongoose.model("Fountains", mongoose.Schema({
     Proximité_jeux_repère: String,
     Intersection: String,
     Etat: String,
-    Date_installation: Date,
+    Date_installation: String,
     Remarque: String,
     Precision_localisation: String,
     X: Number,
     Y: Number,
     Longitude: Number,
     Latitude: Number,
+    Type: { type: String, default: 'fountain' },
 }))
 
 function createFountainsData() {
