@@ -6,7 +6,7 @@
       </h2>
     </div>
     <div class="add-poi-form">
-      <form action="">
+      <form action="" @submit.prevent="print">
         <MyInput
           id="nomLieu"
           label="Nom du lieu:"
@@ -24,12 +24,48 @@
           type="text"
           required="true"
         />
-        <!-- <MySelectionInput :options="options" placeholder="Fontaine à boire" /> -->
-        <MyInput
-          id="coordinates"
-          label="Coordonnée géographiques: "
-          type="text"
-        />
+        <div class="input-select">
+          <label>
+            Type:
+          </label>
+          <MySelectionInput
+            v-model="selectedType"
+            :options="typeOptions"
+            placeholder="Fontaine à boire"
+          />
+        </div>
+        <div class="input-select">
+          <label>
+            Année d'établissement:
+          </label>
+          <MySelectionInput
+            v-model="selectedYear"
+            :options="yearOptions"
+            placeholder="2022"
+          />
+        </div>
+        <div class="geoCoordinates">
+          <label>
+            Coordonée géographiques:
+          </label>
+          <fa icon="map-marker-alt" style="color: red" />
+          <label>
+            ou
+          </label>
+          <MyInput
+            id="longitude"
+            label="Longitude: "
+            type="text"
+            required="true"
+          />
+          <MyInput
+            id="latitude"
+            label="Latitude: "
+            type="text"
+            required="true"
+          />
+        </div>
+
         <MyInput
           id="remarques"
           label="Remarques: "
@@ -68,7 +104,19 @@ export default {
   },
   emits: ['submitCancel', 'submitSend'],
 
-  setup(_, ctx) {},
+  setup(_, ctx) {
+    const yearOptions = years;
+    const selectedYear = ref(0);
+    const typeOptions = ['Fontaine à boire', 'Réparation vélos'];
+    const selectedType = ref(0);
+
+    return {
+      yearOptions,
+      selectedYear,
+      typeOptions,
+      selectedType,
+    };
+  },
 };
 </script>
 
@@ -81,5 +129,11 @@ export default {
   flex-direction: row;
   gap: 10px;
   margin-top: 10px;
+}
+.geoCoordinates {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

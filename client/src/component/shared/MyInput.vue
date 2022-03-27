@@ -45,8 +45,11 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .input-field {
   margin-left: 10px;
+  min-width: 75%;
 }
 </style>
