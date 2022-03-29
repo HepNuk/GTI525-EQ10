@@ -15,8 +15,8 @@ router.get('/', (req, res) => {
 
     getCounterModel()
         .find({}, {_id: 0, ID: 1, Nom: 1, Statut: 1, Annee_implante: 1})
-        .limit(limit)
         .sort(sort)
+        .limit(limit)
         .exec((err, counters) => {
             res.status(200).send(counters);
         });
