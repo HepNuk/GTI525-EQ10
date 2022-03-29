@@ -8,11 +8,18 @@ const router = Router();
 
 // GET /gti525/v1/compteurs
 router.get('/', (req, res) => {
-    const limite = req.query['limite'];
+    const limit = req.query['limit'];
+    const sort = {
+        [req.query['sort_by']]: req.query['sort_dir'],
+    };
 
-    getCounterModel().find({}, {_id: 0, ID: 1, Nom: 1, Statut: 1, Annee_implante: 1}, (err, counters) => {
-        res.status(200).send(counters);
-    }).limit(limite);
+    getCounterModel()
+        .find({}, {_id: 0, ID: 1, Nom: 1, Statut: 1, Annee_implante: 1})
+        .limit(limit)
+        .sort(sort)
+        .exec((err, counters) => {
+            res.status(200).send(counters);
+        });
 });
 
 // GET /gti525/v1/compteurs/:compteurId
@@ -50,7 +57,7 @@ router.get('/:id/passages', async (req, res) => {
                 $gte: new Date(startDate),
                 $lt: new Date(endDate),
             },
-        },).sort({
+        }).sort({
             Date: 'asc',
         }).exec((err, counters) => {
 

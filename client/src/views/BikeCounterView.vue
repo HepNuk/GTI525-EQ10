@@ -23,9 +23,9 @@
 
       <MyTable
         v-if="bikeCounterData"
-        :header="headerRow"
+        :header="bikeCounterHeader"
         :filtered-header="filteredHeader"
-        :data="filteredBikeData"
+        :data="bikeCounterData"
         :action-buttons="tableActionButtons"
         :paginate="15"
         show-bottom-separator
@@ -56,14 +56,17 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 import csvFile from 'src/assets/csv/compteurs.csv';
 import Sort from 'src/component/shared/Sort.vue';
 import Stats from '../component/shared/Stats.vue';
 import BikeCounterChart from 'src/component/shared/charts/BikeCounterChart.vue';
 
-import { getCompteurDetailsBetweenDates } from '../utils/Services';
+import {
+  getAllCompteur,
+  getCompteurDetailsBetweenDates,
+} from '../utils/Services';
 import MySpinner from '../component/shared/MySpinner.vue';
 import MapModal from 'src/component/shared/modals/MapModal.vue';
 
@@ -77,6 +80,47 @@ export default {
   },
 
   setup() {
+    const bikeCounterData = ref(undefined);
+    const sort = ref({ key: 'ID', direction: 'asc' });
+    const limit = ref(undefined);
+
+    watch(
+      sort,
+      () => {
+        getAllCompteur(sort.value, limit.value).then(({ data }) => {
+          bikeCounterData.value = data;
+        });
+      },
+      { immediate: true }
+    );
+
+    const bikeCounterHeader = computed(() => {
+      if (bikeCounterData.value) return Object.keys(bikeCounterData.value[0]);
+      return [];
+    });
+
+    const filteredHeader = computed(() => {
+      return {
+        ID: 'ID',
+        Nom: 'Nom du compteur',
+        Statut: 'Statut',
+        Annee_implante: 'Annee Implantée',
+      };
+    });
+
+    const toggleSort = (key) => {
+      const newSort = {
+        key,
+        direction: 'asc',
+      };
+
+      if (sort.value.key === key && sort.value.direction === 'asc') {
+        newSort.direction = 'desc';
+      }
+
+      sort.value = newSort;
+    };
+
     // MapModal
     const showModal = ref(undefined);
 
@@ -138,6 +182,19 @@ export default {
       chartInfo.value = undefined;
     };
 
+    const coordinatesArray = computed(() => {
+      if (!bikeCounterData.value) return [];
+
+      return bikeCounterData.value.map((e) => {
+        return {
+          id: e['ID'],
+          longitude: e['Longitude'],
+          latitude: e['Latitude'],
+          nom: e['Nom'],
+        };
+      });
+    });
+
     // Action Buttons
     const tableActionButtons = computed(() => [
       {
@@ -160,6 +217,12 @@ export default {
     ]);
 
     return {
+      bikeCounterData,
+      bikeCounterHeader,
+      filteredHeader,
+      sort,
+      toggleSort,
+
       tableActionButtons,
       openModal,
       closeModal,
@@ -173,86 +236,8 @@ export default {
       counterName,
       loadingChart,
       chartInfo,
+      coordinatesArray,
     };
-  },
-
-  data() {
-    return {
-      bikeCounterData: csvFile,
-
-      sort: {
-        key: 'ID',
-        direction: 'asc',
-      },
-    };
-  },
-
-  computed: {
-    coordinatesArray() {
-      return this.bikeCounterData.map((element) => {
-        return {
-          id: element['ID'],
-          longitude: element['Longitude'],
-          latitude: element['Latitude'],
-          nom: element['Nom'],
-        };
-      });
-    },
-
-    headerRow() {
-      return Object.keys(csvFile[0]);
-    },
-
-    filteredBikeData() {
-      const filteredBikeData = [...this.bikeCounterData];
-      filteredBikeData.sort((a, b) => {
-        a = a[this.sort.key];
-        b = b[this.sort.key];
-
-        if (this.sort.direction === 'asc') {
-          if (a < b) {
-            return -1;
-          }
-          if (a > b) {
-            return 1;
-          }
-          return 0;
-        } else {
-          if (a > b) {
-            return -1;
-          }
-          if (a < b) {
-            return 1;
-          }
-          return 0;
-        }
-      });
-
-      return filteredBikeData;
-    },
-
-    filteredHeader() {
-      return {
-        ID: 'ID',
-        Nom: 'Nom du compteur',
-        Statut: 'Statut',
-        Annee_implante: 'Annee Implantée',
-      };
-    },
-  },
-
-  methods: {
-    toggleSort(key) {
-      const newSort = {
-        key,
-        direction: 'asc',
-      };
-
-      if (this.sort.key === key && this.sort.direction === 'asc') {
-        newSort.direction = 'desc';
-      }
-      this.sort = newSort;
-    },
   },
 };
 </script>

@@ -1,11 +1,13 @@
 import axios from 'redaxios';
 
 // Compteur Services
-export const getAllCompteur = (limite) => {
-  let query = '/gti525/v1/compteurs';
-  if (limite) query += `?limite=${limite}`;
-
-  return axios.get(query);
+export const getAllCompteur = (sort, limit = 0) => {
+  const params = {
+    limit,
+    sort_by: sort.key,
+    sort_dir: sort.direction,
+  };
+  return axios.get('/gti525/v1/compteurs', { params });
 };
 
 export const getCompteurDetailsBetweenDates = (compteursId, startDate, endDate, limite) => {
