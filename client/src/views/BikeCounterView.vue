@@ -164,14 +164,14 @@ export default {
 
       loadingChart.value = true;
       getCompteurDetailsBetweenDates(showStatsFor.value, startDate, endDate)
-        .then((res) => {
+        .then(({ data }) => {
           chartInfo.value = {
-            bikeCounterName: res.data.name,
-            bikeCounterId: showStatsFor.value,
+            bikeCounterName: data['Nom'],
+            bikeCounterId: data['ID'],
             startDate: `${q.fromYear}-${q.fromMonth}-${q.fromDay}`,
             endDate: `${q.toYear}-${q.toMonth}-${q.toDay}`,
-            labels: res.data.label,
-            count: res.data.count,
+            labels: data.counterData.map((e) => e.date),
+            count: data.counterData.map((e) => e.count),
           };
         })
         .catch((err) => console.error(err))
