@@ -38,7 +38,7 @@ router.get('/:id/passages', async (req, res) => {
     const compteurId = req.params.id;
     const start = req.query['debut'];
     const end = req.query['fin'];
-    const limite = req.query['limite']; // TODO: use limite in request
+    const limit = req.query['limit'] * 24; // TODO: use limite in request
 
     if (!start || !end) {
         res.status(400).send({message: 'Missing start or end date'});
@@ -46,45 +46,44 @@ router.get('/:id/passages', async (req, res) => {
 
 
     await getCounterModel().findOne({ID: compteurId}, {_id: 0, __v: 0}).exec((err, result) => {
-
-
         const counter = result;
         const startDate = moment(start).format('YYYY-MM-DDTHH:mm:ss');
         const endDate = moment(end).add(1, 'days').format('YYYY-MM-DDTHH:mm:ss');
 
-        getDataStatsModel().find({
-            Date: {
-                $gte: new Date(startDate),
-                $lt: new Date(endDate),
-            },
-        }).sort({
-            Date: 'asc',
-        }).exec((err, counters) => {
+        getDataStatsModel()
+            .find({
+                Date: {
+                    $gte: new Date(startDate),
+                    $lt: new Date(endDate),
+                },
+            })
+            .sort({ Date: 'asc' })
+            .limit(limit)
+            .exec((err, counters) => {
+                // Group and sum counts by Date
+                const counterPerDay = counters.map((e) => {
+                    return {
+                        date: moment(e.Date).format('YYYY-MM-DD'),
+                        count: e[compteurId],
+                    };
+                });
 
-            // Group and sum counts by Date
-            const counterPerDay = counters.map((e) => {
-                return {
-                    date: moment(e.Date).format('YYYY-MM-DD'),
-                    count: e[compteurId],
-                };
+                const sum = [];
+                const counterData = Object.values(counterPerDay.reduce((rv, c) => {
+                    if (!rv[c.date]) {
+                        rv[c.date] = {date: c.date, count: 0};
+                        sum.push(rv[c.date]);
+                    }
+                    rv[c.date].count += c.count;
+
+                    return rv;
+                }, {}));
+
+                res.status(200).send({
+                    ...counter._doc,
+                    counterData,
+                });
             });
-
-            const sum = [];
-            const counterData = Object.values(counterPerDay.reduce((rv, c) => {
-                if (!rv[c.date]) {
-                    rv[c.date] = {date: c.date, count: 0};
-                    sum.push(rv[c.date]);
-                }
-                rv[c.date].count += c.count;
-
-                return rv;
-            }, {})).slice(0, limite);
-
-            res.status(200).send({
-                ...counter._doc,
-                counterData,
-            });
-        });
     });
 });
 

@@ -6,7 +6,7 @@ const router = Router();
 
 // GET /gti525/v1/pointsdinteret
 router.get('/', (req, res) => {
-  const { limite, type, nom } = req.params;
+  const { limit, type, nom } = req.params;
 
   const query = {};
 
