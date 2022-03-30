@@ -1,26 +1,31 @@
 const { Router } = require('express');
 const moment = require('moment');
 const mongoose = require('mongoose');
+const {getFountainModel} = require('../../models/fountainModel');
 
 const router = Router();
 
+
+// TODO: Rename getFountainModel and fountainModel to pointOfIntrest
 // GET /gti525/v1/pointsdinteret
 router.get('/', (req, res) => {
-  const { limit, type, nom } = req.params;
+  const { limit, type, nom } = req.query;
+  
+  console.log(type);
+  const sort = {
+    ID: 'asc',
+  };
 
-  const query = {};
+  const query = { Type: type, Nom: nom };
 
-  if (type === 'fontaine') {
-    // build mongoose query here
-  } else if (type === 'atelier') {
-    // build mongoose query here
-  } else {
-    // build mongoose query here
-  }
-
-  // getPointOfInterestModel().find(query).exec((err, result) => {
-    res.status(200).send({ something: 'hi' });
-  // });
+  getFountainModel()
+    .find(query)
+    .sort(sort)
+    .limit(limit)
+    .exec((err, result) => {
+      console.log(result);
+      res.status(200).send(result);
+    });
 });
 
 // GET /gti525/v1/:pointOfIntrestId

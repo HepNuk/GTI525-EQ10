@@ -16,7 +16,7 @@ const fountainsModel = mongoose.model("Fountains", mongoose.Schema({
     Longitude: Number,
     Latitude: Number,
     Type: { type: String, default: 'fountain' },
-}))
+}));
 
 function createFountainsData() {
     fountainsModel.insertMany(getData("fontaines")).then(r => console.log("Add fountains successfully"));

@@ -57,8 +57,6 @@
 
 <script>
 import { ref, computed, watch } from 'vue';
-
-import csvFile from 'src/assets/csv/compteurs.csv';
 import Sort from 'src/component/shared/Sort.vue';
 import Stats from '../component/shared/Stats.vue';
 import BikeCounterChart from 'src/component/shared/charts/BikeCounterChart.vue';
