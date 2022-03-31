@@ -1,12 +1,15 @@
 <template>
   <select v-model="newValue">
     <option
+      v-if="placeholder"
       :value="0"
       disabled
       selected
     >
       {{ placeholder }}
     </option>
+
+    <!-- options => [2022, 2021, ..] -->
     <template v-if="Array.isArray(options)">
       <option
         v-for="(option, i) in options"
@@ -40,7 +43,7 @@ export default {
     placeholder: {
       type: String,
       required: false,
-      default: '-',
+      default: undefined,
     },
 
     options: {
