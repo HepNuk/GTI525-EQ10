@@ -6,7 +6,6 @@
     <input
       v-model="modelValueCopy"
       v-bind="{
-        id,
         disabled,
         max,
         min,
@@ -20,7 +19,7 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue';
+import { computed, watch } from 'vue';
 export default {
   props: {
     modelValue: {
@@ -65,11 +64,10 @@ export default {
   },
 
   emits: ['update:modelValue'],
-  setup(props, ctx) {
-    const modelValueCopy = ref(props.modelValue);
-
-    watch(modelValueCopy, (to) => {
-      ctx.emit('update:modelValue', to);
+  setup(props, { emit }) {
+    const modelValueCopy = computed({
+      get: () => props.modelValue,
+      set: (v) => emit('update:modelValue', v),
     });
 
     return { modelValueCopy };

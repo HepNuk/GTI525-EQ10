@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue';
+import { computed } from 'vue';
 export default {
   props: {
     modelValue: {
@@ -54,8 +54,10 @@ export default {
 
   emits: ['update:modelValue'],
   setup(props, ctx) {
-    const newValue = ref(props.modelValue);
-    watch(newValue, (to) => ctx.emit('update:modelValue', to));
+    const newValue = computed({
+      get: () => props.modelValue,
+      set: (v) => ctx.emit('update:modelValue', v),
+    });
 
     return { newValue };
   },
