@@ -1,5 +1,5 @@
 const months = {
-  jan: { 
+  jan: {
     name: 'Janvier',
     days: 31,
   },
@@ -51,22 +51,24 @@ const months = {
 
 const days = [];
 for (let i = 1; i <= 31; i++) {
-  days.push(i > 9 ? ''+i : '0'+i);
+  days.push(i > 9 ? '' + i : '0' + i);
 }
 
 const years = [];
-for(let i = 21; i >= 18; i--) {
-  years.push(`20${(i > 9 ? i : `0${i}`)}`);
+for (let i = 22; i >= 18; i--) {
+  years.push(`20${i > 9 ? i : `0${i}`}`);
 }
 
 const hours = [];
-for(let i = 0; i < 24; i++) {
-  hours.push(`${((i > 9) ? `${i}` : `0${i}` )}:00`);
+for (let i = 0; i < 24; i++) {
+  hours.push(`${i > 9 ? `${i}` : `0${i}`}:00`);
 }
 
-export { 
-  years,
-  months,
-  days,
-  hours
+const pointOfIntrestTypes = {
+  fountain: 'Fontaine à boire',
+  atelier: 'Atelier de réparation vélo',
 };
+
+export { years, months, days, hours, pointOfIntrestTypes };
+
+

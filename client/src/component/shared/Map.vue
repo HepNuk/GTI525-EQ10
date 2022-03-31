@@ -2,7 +2,7 @@
   <l-map
     id="myMap"
     ref="myMap"
-    :center="centerCoordinates"
+    :center="center"
     @ready="mapReady"
   >
     <fa
@@ -12,6 +12,7 @@
       @click="$emit('close-modal')"
     />
     <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
     <!-- <l-control-layers /> -->
 
     <l-marker
@@ -68,10 +69,6 @@ export default {
     center: {
       type: Array,
       default: () => [45.470493, -73.609566],
-    },
-    centerCoordinates: {
-      type: Object,
-      default: undefined,
     },
   },
 

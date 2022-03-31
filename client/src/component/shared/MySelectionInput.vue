@@ -1,12 +1,15 @@
 <template>
   <select v-model="newValue">
     <option
+      v-if="placeholder"
       :value="0"
       disabled
       selected
     >
       {{ placeholder }}
     </option>
+
+    <!-- options => [2022, 2021, ..] -->
     <template v-if="Array.isArray(options)">
       <option
         v-for="(option, i) in options"
@@ -30,7 +33,7 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue';
+import { computed } from 'vue';
 export default {
   props: {
     modelValue: {
@@ -40,7 +43,7 @@ export default {
     placeholder: {
       type: String,
       required: false,
-      default: '-',
+      default: undefined,
     },
 
     options: {
@@ -51,8 +54,10 @@ export default {
 
   emits: ['update:modelValue'],
   setup(props, ctx) {
-    const newValue = ref(props.modelValue);
-    watch(newValue, (to) => ctx.emit('update:modelValue', to));
+    const newValue = computed({
+      get: () => props.modelValue,
+      set: (v) => ctx.emit('update:modelValue', v),
+    });
 
     return { newValue };
   },

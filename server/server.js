@@ -9,11 +9,10 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const {PORT, mongoUri} = require('./config');
 const {createCountersData} = require("./models/counterModel")
-const {createFountainsData} = require("./models/fountainModel")
+const {createPointOfIntrestData} = require("./models/pointOfIntrestModel")
 const {createCounterStatsData} = require("./models/dataStatsModel")
 // Example route files DELETE later I guess when we have actual routes.
 const routeCompteur = require('./routes/api/routeCompteur');
-const routeFountain = require('./routes/api/routeFountain');
 const routePointOfInterest = require('./routes/api/routePointOfInterest');
 
 // If we use vue-router all of the routes from vue router should be included here. 
@@ -42,7 +41,7 @@ mongoose
             else console.log("No counters to add");
         });
         mongoose.connection.db.collection("fountains").estimatedDocumentCount((err,count) => {
-            if(count == 0) createFountainsData();
+            if(count == 0) createPointOfIntrestData();
             else console.log("No fountains to add");
         });
         mongoose.connection.db.collection("datastats").estimatedDocumentCount((err,count) => {
@@ -55,7 +54,6 @@ mongoose
 
 // * API ROUTES * app.use('/api/routes', routeObject)
 app.use('/gti525/v1/compteurs', routeCompteur);
-app.use('/gti525/v1/fontaines', routeFountain); // FIXME: leaving for testing remove when longer needed
 app.use('/gti525/v1/pointsdinteret', routePointOfInterest);
 // ***
 
