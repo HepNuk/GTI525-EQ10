@@ -1,41 +1,72 @@
 <template>
   <div class="form">
-    <label for="id">
+    <label v-if="label" :for="id">
       {{ label }}
     </label>
     <input
-      id="id"
-      type="type"
+      v-model="modelValueCopy"
+      v-bind="{
+        id,
+        disabled,
+        max,
+        min,
+        type,
+      }"
       name="id"
-      required="required"
       class="input-field"
     />
   </div>
 </template>
 
 <script>
+import { ref, watch } from 'vue';
 export default {
   props: {
+    modelValue: {
+      type: [String, Number],
+      required: true,
+    },
+
     id: {
       type: String,
-      required: true,
       default: '',
     },
+
     label: {
       type: String,
-      required: true,
       default: '',
     },
+
     type: {
       type: String,
-      required: true,
-      default: '',
+      default: 'text',
     },
-    required: {
+
+    disabled: {
       type: Boolean,
-      required: true,
-      default: true,
+      default: false,
     },
+
+    min: {
+      type: Number,
+      default: undefined,
+    },
+
+    max: {
+      type: Number,
+      default: undefined,
+    },
+  },
+
+  emits: ['update:modelValue'],
+  setup(props, ctx) {
+    const modelValueCopy = ref(props.modelValue);
+
+    watch(modelValueCopy, (to) => {
+      ctx.emit('update:modelValue', to);
+    });
+
+    return { modelValueCopy };
   },
 };
 </script>
@@ -51,5 +82,10 @@ export default {
 .input-field {
   margin-left: 10px;
   min-width: 75%;
+}
+
+input:invalid,
+input:out-of-range {
+  border: solid red 3px;
 }
 </style>

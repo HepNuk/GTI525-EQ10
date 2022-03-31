@@ -18,7 +18,7 @@
       v-if="fountainData"
       :header="headerRow"
       :filtered-header="filteredHeader"
-      :data="filteredFountainData"
+      :data="fountainData"
       :action-buttons="tableActionButtons"
       :paginate="15"
       :column-settings="columnSettings"
@@ -31,8 +31,7 @@
 </template>
 
 <script>
-import csvFile from 'src/assets/csv/fontaines.csv';
-// import Sort from 'src/component/shared/Sort.vue';
+import { getAllPointOfInterestsFountain } from 'src/utils/Services';
 import POIDetails from './POIDetails.vue';
 
 export default {
@@ -43,8 +42,7 @@ export default {
 
   data() {
     return {
-      fountainData: csvFile,
-
+      fountainData: undefined,
       showPOIDetails: undefined,
 
       sort: {
@@ -56,7 +54,7 @@ export default {
 
   computed: {
     headerRow() {
-      return Object.keys(csvFile[0]);
+      return Object.keys(this.fountainData[0]);
     },
 
     columnSettings() {
@@ -79,40 +77,11 @@ export default {
       };
     },
 
-    filteredDataExtra() {
-      return this.fountainData.map((e) => {
-        return { ...e, Type: 'Fontaine à boire' };
-      });
-    },
-
-    filteredFountainData() {
-      // const filteredFountainData = [...this.fountainData];
-      const filteredFountainData = [...this.filteredDataExtra];
-
-      filteredFountainData.sort((a, b) => {
-        a = a[this.sort.key];
-        b = b[this.sort.key];
-
-        if (this.sort.direction === 'asc') {
-          if (a < b) {
-            return -1;
-          }
-          if (a > b) {
-            return 1;
-          }
-          return 0;
-        } else {
-          if (a > b) {
-            return -1;
-          }
-          if (a < b) {
-            return 1;
-          }
-          return 0;
-        }
-      });
-      return filteredFountainData;
-    },
+    // filteredDataExtra() {
+    //   return this.fountainData.map((e) => {
+    //     return { ...e, Type: 'Fontaine à boire' };
+    //   });
+    // },
 
     filteredHeader() {
       return {
@@ -134,6 +103,13 @@ export default {
         },
       ];
     },
+  },
+
+  mounted() {
+    getAllPointOfInterestsFountain().then(({ data }) => {
+      console.log(data);
+      this.fountainData = data;
+    });
   },
 
   methods: {

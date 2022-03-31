@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
   
   console.log(type);
   const sort = {
-    ID: 'asc',
+    Arrondissement: 'asc',
   };
 
   const query = { Type: type, Nom: nom };
@@ -41,6 +41,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/new', (req, res) => {
   const newPointOfInterestData = req.body;
+  console.log('server : ', newPointOfInterestData);
   /*
     newPointOfInterestData should look something like this 
     may change later tho if so ill update it here too.

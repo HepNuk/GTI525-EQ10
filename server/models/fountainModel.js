@@ -15,7 +15,7 @@ const fountainsModel = mongoose.model("Fountains", mongoose.Schema({
     Y: Number,
     Longitude: Number,
     Latitude: Number,
-    Type: { type: String, default: 'fountain' },
+    Type: { type: String, default: 'Fontaine à boire' },
 }));
 
 function createFountainsData() {
