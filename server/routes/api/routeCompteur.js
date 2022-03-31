@@ -12,9 +12,10 @@ router.get('/', (req, res) => {
     const sort = {
         [req.query['sort_by']]: req.query['sort_dir'],
     };
+    const projection = { _id: 0, ID: 1, Nom: 1, Statut: 1, Annee_implante: 1 };
 
     getCounterModel()
-        .find({}, {_id: 0, ID: 1, Nom: 1, Statut: 1, Annee_implante: 1})
+        .find({}, projection)
         .sort(sort)
         .limit(limit)
         .exec((err, counters) => {
@@ -25,8 +26,10 @@ router.get('/', (req, res) => {
 // GET /gti525/v1/compteurs/:compteurId
 router.get('/:id', async (req, res) => {
     const compteurId = req.params.id;
+    const query = { ID: compteurId };
+    const projection = { _id: 0, __v: 0 };
 
-    await getCounterModel().findOne({ID: compteurId}, {_id: 0, __v: 0}).exec((err, result) => {
+    await getCounterModel().findOne(query, projection).exec((err, result) => {
         if (err) res.status(400).send(err);
 
         res.status(200).send(result);
@@ -44,20 +47,24 @@ router.get('/:id/passages', async (req, res) => {
         res.status(400).send({message: 'Missing start or end date'});
     }
 
+    const query1 = { ID: compteurId };
+    const projection = { _id: 0, __v: 0 };
 
-    await getCounterModel().findOne({ID: compteurId}, {_id: 0, __v: 0}).exec((err, result) => {
+    await getCounterModel().findOne(query1, projection).exec((err, result) => {
         const counter = result;
         const startDate = moment(start).format('YYYY-MM-DDTHH:mm:ss');
         const endDate = moment(end).add(1, 'days').format('YYYY-MM-DDTHH:mm:ss');
+        const sort = { Date: 'asc' };
+        const query2 = {
+            Date: {
+                $gte: new Date(startDate),
+                $lt: new Date(endDate),
+            },
+        };
 
         getDataStatsModel()
-            .find({
-                Date: {
-                    $gte: new Date(startDate),
-                    $lt: new Date(endDate),
-                },
-            })
-            .sort({ Date: 'asc' })
+            .find(query2, projection)
+            .sort(sort)
             .limit(limit)
             .exec((err, counters) => {
                 // Group and sum counts by Date

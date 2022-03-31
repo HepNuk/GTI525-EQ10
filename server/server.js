@@ -57,7 +57,6 @@ mongoose
 app.use('/gti525/v1/compteurs', routeCompteur);
 app.use('/gti525/v1/fontaines', routeFountain); // FIXME: leaving for testing remove when longer needed
 app.use('/gti525/v1/pointsdinteret', routePointOfInterest);
-
 // ***
 
 // set up rate limiter: maximum of five requests per minute
