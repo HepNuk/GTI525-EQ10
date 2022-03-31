@@ -11,6 +11,7 @@
         max,
         min,
         type,
+        step,
       }"
       name="id"
       class="input-field"
@@ -55,6 +56,11 @@ export default {
     max: {
       type: Number,
       default: undefined,
+    },
+
+    step: {
+      type: String,
+      default: '',
     },
   },
 

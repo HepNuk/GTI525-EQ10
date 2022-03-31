@@ -1,5 +1,9 @@
 import axios from 'redaxios';
+import { pointOfIntrestTypes } from 'src/constants';
 
+function deleteUndefinedKeys(obj) {
+  Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : {});
+}
 // Compteur Services
 export const getAllCompteur = (sort, limit = 0) => {
   const params = {
@@ -7,6 +11,8 @@ export const getAllCompteur = (sort, limit = 0) => {
     sort_dir: sort.direction,
     limit,
   };
+  deleteUndefinedKeys(params);
+
   return axios.get('/gti525/v1/compteurs', { params });
 };
 
@@ -16,6 +22,7 @@ export const getCompteurDetailsBetweenDates = (compteursId, startDate, endDate, 
     fin: endDate,
     limit,
   };
+  deleteUndefinedKeys(params);
 
   return axios.get(`/gti525/v1/compteurs/${compteursId}/passages`, { params });
 };
@@ -30,26 +37,29 @@ export const getAllPointOfInterests = (limit = 0) => {
   const params = {
     limit,
   };
+  deleteUndefinedKeys(params);
 
   return axios.get('/gti525/v1/pointsdinteret', { params });
 };
 
 export const getAllPointOfInterestsFountain = (nom, limit = 0) => {
   const params = {
-    type: 'fountain',
+    type: pointOfIntrestTypes.fountain,
     nom,
     limit,
   };
+  deleteUndefinedKeys(params);
 
   return axios.get('/gti525/v1/pointsdinteret', { params });
 };
 
 export const getAllPointOfInterestsAtelier = (nom, limit = 0) => {
   const params = {
-    type: 'atelier',
+    type: pointOfIntrestTypes.atelier,
     nom,
     limit,
   };
+  deleteUndefinedKeys(params);
 
   return axios.get('/gti525/v1/pointsdinteret', { params });
 };
@@ -59,5 +69,6 @@ export const getPointOfInterest = (pointOfIntrestId) => {
 };
 
 export const createNewPointOfInterest = (data) => {
+  deleteUndefinedKeys(data);
   return axios.post('/gti525/v1/pointsdinteret/new', data);
 };

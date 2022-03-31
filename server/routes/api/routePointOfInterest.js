@@ -1,12 +1,10 @@
 const { Router } = require('express');
 const moment = require('moment');
 const mongoose = require('mongoose');
-const {getFountainModel} = require('../../models/fountainModel');
+const {getPointOfIntrestModel} = require('../../models/pointOfIntrestModel');
 
 const router = Router();
 
-
-// TODO: Rename getFountainModel and fountainModel to pointOfIntrest
 // GET /gti525/v1/pointsdinteret
 router.get('/', (req, res) => {
   const { limit, type, nom } = req.query;
@@ -16,10 +14,18 @@ router.get('/', (req, res) => {
     Arrondissement: 'asc',
   };
 
-  const query = { Type: type, Nom: nom };
+  const query = {
+    Type: type,
+    Nom_parc_lieu: nom,
+  };
+
+  
+  Object.keys(query).forEach(key => query[key] === undefined ? delete query[key] : {});
+  
+  console.log(query);
   const projection = { _id: 0, __v: 0 };
 
-  getFountainModel()
+  getPointOfIntrestModel()
     .find(query, projection)
     .sort(sort)
     .limit(limit)
@@ -57,9 +63,12 @@ router.post('/new', (req, res) => {
     remarques: 'string',
   }
   */
-  
+  const newPOI = {
+    Nom_parc_lieu: req.body.nom_lieu,
+    
+  };
   // build mongoose query here
-
+  getPointOfIntrestModel().insertMany(newPointOfInterestData);
   res.sendStatus(201);
 });
 

@@ -58,6 +58,7 @@
             type="number"
             :min="-90"
             :max="90"
+            step="0.0001"
           />
           <MyInput
             id="latitude"
@@ -66,6 +67,7 @@
             type="number"
             :min="-90"
             :max="90"
+            step="0.0001"
           />
         </div>
 
@@ -97,7 +99,7 @@
 </template>
 
 <script>
-import { years } from 'src/constants';
+import { years, pointOfIntrestTypes } from 'src/constants';
 import { ref, computed, watch } from 'vue';
 import { createNewPointOfInterest } from 'src/utils/Services';
 
@@ -105,7 +107,10 @@ export default {
   setup(_, ctx) {
     const yearOptions = years;
     const selectedYear = ref(1);
-    const typeOptions = ['Fontaine à boire', 'Atelier de réparation vélo'];
+    const typeOptions = [
+      pointOfIntrestTypes.fountain,
+      pointOfIntrestTypes.atelier,
+    ];
     const selectedType = ref(1);
     const enteredAdresse = ref('');
     const enteredArrondissement = ref('');
@@ -143,9 +148,9 @@ export default {
 
     const type = computed(() => {
       if (typeOptions[selectedType.value - 1] === typeOptions[0])
-        return 'Fontaine à boire';
+        return pointOfIntrestTypes.fountain;
       if (typeOptions[selectedType.value - 1] === typeOptions[1])
-        return 'Atelier de réparation vélo';
+        return pointOfIntrestTypes.atelier;
 
       return '';
     });
@@ -153,19 +158,21 @@ export default {
     const missingRequiredValue = computed(() => {
       const missingFields = [];
 
-      if (type.value === 'Fontaine à boire') {
+      if (type.value === pointOfIntrestTypes.fountain) {
         if (!enteredLieu.value) missingFields.push('nom du lieu');
         if (!enteredArrondissement.value) missingFields.push('adresse');
         if (!yearOptions[selectedYear.value - 1])
           missingFields.push('année d\'établiséement');
-        if (!enteredLongitude.value) missingFields.push('longitude');
-        if (!enteredLatitude.value) missingFields.push('latitude');
-      } else if (type.value === 'Atelier de réparation vélo') {
+        if (enteredLongitude.value === undefined)
+          missingFields.push('longitude');
+        if (enteredLatitude.value === undefined) missingFields.push('latitude');
+      } else if (type.value === pointOfIntrestTypes.atelier) {
         if (!enteredLieu.value) missingFields.push('nom du lieu');
         if (!enteredAdresse.value) missingFields.push('adresse');
         if (!enteredArrondissement.value) missingFields.push('arrondissement');
-        if (!enteredLongitude.value) missingFields.push('longitude');
-        if (!enteredLatitude.value) missingFields.push('latitude');
+        if (enteredLongitude.value === undefined)
+          missingFields.push('longitude');
+        if (enteredLatitude.value === undefined) missingFields.push('latitude');
       }
 
       return missingFields;
@@ -177,14 +184,14 @@ export default {
 
     function submitSend() {
       const data = {
-        nom_lieu: enteredLieu.value,
-        adreesse: enteredAdresse.value,
-        arrondissement: enteredArrondissement.value,
-        type: type.value,
-        annee_instalation: yearOptions[selectedYear.value - 1],
-        longitude: enteredLongitude.value,
-        latitude: enteredLatitude.value,
-        remarques: enteredRemarques.value,
+        Nom_parc_lieu: enteredLieu.value,
+        Intersection: enteredAdresse.value,
+        Arrondissement: enteredArrondissement.value,
+        Type: type.value,
+        Date_instalation: yearOptions[selectedYear.value - 1],
+        Longitude: enteredLongitude.value,
+        Latitude: enteredLatitude.value,
+        Remarque: enteredRemarques.value,
       };
 
       if (missingRequiredValue.value.length > 0) {

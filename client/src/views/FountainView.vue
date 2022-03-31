@@ -77,20 +77,12 @@ export default {
       };
     },
 
-    // filteredDataExtra() {
-    //   return this.fountainData.map((e) => {
-    //     return { ...e, Type: 'Fontaine à boire' };
-    //   });
-    // },
-
     filteredHeader() {
       return {
         Arrondissement: 'Arrondissement',
         Type: 'Type',
         Nom_parc_lieu: 'Nom du lieu',
         Intersection: 'Adresse',
-        // Proximité_jeux_repère: 'Proximité',
-        // Remarque: 'Remarque',
       };
     },
 

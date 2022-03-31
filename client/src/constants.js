@@ -64,4 +64,11 @@ for (let i = 0; i < 24; i++) {
   hours.push(`${i > 9 ? `${i}` : `0${i}`}:00`);
 }
 
-export { years, months, days, hours };
+const pointOfIntrestTypes = {
+  fountain: 'Fontaine à boire',
+  atelier: 'Atelier de réparation vélo',
+};
+
+export { years, months, days, hours, pointOfIntrestTypes };
+
+
