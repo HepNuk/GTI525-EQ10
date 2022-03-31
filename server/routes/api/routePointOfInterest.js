@@ -17,13 +17,13 @@ router.get('/', (req, res) => {
   };
 
   const query = { Type: type, Nom: nom };
+  const projection = { _id: 0, __v: 0 };
 
   getFountainModel()
-    .find(query)
+    .find(query, projection)
     .sort(sort)
     .limit(limit)
     .exec((err, result) => {
-      console.log(result);
       res.status(200).send(result);
     });
 });
