@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 
 const mongoose = require('mongoose');
+const listEndpoints = require('express-list-endpoints');
 
 const cors = require('cors');
 const morgan = require('morgan');
@@ -57,6 +58,17 @@ mongoose
 // * API ROUTES * app.use('/api/routes', routeObject)
 app.use('/gti525/v1/compteurs', routeCompteur);
 app.use('/gti525/v1/pointsdinteret', routePointOfInterest);
+
+const routeList = listEndpoints(app).map((e) => (`[${e.methods}] : ${e.path}`));
+app.get('/gti525/v1/', (req, res) => {
+    res.send(`
+    <html>
+        <title>Mobi-Urbaine API Routes</title>
+        <body>
+            ${routeList.join('<br><br>')}
+        </body>
+    </html>`);
+});
 // ***
 
 // set up rate limiter: maximum of five requests per minute
