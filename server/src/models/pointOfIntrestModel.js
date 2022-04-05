@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
-const {getData} = require("../src/parseData.js");
+const {getData} = require("../utils/parseData.js");
+const { customAlphabet } = require('nanoid/non-secure');
 
 const pointOfIntrestModel = mongoose.model("PointOfIntrests", mongoose.Schema({
-    ID: Number,
+    ID: {
+        type: Number,
+        index: { unique: true },
+    },
     Arrondissement: String,
     Nom_parc_lieu: String,
     Proximité_jeux_repère: { type: String, default: '' },
@@ -18,8 +22,9 @@ const pointOfIntrestModel = mongoose.model("PointOfIntrests", mongoose.Schema({
     Type: { type: String, default: 'Fontaine à boire' },
 }));
 
-function createPointOfIntrestData() {
-    pointOfIntrestModel.insertMany(getData("fontaines")).then(r => console.log("Add fountains successfully"));
+async function createPointOfIntrestData() {
+    await pointOfIntrestModel.insertMany(getData("fontaines"));
+    console.log("Add fountains successfully");
 }
 
 function getPointOfIntrestModel() {

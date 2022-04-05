@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const {getData} = require("../src/parseData.js");
+const {getData} = require("../utils/parseData.js");
 const countersModel = mongoose.model("Counters",mongoose.Schema({
     ID:Number,
     Ancien_ID:Number,
@@ -10,8 +10,9 @@ const countersModel = mongoose.model("Counters",mongoose.Schema({
     Annee_implante:Number,
 }))
 
-function createCountersData(){
-    countersModel.insertMany(getData("compteurs")).then(r => console.log("Add counters data successful"));
+async function createCountersData(){
+    countersModel.insertMany(getData("compteurs"))
+    console.log("Add counters data successful")
 }
 
 function getCounterModel(){

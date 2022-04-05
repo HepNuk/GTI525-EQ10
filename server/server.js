@@ -2,18 +2,20 @@ require('dotenv').config();
 const ENV = process.env;
 const express = require('express');
 const app = express();
+
 const mongoose = require('mongoose');
+
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
 const {PORT, mongoUri} = require('./config');
-const {createCountersData} = require("./models/counterModel")
-const {createPointOfIntrestData} = require("./models/pointOfIntrestModel")
-const {createCounterStatsData} = require("./models/dataStatsModel")
+const { createCountersData } = require('./src/models/counterModel');
+const { createPointOfIntrestData } = require('./src/models/pointOfIntrestModel');
+const { createCounterStatsData } = require('./src/models/dataStatsModel');
 // Example route files DELETE later I guess when we have actual routes.
-const routeCompteur = require('./routes/api/routeCompteur');
-const routePointOfInterest = require('./routes/api/routePointOfInterest');
+const routeCompteur = require('./src/routes/api/routeCompteur');
+const routePointOfInterest = require('./src/routes/api/routePointOfInterest');
 
 // If we use vue-router all of the routes from vue router should be included here. 
 // Could use and filter the route from the vue-router file if possible. 
@@ -25,7 +27,6 @@ const vueRoutes = [
 ];
 
 const pathToVueProdIndex = path.resolve(__dirname, 'public', 'index.html');
-// sendFile handler for vue app's built for production index file.
 const vueAppHandler = (req, res, next) => res.sendFile(pathToVueProdIndex);
 
 app
@@ -33,24 +34,25 @@ app
     .use(morgan('tiny'))
     .use(bodyParser.json());
 
+// Connect to MangoDB and create starting data if DB is empty 
 mongoose
     .connect(mongoUri)
     .then((mongoose) => {
-        mongoose.connection.db.collection("counters").estimatedDocumentCount((err,count) => {
-            if( count == 0) createCountersData();
-            else console.log("No counters to add");
+        mongoose.connection.db.collection('counters').estimatedDocumentCount((err,count) => {
+            if(count == 0) createCountersData();
+            else console.log('No counters to add');
         });
-        mongoose.connection.db.collection("fountains").estimatedDocumentCount((err,count) => {
+        mongoose.connection.db.collection('pointofintrests').estimatedDocumentCount((err,count) => {
             if(count == 0) createPointOfIntrestData();
-            else console.log("No fountains to add");
+            else console.log('No fountains to add');
         });
-        mongoose.connection.db.collection("datastats").estimatedDocumentCount((err,count) => {
+        mongoose.connection.db.collection('datastats').estimatedDocumentCount((err,count) => {
             if(count == 0) createCounterStatsData();
-            else console.log("No stats to add");
+            else console.log('No stats to add');
         });
-        console.log("Connection to MongoDB successful")
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
+    .finally(console.log('Connection to MongoDB successful'));
 
 // * API ROUTES * app.use('/api/routes', routeObject)
 app.use('/gti525/v1/compteurs', routeCompteur);
