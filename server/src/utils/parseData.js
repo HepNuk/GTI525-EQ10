@@ -4,7 +4,7 @@ const moment = require('moment');
 
 
 function getData(filename) {
-    return load(path.join(__dirname, `../public/csv/${filename}.csv`));
+    return load(path.join(__dirname, `../csv/${filename}.csv`));
 }
 
 function fetchDataBetweenDate(compteurId, start, end) {

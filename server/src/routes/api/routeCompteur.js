@@ -1,8 +1,8 @@
 const {Router} = require('express');
 const moment = require('moment');
 const mongoose = require('mongoose');
-const {getCounterModel} = require('../../models/counterModel');
-const {getDataStatsModel} = require('../../models/dataStatsModel');
+const { getCounterModel } = require('../../models/counterModel');
+const { getDataStatsModel } = require('../../models/dataStatsModel');
 
 const router = Router();
 
