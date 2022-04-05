@@ -40,7 +40,7 @@ router.get('/:id', async (req, res) => {
   };
   // build mongoose query here
 
-  getPointOfInterestModel()
+  getPointOfIntrestModel()
     .findOne(query)
     .exec((err, result) => {
       res.status(200).send(result);
