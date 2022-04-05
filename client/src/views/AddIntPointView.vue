@@ -1,6 +1,11 @@
 <template>
   <div class="add-poi-view content-view">
     <div class="content-view-header p-3">
+      <MapSelectModal
+        :is-show="!!showModal"
+        @close-modal="closeModal"
+        @coord-selected="inputLatLng"
+      />
       <h2 class="title">
         Ajouter un point d'intérêts
       </h2>
@@ -47,7 +52,12 @@
           <label>
             Coordonée géographiques:
           </label>
-          <fa icon="map-marker-alt" style="color: red" />
+          <fa
+            class="open-map-button"
+            icon="map-marker-alt"
+            style="color: red"
+            @click="openModal"
+          />
           <label>
             ou
           </label>
@@ -102,8 +112,12 @@
 import { years, pointOfIntrestTypes } from 'src/constants';
 import { ref, computed, watch } from 'vue';
 import { createNewPointOfInterest } from 'src/utils/Services';
+import MapSelectModal from 'src/component/shared/modals/MapSelectModal.vue';
 
 export default {
+  components: {
+    MapSelectModal,
+  },
   setup(_, ctx) {
     const yearOptions = years;
     const selectedYear = ref(1);
@@ -115,9 +129,18 @@ export default {
     const enteredAdresse = ref('');
     const enteredArrondissement = ref('');
     const enteredLieu = ref('');
-    const enteredLongitude = ref(0);
-    const enteredLatitude = ref(0);
+    const enteredLongitude = ref(undefined);
+    const enteredLatitude = ref(undefined);
     const enteredRemarques = ref('');
+
+    const showModal = ref(undefined);
+    const openModal = () => {
+      return (showModal.value = true);
+    };
+    const coordinatesArray = [45.5017, 73.5673];
+    const closeModal = () => {
+      showModal.value = false;
+    };
 
     function resetValues() {
       enteredLieu.value = '';
@@ -125,8 +148,8 @@ export default {
       enteredArrondissement.value = '';
       selectedType.value = 1;
       selectedYear.value = 1;
-      enteredLongitude.value = 0;
-      enteredLatitude.value = 0;
+      enteredLongitude.value = undefined;
+      enteredLatitude.value = undefined;
       enteredRemarques.value = '';
     }
 
@@ -154,6 +177,11 @@ export default {
 
       return '';
     });
+
+    function inputLatLng(value) {
+      enteredLongitude.value = value.lng;
+      enteredLatitude.value = value.lat;
+    }
 
     const missingRequiredValue = computed(() => {
       const missingFields = [];
@@ -221,6 +249,11 @@ export default {
       enteredRemarques,
       submitSend,
       submitCancel,
+      openModal,
+      showModal,
+      coordinatesArray,
+      closeModal,
+      inputLatLng,
     };
   },
 };
@@ -249,5 +282,8 @@ export default {
 
 .input-select .input-year {
   margin: 0px 97px 10px 0px;
+}
+.open-map-button {
+  cursor: pointer;
 }
 </style>
