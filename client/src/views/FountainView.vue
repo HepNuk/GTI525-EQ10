@@ -99,7 +99,6 @@ export default {
 
   mounted() {
     getAllPointOfInterestsFountain().then(({ data }) => {
-      console.log(data);
       this.fountainData = data;
     });
   },

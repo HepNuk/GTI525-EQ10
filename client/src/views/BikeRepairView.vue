@@ -85,7 +85,6 @@ export default {
 
   mounted() {
     getAllPointOfInterestsAtelier().then(({ data }) => {
-      console.log(data);
       this.atelierData = data;
     });
   },

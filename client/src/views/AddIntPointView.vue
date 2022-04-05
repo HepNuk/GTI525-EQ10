@@ -230,7 +230,6 @@ export default {
       } else {
         createNewPointOfInterest(data).then((res) => {
           resetValues();
-          console.log(res);
         });
       }
     }

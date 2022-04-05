@@ -5,6 +5,11 @@ const { getPointOfIntrestModel } = require('../../models/pointOfIntrestModel');
 
 const router = Router();
 
+const TYPES = {
+  fountain: 'Fontaine à boire',
+  atelier: 'Atelier de réparation vélo',
+};
+
 // GET /gti525/v1/pointsdinteret
 router.get('/', (req, res) => {
   const { limit, type, nom } = req.query;
@@ -15,10 +20,9 @@ router.get('/', (req, res) => {
   };
 
   const query = {
-    Type: type,
-    Nom_parc_lieu: nom,
+    Type: TYPES[type],
+    Nom_parc_lieu: { $regex: nom },
   };
-
   
   Object.keys(query).forEach(key => query[key] === undefined ? delete query[key] : {});
   
@@ -50,13 +54,12 @@ router.get('/:id', async (req, res) => {
 router.post('/new', async (req, res) => {
   const newPointOfInterestData = req.body;
   const [ mostRecentPoI ] = await getPointOfIntrestModel()
-                                        .find()
-                                        .sort({ID: 'desc'})
-                                        .limit(1);
-
-  newPointOfInterestData.ID = mostRecentPoI.ID + 1;
-
+                                      .find()
+                                      .sort({ID: 'desc'})
+                                      .limit(1);
+                                
   // build mongoose query here
+  newPointOfInterestData.ID = mostRecentPoI.ID + 1;
   getPointOfIntrestModel().insertMany(newPointOfInterestData);
   res.sendStatus(201);
 });
