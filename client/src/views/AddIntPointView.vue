@@ -1,7 +1,11 @@
 <template>
   <div class="add-poi-view content-view">
     <div class="content-view-header p-3">
-      <MapSelectModal :is-show="!!showModal" @close-modal="closeModal" />
+      <MapSelectModal
+        :is-show="!!showModal"
+        @close-modal="closeModal"
+        @coord-selected="inputLatLng"
+      />
       <h2 class="title">
         Ajouter un point d'intérêts
       </h2>
@@ -174,6 +178,11 @@ export default {
       return '';
     });
 
+    function inputLatLng(value) {
+      enteredLongitude.value = value.lng;
+      enteredLatitude.value = value.lat;
+    }
+
     const missingRequiredValue = computed(() => {
       const missingFields = [];
 
@@ -244,6 +253,7 @@ export default {
       showModal,
       coordinatesArray,
       closeModal,
+      inputLatLng,
     };
   },
 };

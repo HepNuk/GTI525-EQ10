@@ -1,6 +1,10 @@
 <template>
   <MyModal>
-    <MapSelect class="map" @close-modal="$emit('close-modal')" />
+    <MapSelect
+      class="map"
+      @close-modal="$emit('close-modal')"
+      @coord-selected="emitCoord"
+    />
   </MyModal>
 </template>
 
@@ -12,6 +16,13 @@ export default {
   components: {
     MyModal,
     MapSelect,
+  },
+
+  setup(_, { emit }) {
+    function emitCoord(value) {
+      emit('coord-selected', value);
+    }
+    return { emitCoord };
   },
 };
 </script>
