@@ -59,15 +59,21 @@ mongoose
 app.use('/gti525/v1/compteurs', routeCompteur);
 app.use('/gti525/v1/pointsdinteret', routePointOfInterest);
 
-const routeList = listEndpoints(app).map((e) => (`[${e.methods}] : ${e.path}`));
+const apiRouteList = listEndpoints(app)
+    .filter((e) => e.path.includes('/gti525/v1'))
+    .map((e) => ({ path: e.path, methods: e.methods}));
+
 app.get('/gti525/v1/', (req, res) => {
-    res.send(`
-    <html>
-        <title>Mobi-Urbaine API Routes</title>
-        <body>
-            ${routeList.join('<br><br>')}
-        </body>
-    </html>`);
+    res.send(apiRouteList);
+
+    // Commented out in case html page is needed
+    // res.send(`
+    // <html>
+    //     <title>Mobi-Urbaine API Routes</title>
+    //     <body>
+    //         ${routeList.join('<br><br>')}
+    //     </body>
+    // </html>`);
 });
 // ***
 
