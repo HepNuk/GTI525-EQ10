@@ -44,7 +44,7 @@ export const getAllPointOfInterests = (limit = 0) => {
 
 export const getAllPointOfInterestsFountain = (nom, limit = 0) => {
   const params = {
-    type: pointOfIntrestTypes.fountain,
+    type: 'fontaine',
     nom,
     limit,
   };
@@ -55,7 +55,7 @@ export const getAllPointOfInterestsFountain = (nom, limit = 0) => {
 
 export const getAllPointOfInterestsAtelier = (nom, limit = 0) => {
   const params = {
-    type: pointOfIntrestTypes.atelier,
+    type: 'atelier',
     nom,
     limit,
   };

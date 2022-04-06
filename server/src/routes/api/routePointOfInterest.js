@@ -6,7 +6,7 @@ const { getPointOfIntrestModel } = require('../../models/pointOfIntrestModel');
 const router = Router();
 
 const TYPES = {
-  fountain: 'Fontaine à boire',
+  fontaine: 'Fontaine à boire',
   atelier: 'Atelier de réparation vélo',
 };
 
@@ -14,16 +14,15 @@ const TYPES = {
 router.get('/', (req, res) => {
   const { limit, type, nom } = req.query;
   
-  console.log(type);
   const sort = {
     Arrondissement: 'asc',
   };
 
   const query = {
     Type: TYPES[type],
-    Nom_parc_lieu: { $regex: nom },
   };
   
+  if (nom) query.Nom_parc_lieu = { $regex: nom },
   Object.keys(query).forEach(key => query[key] === undefined ? delete query[key] : {});
   
   const projection = { _id: 0, __v: 0 };
