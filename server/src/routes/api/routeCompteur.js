@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     const sort = {
         [req.query['sort_by']]: req.query['sort_dir'],
     };
-    const projection = { _id: 0, ID: 1, Nom: 1, Statut: 1, Annee_implante: 1 };
+    const projection = { _id: 0, ID: 1, Nom: 1, Statut: 1, Annee_implante: 1, Longitude: 1, Latitude: 1 };
 
     getCounterModel()
         .find({}, projection)
