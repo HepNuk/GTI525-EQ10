@@ -251,6 +251,7 @@ export default {
       openModal,
       showModal,
       coordinatesArray,
+      missingRequiredValue,
       closeModal,
       inputLatLng,
     };

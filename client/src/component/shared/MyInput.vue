@@ -19,12 +19,13 @@
 </template>
 
 <script>
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 export default {
   props: {
     modelValue: {
       type: [String, Number],
-      required: true,
+      required: false,
+      default: undefined,
     },
 
     id: {
