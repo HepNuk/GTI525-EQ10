@@ -191,16 +191,14 @@ export default {
         if (!enteredArrondissement.value) missingFields.push('adresse');
         if (!yearOptions[selectedYear.value - 1])
           missingFields.push('année d\'établiséement');
-        if (enteredLongitude.value === undefined)
-          missingFields.push('longitude');
-        if (enteredLatitude.value === undefined) missingFields.push('latitude');
+        if (!enteredLongitude.value) missingFields.push('longitude');
+        if (!enteredLatitude.value) missingFields.push('latitude');
       } else if (type.value === pointOfIntrestTypes.atelier) {
         if (!enteredLieu.value) missingFields.push('nom du lieu');
         if (!enteredAdresse.value) missingFields.push('adresse');
         if (!enteredArrondissement.value) missingFields.push('arrondissement');
-        if (enteredLongitude.value === undefined)
-          missingFields.push('longitude');
-        if (enteredLatitude.value === undefined) missingFields.push('latitude');
+        if (!enteredLongitude.value) missingFields.push('longitude');
+        if (!enteredLatitude.value) missingFields.push('latitude');
       }
 
       return missingFields;
