@@ -19,11 +19,10 @@ router.get('/', (req, res) => {
   };
 
   const query = {
-    Type: TYPES[type],
   };
   
+  if (type) query.Type = TYPES[type];
   if (nom) query.Nom_parc_lieu = { $regex: nom },
-  Object.keys(query).forEach(key => query[key] === undefined ? delete query[key] : {});
   
   const projection = { _id: 0, __v: 0 };
 
